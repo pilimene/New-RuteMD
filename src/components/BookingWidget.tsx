@@ -26,10 +26,10 @@ export function BookingWidget() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
             {/* From */}
             <div className="md:col-span-3">
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">De la</label>
-              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group">
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>De la</label>
+              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={from} onValueChange={setFrom}>
-                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4">
+                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
                       <SelectValue placeholder="Alege locația" />
@@ -47,10 +47,10 @@ export function BookingWidget() {
 
             {/* To */}
             <div className="md:col-span-3">
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Până la</label>
-              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group">
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Până la</label>
+              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={to} onValueChange={setTo}>
-                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4">
+                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
                       <SelectValue placeholder="Alege destinația" />
@@ -68,22 +68,23 @@ export function BookingWidget() {
 
             {/* Date */}
             <div className="md:col-span-3">
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Data plecării</label>
-              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors relative h-14 flex items-center px-4">
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Data plecării</label>
+              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors relative h-14 flex items-center px-4" style={{ height: '56px' }}>
                 <Calendar className="w-5 h-5 mr-3 text-[#3870db]" />
                 <input
                   type="date"
                   className="w-full bg-transparent border-none text-base font-medium focus:outline-none text-gray-900 placeholder-gray-500"
+                  style={{ height: '100%' }}
                 />
               </div>
             </div>
 
             {/* Passengers */}
             <div className="md:col-span-1">
-              <label className="block text-xs font-semibold text-gray-400 uppercase tracking-wider mb-2">Persoane</label>
-              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors">
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Persoane</label>
+              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors h-14 flex items-center">
                 <Select defaultValue="1">
-                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-3 text-center">
+                  <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-3 text-center" style={{ height: '56px' }}>
                       <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
