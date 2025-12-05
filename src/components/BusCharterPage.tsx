@@ -3,16 +3,13 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { Input } from './ui/input';
-import { Textarea } from './ui/textarea';
-import { 
-  ChevronRight, 
+import {
+  ChevronRight,
   ChevronDown,
-  Bus, 
-  Users, 
-  Trophy, 
-  Briefcase, 
-  PartyPopper, 
+  Users,
+  Trophy,
+  Briefcase,
+  PartyPopper,
   Building2,
   CheckCircle2,
   Clock,
@@ -26,14 +23,7 @@ import {
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from './ui/dialog';
-import svgPaths from '../imports/svg-79j73c1x26';
+import { Dialog, DialogContent } from './ui/dialog';
 import { motion } from 'motion/react';
 
 export function BusCharterPage() {
@@ -460,9 +450,11 @@ export function BusCharterPage() {
               <p className="text-gray-500 text-sm mt-1">Soluții de transport adaptate pentru orice nevoie</p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
-            <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
-              Contactează-ne <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-            </Button>
+            <Link to="/contact">
+              <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
+                Contactează-ne <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

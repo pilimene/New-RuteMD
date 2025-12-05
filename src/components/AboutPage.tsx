@@ -1,8 +1,8 @@
+import { Link } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
-import { Card } from './ui/card';
 import { Button } from './ui/button';
-import { ChevronRight, Shield, Heart, Target, Bus, Users, Trophy, Clock, MapPin, Phone, Check } from 'lucide-react';
+import { ChevronRight, Shield, Heart, Target, Trophy, Phone } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 
 export function AboutPage() {
@@ -65,7 +65,7 @@ export function AboutPage() {
         <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-16">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-blue-100/80 text-sm mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <a href="/" className="hover:text-white transition-colors">Acasă</a>
+            <Link to="/" className="hover:text-white transition-colors">Acasă</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white font-medium">Despre Noi</span>
           </div>
@@ -236,12 +236,16 @@ export function AboutPage() {
                Rezervă-ți locul astăzi și bucură-te de standardele RUTEMD. Simplu, rapid și sigur.
              </p>
              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-               <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white h-12 px-8 text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1">
-                 Rezervă Bilet Acum
-               </Button>
-               <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-12 px-8 text-lg rounded-xl">
-                 <Phone className="w-4 h-4 mr-2" /> Contactează Dispecerat
-               </Button>
+               <Link to="/routes">
+                 <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white h-12 px-8 text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1">
+                   Rezervă Bilet Acum
+                 </Button>
+               </Link>
+               <Link to="/contact">
+                 <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-12 px-8 text-lg rounded-xl">
+                   <Phone className="w-4 h-4 mr-2" /> Contactează Dispecerat
+                 </Button>
+               </Link>
              </div>
           </div>
         </div>
