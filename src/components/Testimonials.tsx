@@ -1,4 +1,5 @@
-import { Star, Quote, Phone, MessageCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Star, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
 
@@ -82,9 +83,9 @@ export function Testimonials() {
 
               <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between text-xs text-blue-200/60 relative z-10">
                 <span>Dispecerat Non-Stop</span>
-                <div className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
-                  Contact Page <ArrowRight className="w-3 h-3" />
-                </div>
+                <Link to="/contact" className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                  Pagina Contact <ArrowRight className="w-3 h-3" />
+                </Link>
               </div>
             </div>
           </div>

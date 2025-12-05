@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Clock, Bus, Wallet, ShieldCheck, Wifi, Wind, Armchair, Usb, Coffee, Luggage, Headphones, CreditCard, CheckCircle2 } from 'lucide-react';
 import { motion } from 'motion/react';
 
@@ -117,7 +118,7 @@ export function WhyChooseUs() {
               <div className="mt-10 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#3870db] shrink-0" />
                 <p className="text-sm text-[#012141] font-medium">
-                  Toate facilitățile sunt incluse în prețul biletului. <span className="text-[#3870db] cursor-pointer hover:underline">Rezervă acum &rarr;</span>
+                  Toate facilitățile sunt incluse în prețul biletului. <Link to="/routes" className="text-[#3870db] cursor-pointer hover:underline">Rezervă acum &rarr;</Link>
                 </p>
               </div>
             </div>
