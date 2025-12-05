@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Button } from './ui/button';
@@ -19,6 +20,12 @@ export function ContactPage() {
         <div className="absolute inset-0 bg-[#012141]/80" />
         
         <div className="relative z-10 h-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center">
+          {/* Breadcrumb */}
+          <div className="flex items-center gap-2 text-blue-100/80 text-sm mb-6">
+            <Link to="/" className="hover:text-white transition-colors">Acasă</Link>
+            <ChevronRight className="w-3 h-3" />
+            <span className="text-white font-medium">Contact</span>
+          </div>
           <h1 className="text-white font-bold text-4xl md:text-5xl mb-4 tracking-tight">
             Contactează-ne
           </h1>
@@ -83,9 +90,9 @@ export function ContactPage() {
                    Preferi să scrii? Răspundem instant la mesaje.
                  </p>
                  
-                 <Button className="w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20">
+                 <a href="https://wa.me/37369123456" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20 transition-colors">
                     Deschide Chat <ArrowRight className="w-4 h-4 ml-2" />
-                 </Button>
+                 </a>
                </div>
             </div>
 

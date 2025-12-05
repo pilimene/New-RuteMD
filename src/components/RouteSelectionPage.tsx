@@ -1,7 +1,7 @@
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Card } from './ui/card';
-import { ChevronRight, MapPin, Clock, DollarSign } from 'lucide-react';
+import { ChevronRight, Clock } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 

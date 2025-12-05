@@ -3,7 +3,8 @@ import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
-import { Clock, MapPin, Calendar, DollarSign, ChevronRight, Wifi, Wind, Armchair, Usb, Check, Phone, ShieldCheck, Info, Luggage, Zap, Utensils, ArrowRightLeft } from 'lucide-react';
+import { Clock, MapPin, Calendar, ChevronRight, Armchair, Check, Phone, ShieldCheck, Luggage, Zap, Utensils, ArrowRightLeft } from 'lucide-react';
+import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionContent,
@@ -52,7 +53,9 @@ export function RouteDetailsPage() {
         <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-20">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-blue-100/80 text-sm mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <a href="/" className="hover:text-white transition-colors">Acasă</a>
+            <Link to="/" className="hover:text-white transition-colors">Acasă</Link>
+            <ChevronRight className="w-3 h-3" />
+            <Link to="/routes" className="hover:text-white transition-colors">Rute</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white font-medium">{origin} - {destination}</span>
           </div>

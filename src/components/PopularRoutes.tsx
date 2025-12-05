@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ArrowRight, MapPin } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -38,10 +39,12 @@ export function PopularRoutes() {
               Descoperă orașele conectate
             </h2>
           </div>
-          <Button variant="ghost" className="hidden md:flex text-[#3870db] hover:text-[#2b5bb8] p-0 font-semibold group text-sm">
-            Vezi toate rutele 
-            <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
-          </Button>
+          <Link to="/routes">
+            <Button variant="ghost" className="hidden md:flex text-[#3870db] hover:text-[#2b5bb8] p-0 font-semibold group text-sm">
+              Vezi toate rutele
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+            </Button>
+          </Link>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -79,7 +82,7 @@ export function PopularRoutes() {
                 <div className="flex items-center justify-between border-t border-white/20 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                   <div>
                     <span className="text-white/60 text-xs block">Preț bilet</span>
-                    <span className="text-[#3870db] text-xl font-bold text-white">{route.price}</span>
+                    <span className="text-white text-xl font-bold">{route.price}</span>
                   </div>
                   <Button size="sm" className="bg-white text-[#012141] hover:bg-gray-100 rounded-full px-5 font-bold text-xs h-9">
                     Rezervă
@@ -91,10 +94,12 @@ export function PopularRoutes() {
         </div>
         
         <div className="mt-6 md:hidden text-center">
+          <Link to="/routes">
             <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] font-semibold group text-sm">
-                Vezi toate rutele 
-                <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
+              Vezi toate rutele
+              <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
+          </Link>
         </div>
       </div>
     </section>

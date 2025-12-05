@@ -36,9 +36,9 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <a href="#contact" className="text-sm hover:text-[#3870db] transition-colors">
+                <Link to="/contact" className="text-sm hover:text-[#3870db] transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -105,7 +105,7 @@ export function Footer() {
 
         <div className="border-t border-white/20 pt-8 text-center">
           <p className="text-sm text-gray-400">
-            © 2024 RUTEMD. Toate drepturile rezervate.
+            © {new Date().getFullYear()} RUTEMD. Toate drepturile rezervate.
           </p>
         </div>
       </div>

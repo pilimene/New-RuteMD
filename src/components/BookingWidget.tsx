@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Calendar, MapPin, Users, Search } from 'lucide-react';
+import { Calendar, MapPin, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import {

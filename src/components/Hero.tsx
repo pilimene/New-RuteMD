@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion } from 'motion/react';
@@ -50,19 +51,23 @@ export function Hero() {
             Experiență de 5 stele la preț de autocar. Conexiune directă Chișinău, Varna, Burgas și Istanbul.
           </motion.p>
           
-          <motion.div 
+          <motion.div
             className="flex flex-col sm:flex-row gap-4"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <Button size="lg" className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(56,112,219,0.4)] hover:shadow-[0_0_30px_rgba(56,112,219,0.6)] transition-all duration-300">
-              Rezervă Acum
-            </Button>
-            <Button size="lg" variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm">
-              Despre Noi
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Button>
+            <Link to="/routes">
+              <Button size="lg" className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(56,112,219,0.4)] hover:shadow-[0_0_30px_rgba(56,112,219,0.6)] transition-all duration-300">
+                Rezervă Acum
+              </Button>
+            </Link>
+            <Link to="/about">
+              <Button size="lg" variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm">
+                Despre Noi
+                <ArrowRight className="ml-2 w-5 h-5" />
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </div>
