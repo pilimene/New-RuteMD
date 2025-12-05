@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Calendar, MapPin, Search } from 'lucide-react';
+import { Calendar as CalendarIcon, MapPin, Search } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import {
@@ -10,20 +10,69 @@ import {
   SelectTrigger,
   SelectValue,
 } from './ui/select';
+import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
+import { Calendar } from './ui/calendar';
+import { format } from 'date-fns';
+import { ro } from 'date-fns/locale';
 import { routes, destinations } from '../data/routes';
 
 export function BookingWidget() {
   const navigate = useNavigate();
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+
+  // Normalize city names for comparison (handles special characters)
+  const normalizeCityName = (city: string): string => {
+    return city
+      .toLowerCase()
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '') // Remove diacritics
+      .replace(/ș/g, 's')
+      .replace(/ț/g, 't')
+      .replace(/ă/g, 'a')
+      .replace(/â/g, 'a')
+      .replace(/î/g, 'i')
+      .trim();
+  };
+
+  // Map select values to route city names
+  const cityNameMap: Record<string, string> = {
+    'chisinau': 'Chișinău',
+    'istanbul': 'Istanbul',
+    'varna': 'Varna',
+    'burgas': 'Burgas',
+  };
+
+  // Reset date when route changes
+  const handleFromChange = (value: string) => {
+    setFrom(value);
+    setSelectedDate(undefined);
+  };
+
+  const handleToChange = (value: string) => {
+    setTo(value);
+    setSelectedDate(undefined);
+  };
 
   const handleSearch = () => {
+    // Convert select values to actual city names
+    const fromCity = cityNameMap[from] || from;
+    const toCity = cityNameMap[to] || to;
+
     // Find matching route
-    const matchingRoute = routes.find(
-      (r) =>
-        (r.origin.toLowerCase() === from && r.destination.toLowerCase() === to) ||
-        (r.destination.toLowerCase() === from && r.origin.toLowerCase() === to)
-    );
+    const matchingRoute = routes.find((r) => {
+      const routeOrigin = normalizeCityName(r.origin);
+      const routeDest = normalizeCityName(r.destination);
+      const selectedFrom = normalizeCityName(fromCity);
+      const selectedTo = normalizeCityName(toCity);
+
+      return (
+        (routeOrigin === selectedFrom && routeDest === selectedTo) ||
+        (routeOrigin === selectedTo && routeDest === selectedFrom)
+      );
+    });
 
     if (matchingRoute) {
       navigate(`/route/${matchingRoute.id}`);
@@ -43,6 +92,118 @@ export function BookingWidget() {
     return ['chisinau', 'istanbul', 'varna', 'burgas'];
   };
 
+  // Convert Romanian day names to day numbers (0 = Sunday, 1 = Monday, etc.)
+  const dayNameToNumber: Record<string, number> = {
+    'duminică': 0,
+    'duminica': 0, // without diacritics
+    'luni': 1,
+    'marți': 2,
+    'marti': 2, // without diacritics
+    'miercuri': 3,
+    'joi': 4,
+    'vineri': 5,
+    'sâmbătă': 6,
+    'sambata': 6, // without diacritics
+  };
+
+  // Get available dates based on selected route
+  const getAvailableDates = useMemo(() => {
+    if (!from || !to) return [];
+
+    // Convert select values to actual city names
+    const fromCity = cityNameMap[from] || from;
+    const toCity = cityNameMap[to] || to;
+
+    const matchingRoutes = routes.filter((r) => {
+      const routeOrigin = normalizeCityName(r.origin);
+      const routeDest = normalizeCityName(r.destination);
+      const selectedFrom = normalizeCityName(fromCity);
+      const selectedTo = normalizeCityName(toCity);
+
+      return (
+        (routeOrigin === selectedFrom && routeDest === selectedTo) ||
+        (routeOrigin === selectedTo && routeDest === selectedFrom)
+      );
+    });
+
+    if (matchingRoutes.length === 0) return [];
+
+    const availableDays = new Set<number>();
+    
+    matchingRoutes.forEach(route => {
+      // Check if route matches the direction
+      const routeOrigin = normalizeCityName(route.origin);
+      const routeDest = normalizeCityName(route.destination);
+      const selectedFrom = normalizeCityName(fromCity);
+      const selectedTo = normalizeCityName(toCity);
+      
+      const isForward = routeOrigin === selectedFrom && routeDest === selectedTo;
+      const dayName = isForward ? route.departureDay : route.returnDay;
+      
+      // Normalize day name (remove diacritics for matching)
+      const normalizedDayName = dayName
+        .toLowerCase()
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '')
+        .trim();
+      
+      const dayNumber = dayNameToNumber[normalizedDayName];
+      if (dayNumber !== undefined) {
+        availableDays.add(dayNumber);
+      }
+    });
+
+    if (availableDays.size === 0) {
+      return [];
+    }
+
+    // Generate dates for the next 2 months that fall on available days
+    const dates: Date[] = [];
+    const today = new Date();
+    today.setHours(0, 0, 0, 0); // Normalize to midnight
+    
+    // Calculate end date (2 months from now)
+    const endDate = new Date(today);
+    endDate.setMonth(endDate.getMonth() + 2);
+    endDate.setHours(23, 59, 59, 999);
+
+    // Generate dates starting from today
+    for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+      const dateToCheck = new Date(d);
+      dateToCheck.setHours(0, 0, 0, 0);
+      const dayOfWeek = dateToCheck.getDay();
+      
+      if (availableDays.has(dayOfWeek)) {
+        dates.push(new Date(dateToCheck));
+      }
+    }
+
+    return dates;
+  }, [from, to]);
+
+  // Check if a date is available - simplified comparison
+  const isDateAvailable = (date: Date | undefined) => {
+    if (!date) return false;
+    
+    const availableDates = getAvailableDates;
+    if (availableDates.length === 0) {
+      return false;
+    }
+    
+    // Compare dates by year, month, and day only
+    const year = date.getFullYear();
+    const month = date.getMonth();
+    const day = date.getDate();
+    
+    return availableDates.some(availableDate => {
+      return (
+        availableDate.getFullYear() === year &&
+        availableDate.getMonth() === month &&
+        availableDate.getDate() === day
+      );
+    });
+  };
+
   return (
     <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24">
       <motion.div
@@ -57,7 +218,7 @@ export function BookingWidget() {
             <div className="md:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>De la</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
-                <Select value={from} onValueChange={setFrom}>
+                <Select value={from} onValueChange={handleFromChange}>
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
@@ -78,7 +239,7 @@ export function BookingWidget() {
             <div className="md:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Până la</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
-                <Select value={to} onValueChange={setTo}>
+                <Select value={to} onValueChange={handleToChange}>
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
@@ -99,14 +260,48 @@ export function BookingWidget() {
             {/* Date */}
             <div className="md:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Data plecării</label>
-              <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors relative h-14 flex items-center px-4" style={{ height: '56px' }}>
-                <Calendar className="w-5 h-5 mr-3 text-[#3870db]" />
-                <input
-                  type="date"
-                  className="w-full bg-transparent border-none text-base font-medium focus:outline-none text-gray-900 placeholder-gray-500"
-                  style={{ height: '100%' }}
-                />
-              </div>
+              <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
+                <PopoverTrigger asChild>
+                  <div 
+                    className={`bg-gray-50 rounded-xl transition-colors relative h-14 flex items-center px-4 ${from && to ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed opacity-60'}`}
+                    style={{ height: '56px' }}
+                    onClick={() => {
+                      if (from && to) {
+                        setIsCalendarOpen(true);
+                      }
+                    }}
+                  >
+                    <CalendarIcon className="w-5 h-5 mr-3 text-[#3870db]" />
+                    <span className="text-base font-medium text-gray-900">
+                      {selectedDate ? format(selectedDate, 'dd/MM/yyyy', { locale: ro }) : from && to ? 'Selectează data' : 'Selectează ruta mai întâi'}
+                    </span>
+                  </div>
+                </PopoverTrigger>
+                {from && to && (
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={selectedDate}
+                      onSelect={(date) => {
+                        if (date && isDateAvailable(date)) {
+                          setSelectedDate(date);
+                          setIsCalendarOpen(false);
+                        }
+                      }}
+                      disabled={(date) => {
+                        // Disable dates that are not available
+                        const available = isDateAvailable(date);
+                        return !available;
+                      }}
+                      locale={ro}
+                      weekStartsOn={1}
+                      fromDate={new Date()} // Start from today
+                      defaultMonth={new Date()} // Show current month by default
+                      initialFocus
+                    />
+                  </PopoverContent>
+                )}
+              </Popover>
             </div>
 
             {/* Passengers */}
@@ -139,18 +334,6 @@ export function BookingWidget() {
                 Caută
               </Button>
             </div>
-          </div>
-
-          {/* Schedule info */}
-          <div className="mt-4 pt-4 border-t border-gray-100 flex flex-wrap gap-4 text-sm text-gray-500">
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-green-500"></span>
-              Tur: Duminică
-            </span>
-            <span className="flex items-center gap-2">
-              <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-              Retur: Miercuri
-            </span>
           </div>
         </div>
       </motion.div>
