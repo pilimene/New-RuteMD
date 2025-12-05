@@ -1,10 +1,10 @@
 import { useState } from 'react';
+import { useParams, Link, Navigate } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Button } from './ui/button';
 import { Card } from './ui/card';
 import { Clock, MapPin, Calendar, ChevronRight, Armchair, Check, Phone, ShieldCheck, Luggage, Zap, Utensils, ArrowRightLeft } from 'lucide-react';
-import { Link } from 'react-router-dom';
 import {
   Accordion,
   AccordionContent,
@@ -14,37 +14,32 @@ import {
 import { Dialog, DialogContent, DialogTrigger, DialogTitle } from './ui/dialog';
 import { BookingForm } from './BookingForm';
 import { ImageWithFallback } from './figma/ImageWithFallback';
+import { getRouteById } from '../data/routes';
 
 export function RouteDetailsPage() {
+  const { routeId } = useParams<{ routeId: string }>();
   const [isReverse, setIsReverse] = useState(false);
 
-  const stopsForward = [
-    { city: 'Chișinău', time: '06:00', duration: '0h', location: 'Gara de Nord' },
-    { city: 'Varna', time: '18:00', duration: '12h' },
-    { city: 'Burgas', time: '19:30', duration: '13.5h' },
-    { city: 'Istanbul', time: '02:00', duration: '20h', location: 'Laleli District' },
-  ];
+  const route = routeId ? getRouteById(routeId) : undefined;
 
-  const stopsReverse = [
-    { city: 'Istanbul', time: '09:00', duration: '0h', location: 'Laleli District' },
-    { city: 'Burgas', time: '15:30', duration: '6.5h' },
-    { city: 'Varna', time: '17:00', duration: '8h' },
-    { city: 'Chișinău', time: '05:00', duration: '20h', location: 'Gara de Nord' },
-  ];
+  if (!route) {
+    return <Navigate to="/routes" replace />;
+  }
 
-  const stops = isReverse ? stopsReverse : stopsForward;
-  const origin = isReverse ? 'Istanbul' : 'Chișinău';
-  const destination = isReverse ? 'Chișinău' : 'Istanbul';
+  const stops = isReverse ? route.returnStops : route.stops;
+  const origin = isReverse ? route.destination : route.origin;
+  const destination = isReverse ? route.origin : route.destination;
+  const departureDay = isReverse ? route.returnDay : route.departureDay;
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-[#012141]">
       <Navbar />
-      
+
       {/* Cinematic Hero Section */}
       <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden group">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1617988995031-6d42638a1547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxpc3RhbmJ1bCUyMHR1cmtleSUyMGJvc3Bob3J1cyUyMGJyaWRnZSUyMGJsdWUlMjBob3VyfGVufDF8fHx8MTc2NDc5MDY5N3ww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-          alt="Istanbul Bridge"
+          src={route.image}
+          alt={`${route.origin} - ${route.destination}`}
           className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[20s]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#012141]/80 via-[#012141]/60 to-[#012141]" />
@@ -63,12 +58,12 @@ export function RouteDetailsPage() {
           <div className="space-y-6 max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 animate-in fade-in slide-in-from-bottom-5 duration-700">
                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-               <span className="text-xs font-bold text-white uppercase tracking-widest">Cursă Internațională Premium</span>
+               <span className="text-xs font-bold text-white uppercase tracking-widest">Cursă Internațională • {departureDay}</span>
             </div>
 
             <h1 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight leading-none animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100 flex items-center flex-wrap gap-x-4 gap-y-2">
               <span>{origin}</span>
-              <button 
+              <button
                 onClick={() => setIsReverse(!isReverse)}
                 className="text-blue-400 hover:text-blue-300 transition-all p-2 hover:bg-white/10 rounded-full group"
                 title="Schimbă direcția"
@@ -77,9 +72,9 @@ export function RouteDetailsPage() {
               </button>
               <span>{destination}</span>
             </h1>
-            
+
             <p className="text-blue-50/90 text-lg md:text-xl font-light max-w-xl animate-in fade-in slide-in-from-bottom-7 duration-700 delay-200">
-              Călătorește confortabil prin {isReverse ? 'Burgas și Varna' : 'Varna și Burgas'}. Flotă modernă, WiFi gratuit și servicii de top.
+              Călătorește confortabil prin Comrat și Cahul. Flotă modernă, WiFi gratuit și servicii de top.
             </p>
           </div>
         </div>
@@ -88,16 +83,16 @@ export function RouteDetailsPage() {
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
-          
+
           {/* Left Column: Itinerary & Info */}
           <div className="lg:col-span-2 space-y-12">
-            
-            {/* Timeline Section - Redesigned Horizontal */}
+
+            {/* Timeline Section */}
             <section className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 border border-gray-100 p-8 md:p-10">
               <div className="flex flex-col md:flex-row items-center justify-between mb-12">
                  <div>
                    <h2 className="text-[#012141] font-bold text-2xl">Itinerariul Călătoriei</h2>
-                   <p className="text-gray-500 text-sm mt-1">Durată totală estimată: 20 ore</p>
+                   <p className="text-gray-500 text-sm mt-1">Durată totală estimată: {route.duration}</p>
                  </div>
                  <Button variant="outline" className="hidden md:flex gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
                    <MapPin className="w-4 h-4" /> Vezi pe hartă
@@ -110,16 +105,16 @@ export function RouteDetailsPage() {
                 <div className="md:hidden absolute left-4 top-2 bottom-2 w-0.5 bg-gray-100">
                    <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#3870db] to-transparent opacity-50" />
                 </div>
-                
+
                 {/* Desktop Line (Horizontal) */}
                 <div className="hidden md:block absolute top-4 left-0 right-0 h-0.5 bg-gray-100">
                    <div className="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-[#3870db] to-transparent opacity-50" />
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-8 md:gap-4">
+                <div className={`grid grid-cols-1 md:grid-cols-${stops.length} gap-8 md:gap-4`}>
                   {stops.map((stop, index) => (
                     <div key={index} className="relative flex md:flex-col items-start md:items-center group">
-                      
+
                       {/* Node */}
                       <div className="relative z-10 shrink-0 mr-4 md:mr-0 md:mb-4">
                         <div className="w-9 h-9 rounded-full bg-white border-[3px] border-[#3870db] shadow-[0_0_0_4px_rgba(56,112,219,0.1)] flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_0_0_6px_rgba(56,112,219,0.2)]">
@@ -130,7 +125,7 @@ export function RouteDetailsPage() {
                       {/* Content */}
                       <div className="pt-1 md:pt-0 md:text-center w-full">
                          <div className="text-xs font-bold text-[#3870db] uppercase tracking-wider mb-1">
-                           {index === 0 ? 'Plecare' : index === stops.length - 1 ? 'Sosire' : 'Oprire'}
+                           {index === 0 ? 'Plecare' : index === stops.length - 1 ? 'Sosire' : 'Tranzit'}
                          </div>
                          <h3 className="text-lg font-bold text-[#012141] mb-1 group-hover:text-[#3870db] transition-colors leading-tight">
                            {stop.city}
@@ -141,9 +136,6 @@ export function RouteDetailsPage() {
                          <div className="flex md:justify-center items-center gap-2 text-sm text-gray-500 bg-gray-50 md:bg-transparent p-2 md:p-0 rounded-lg md:rounded-none w-fit md:w-full">
                            <Clock className="w-3.5 h-3.5 text-[#3870db]" />
                            <span className="font-medium">{stop.time}</span>
-                           {stop.duration !== '0h' && (
-                             <span className="text-gray-400 text-xs">({stop.duration})</span>
-                           )}
                          </div>
                       </div>
                     </div>
@@ -152,12 +144,12 @@ export function RouteDetailsPage() {
               </div>
             </section>
 
-            {/* Spotlight Features Section - Replaces old Amenities */}
+            {/* Spotlight Features Section */}
             <div className="bg-[#012141] rounded-2xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
               {/* Decorative background elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-1000 group-hover:bg-white/10"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#3870db]/30 rounded-full blur-2xl -ml-10 -mb-10 transition-all duration-1000 group-hover:bg-[#3870db]/40"></div>
-              
+
               <div className="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12">
                 {/* Title Section */}
                 <div className="md:w-1/3 text-center md:text-left border-b md:border-b-0 md:border-r border-white/10 pb-6 md:pb-0 md:pr-6">
@@ -167,11 +159,10 @@ export function RouteDetailsPage() {
                   </h2>
                   <p className="text-blue-200/80 text-sm">Tot ce ai nevoie pentru o călătorie perfectă, inclus în prețul standard.</p>
                 </div>
-                
+
                 {/* Icons Grid */}
                 <div className="md:w-2/3 w-full">
                   <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-4">
-                    {/* Feature 1 */}
                     <div className="flex flex-col items-center text-center gap-3 group/icon">
                       <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover/icon:bg-white/20 group-hover/icon:scale-110 transition-all duration-300 ring-1 ring-white/10">
                         <Luggage className="w-7 h-7 text-blue-200" />
@@ -182,7 +173,6 @@ export function RouteDetailsPage() {
                       </div>
                     </div>
 
-                    {/* Feature 2 */}
                     <div className="flex flex-col items-center text-center gap-3 group/icon">
                       <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover/icon:bg-white/20 group-hover/icon:scale-110 transition-all duration-300 ring-1 ring-white/10">
                         <Zap className="w-7 h-7 text-blue-200" />
@@ -193,7 +183,6 @@ export function RouteDetailsPage() {
                       </div>
                     </div>
 
-                    {/* Feature 3 */}
                     <div className="flex flex-col items-center text-center gap-3 group/icon">
                       <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover/icon:bg-white/20 group-hover/icon:scale-110 transition-all duration-300 ring-1 ring-white/10">
                         <Armchair className="w-7 h-7 text-blue-200" />
@@ -204,7 +193,6 @@ export function RouteDetailsPage() {
                       </div>
                     </div>
 
-                    {/* Feature 4 */}
                     <div className="flex flex-col items-center text-center gap-3 group/icon">
                       <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center group-hover/icon:bg-white/20 group-hover/icon:scale-110 transition-all duration-300 ring-1 ring-white/10">
                         <Utensils className="w-7 h-7 text-blue-200" />
@@ -243,11 +231,10 @@ export function RouteDetailsPage() {
              <div className="sticky top-24 space-y-6">
                <Card className="p-6 rounded-2xl shadow-xl shadow-blue-900/10 border-t-4 border-t-[#3870db] bg-white">
                  <div className="text-center mb-8 relative">
-                   <span className="absolute top-0 right-0 bg-green-100 text-green-700 text-[10px] font-bold px-2 py-1 rounded-full uppercase">Best Seller</span>
                    <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Preț Standard</p>
                    <div className="flex items-center justify-center gap-1 text-[#012141]">
-                     <span className="text-2xl font-bold">$</span>
-                     <span className="text-6xl font-bold tracking-tighter">50</span>
+                     <span className="text-2xl font-bold">{route.currency}</span>
+                     <span className="text-6xl font-bold tracking-tighter">{route.price}</span>
                    </div>
                    <p className="text-gray-500 text-sm">per persoană / sens</p>
                  </div>
@@ -257,16 +244,23 @@ export function RouteDetailsPage() {
                    <div className="flex items-center justify-between group">
                       <div className="flex items-center gap-2 text-gray-500">
                         <Calendar className="w-4 h-4 text-[#3870db]" />
-                        <span className="text-sm font-medium">Zile</span>
+                        <span className="text-sm font-medium">Tur</span>
                       </div>
-                      <span className="text-sm font-bold text-[#012141]">Luni, Miercuri, Vineri</span>
+                      <span className="text-sm font-bold text-[#012141]">{route.departureDay}</span>
+                   </div>
+                   <div className="flex items-center justify-between group">
+                      <div className="flex items-center gap-2 text-gray-500">
+                        <Calendar className="w-4 h-4 text-[#3870db]" />
+                        <span className="text-sm font-medium">Retur</span>
+                      </div>
+                      <span className="text-sm font-bold text-[#012141]">{route.returnDay}</span>
                    </div>
                    <div className="flex items-center justify-between group">
                       <div className="flex items-center gap-2 text-gray-500">
                         <Clock className="w-4 h-4 text-[#3870db]" />
                         <span className="text-sm font-medium">Durată</span>
                       </div>
-                      <span className="text-sm font-bold text-[#012141]">~ 20 ore</span>
+                      <span className="text-sm font-bold text-[#012141]">~ {route.duration}</span>
                    </div>
                  </div>
 
@@ -284,9 +278,11 @@ export function RouteDetailsPage() {
                        <BookingForm />
                      </DialogContent>
                    </Dialog>
-                   <Button variant="outline" className="w-full border-gray-200 hover:bg-gray-50 text-gray-600 h-12 rounded-xl">
-                     <Phone className="w-4 h-4 mr-2" /> Contactează-ne
-                   </Button>
+                   <Link to="/contact">
+                     <Button variant="outline" className="w-full border-gray-200 hover:bg-gray-50 text-gray-600 h-12 rounded-xl">
+                       <Phone className="w-4 h-4 mr-2" /> Contactează-ne
+                     </Button>
+                   </Link>
                  </div>
 
                  <div className="space-y-4 pt-6 border-t border-dashed border-gray-200">
@@ -324,7 +320,7 @@ export function RouteDetailsPage() {
 
         </div>
       </div>
-      
+
       <Footer />
     </div>
   );
