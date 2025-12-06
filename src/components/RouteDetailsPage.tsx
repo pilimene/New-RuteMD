@@ -19,6 +19,7 @@ import { getRouteById } from '../data/routes';
 export function RouteDetailsPage() {
   const { routeId } = useParams<{ routeId: string }>();
   const [isReverse, setIsReverse] = useState(false);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
 
   const route = routeId ? getRouteById(routeId) : undefined;
 
@@ -265,7 +266,7 @@ export function RouteDetailsPage() {
                  </div>
 
                  <div className="space-y-3 mb-8">
-                   <Dialog>
+                   <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
                      <DialogTrigger asChild>
                        <Button className="w-full bg-[#3870db] hover:bg-[#2b5bb8] text-white shadow-lg shadow-blue-500/30 h-12 text-lg font-medium rounded-xl transition-all hover:-translate-y-0.5">
                          Rezervă Online
@@ -275,7 +276,11 @@ export function RouteDetailsPage() {
                        <div className="sr-only">
                          <DialogTitle>Rezervare Online</DialogTitle>
                        </div>
-                       <BookingForm />
+                       <BookingForm
+                         route={route}
+                         isReverse={isReverse}
+                         onClose={() => setIsBookingOpen(false)}
+                       />
                      </DialogContent>
                    </Dialog>
                    <Link to="/contact">
