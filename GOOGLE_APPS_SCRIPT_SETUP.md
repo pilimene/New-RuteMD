@@ -37,19 +37,52 @@ const COMPANY_EMAIL = 'rutemd@example.com'; // Your company email for notificati
  */
 function doPost(e) {
   try {
+    // Log that we received a request
+    Logger.log('=== POST REQUEST RECEIVED ===');
+    Logger.log('PostData exists: ' + (e.postData ? 'YES' : 'NO'));
+    
+    if (!e.postData || !e.postData.contents) {
+      Logger.log('ERROR: No postData.contents received');
+      throw new Error('No data received in POST request');
+    }
+    
+    Logger.log('PostData contents: ' + e.postData.contents);
+    
     const data = JSON.parse(e.postData.contents);
+    Logger.log('Parsed data successfully');
 
     // Generate booking ID
     const bookingId = generateBookingId();
+    Logger.log('Generated booking ID: ' + bookingId);
 
     // Save to spreadsheet
-    saveToSheet(bookingId, data);
+    try {
+      saveToSheet(bookingId, data);
+      Logger.log('Saved to spreadsheet: SUCCESS');
+    } catch (sheetError) {
+      Logger.log('ERROR saving to sheet: ' + sheetError.toString());
+      throw sheetError;
+    }
 
     // Send confirmation email to customer
-    sendCustomerEmail(bookingId, data);
+    try {
+      sendCustomerEmail(bookingId, data);
+      Logger.log('Customer email sent: SUCCESS');
+    } catch (emailError) {
+      Logger.log('ERROR sending customer email: ' + emailError.toString());
+      // Continue even if email fails
+    }
 
     // Send notification email to company
-    sendCompanyNotification(bookingId, data);
+    try {
+      sendCompanyNotification(bookingId, data);
+      Logger.log('Company notification sent: SUCCESS');
+    } catch (notifError) {
+      Logger.log('ERROR sending company notification: ' + notifError.toString());
+      // Continue even if email fails
+    }
+    
+    Logger.log('=== BOOKING PROCESSED SUCCESSFULLY ===');
 
     return ContentService
       .createTextOutput(JSON.stringify({
@@ -60,6 +93,10 @@ function doPost(e) {
       .setMimeType(ContentService.MimeType.JSON);
 
   } catch (error) {
+    Logger.log('=== ERROR IN doPost ===');
+    Logger.log('Error: ' + error.toString());
+    Logger.log('Stack: ' + (error.stack || 'No stack trace'));
+    
     return ContentService
       .createTextOutput(JSON.stringify({
         success: false,
@@ -128,36 +165,49 @@ function sendCustomerEmail(bookingId, data) {
 <html>
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <style>
-    body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; }
+    body { font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4; -webkit-font-smoothing: antialiased; }
     .container { max-width: 600px; margin: 0 auto; background-color: #ffffff; }
-    .header { background: linear-gradient(135deg, #012141 0%, #1a3a5c 100%); color: white; padding: 30px; text-align: center; }
-    .header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; }
-    .header p { margin: 10px 0 0; opacity: 0.8; }
-    .ticket { padding: 30px; }
-    .ticket-header { text-align: center; padding-bottom: 20px; border-bottom: 2px dashed #e0e0e0; }
-    .booking-id { background: #3870db; color: white; padding: 10px 20px; border-radius: 8px; display: inline-block; font-size: 18px; font-weight: bold; letter-spacing: 1px; }
+    .header { background: #012141; color: white; padding: 30px 20px; text-align: center; }
+    .header h1 { margin: 0; font-size: 28px; letter-spacing: 2px; font-weight: bold; }
+    .header p { margin: 10px 0 0; opacity: 0.9; font-size: 14px; }
+    .ticket { padding: 30px 20px; }
+    .ticket-header { text-align: center; padding-bottom: 20px; border-bottom: 2px dashed #e0e0e0; margin-bottom: 20px; }
+    .booking-id { background: #3870db; color: white; padding: 12px 24px; border-radius: 8px; display: inline-block; font-size: 18px; font-weight: bold; letter-spacing: 1px; margin-bottom: 10px; }
+    .ticket-header p { color: #666; margin-top: 10px; font-size: 14px; }
     .route-info { text-align: center; padding: 30px 0; }
-    .route { font-size: 24px; font-weight: bold; color: #012141; }
+    .route { font-size: 24px; font-weight: bold; color: #012141; line-height: 1.4; }
     .route-arrow { color: #3870db; font-size: 20px; margin: 0 10px; }
-    .date-badge { background: #e8f0fe; color: #3870db; padding: 8px 16px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: 600; }
+    .date-badge { background: #e8f0fe; color: #3870db; padding: 10px 20px; border-radius: 20px; display: inline-block; margin-top: 15px; font-weight: 600; font-size: 14px; }
     .details { background: #f8f9fa; padding: 20px; border-radius: 12px; margin: 20px 0; }
-    .detail-row { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #e0e0e0; }
+    .detail-row { padding: 12px 0; border-bottom: 1px solid #e0e0e0; }
     .detail-row:last-child { border-bottom: none; }
-    .detail-label { color: #666; }
-    .detail-value { font-weight: 600; color: #012141; }
-    .total-row { background: #012141; color: white; padding: 15px 20px; border-radius: 8px; display: flex; justify-content: space-between; margin-top: 20px; }
-    .total-label { font-size: 16px; }
-    .total-value { font-size: 24px; font-weight: bold; }
-    .qr-section { text-align: center; padding: 20px; background: #f8f9fa; border-radius: 12px; margin: 20px 0; }
-    .qr-placeholder { width: 150px; height: 150px; background: #e0e0e0; margin: 0 auto; display: flex; align-items: center; justify-content: center; border-radius: 8px; font-size: 12px; color: #666; }
-    .important { background: #fff3cd; border-left: 4px solid #ffc107; padding: 15px; margin: 20px 0; border-radius: 0 8px 8px 0; }
-    .important h4 { margin: 0 0 10px; color: #856404; }
-    .important ul { margin: 0; padding-left: 20px; color: #856404; }
+    .detail-label { color: #666; font-size: 14px; display: inline-block; width: 45%; }
+    .detail-value { font-weight: 600; color: #012141; font-size: 14px; display: inline-block; width: 54%; text-align: right; }
+    .detail-value a { color: #3870db; text-decoration: none; }
+    .total-row { background: #012141; color: white; padding: 20px; border-radius: 8px; margin-top: 20px; }
+    .total-label { font-size: 16px; display: inline-block; }
+    .total-value { font-size: 24px; font-weight: bold; display: inline-block; float: right; }
+    .important { background: #fff3cd; border-left: 4px solid #ffc107; padding: 20px; margin: 20px 0; }
+    .important h4 { margin: 0 0 12px; color: #856404; font-size: 16px; font-weight: bold; }
+    .important ul { margin: 0; padding-left: 20px; color: #856404; font-size: 14px; line-height: 1.6; }
+    .important li { margin-bottom: 8px; }
     .footer { background: #f8f9fa; padding: 20px; text-align: center; color: #666; font-size: 12px; }
-    .footer a { color: #3870db; }
-    .contact-box { background: #012141; color: white; padding: 15px; border-radius: 8px; text-align: center; margin: 20px 0; }
-    .contact-box a { color: #3870db; font-weight: bold; }
+    .footer a { color: #3870db; text-decoration: none; }
+    .contact-box { background: #012141; color: white; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; }
+    .contact-box p { margin: 0; }
+    .contact-box p:first-child { margin-bottom: 10px; font-size: 14px; }
+    .contact-box a { color: #3870db; font-weight: bold; text-decoration: none; }
+    .contact-box a:hover { text-decoration: underline; }
+    @media only screen and (max-width: 600px) {
+      .container { width: 100% !important; }
+      .ticket { padding: 20px 15px !important; }
+      .route { font-size: 20px !important; }
+      .detail-label, .detail-value { display: block !important; width: 100% !important; text-align: left !important; }
+      .detail-value { margin-top: 5px; }
+      .total-value { float: none !important; display: block !important; margin-top: 10px; }
+    }
   </style>
 </head>
 <body>
@@ -170,14 +220,14 @@ function sendCustomerEmail(bookingId, data) {
     <div class="ticket">
       <div class="ticket-header">
         <div class="booking-id">${bookingId}</div>
-        <p style="color: #666; margin-top: 10px;">Prezentati acest cod la imbarcare</p>
+        <p>Prezentati acest cod la imbarcare</p>
       </div>
 
       <div class="route-info">
         <div class="route">
           ${data.ruta.replace(' - ', '<span class="route-arrow"> → </span>')}
         </div>
-        <div class="date-badge">📅 ${data.dataCalatorie}</div>
+        <div class="date-badge">${data.dataCalatorie}</div>
       </div>
 
       <div class="details">
@@ -191,7 +241,7 @@ function sendCustomerEmail(bookingId, data) {
         </div>
         <div class="detail-row">
           <span class="detail-label">Email</span>
-          <span class="detail-value">${data.email}</span>
+          <span class="detail-value"><a href="mailto:${data.email}">${data.email}</a></span>
         </div>
         <div class="detail-row">
           <span class="detail-label">Numar Pasageri</span>
@@ -205,7 +255,7 @@ function sendCustomerEmail(bookingId, data) {
       </div>
 
       <div class="important">
-        <h4>⚠️ Informatii Importante</h4>
+        <h4>Informatii Importante</h4>
         <ul>
           <li>Prezentati-va la locul de imbarcare cu 15 minute inainte de plecare</li>
           <li>Aveti la dumneavoastra un act de identitate valid</li>
@@ -216,9 +266,9 @@ function sendCustomerEmail(bookingId, data) {
       </div>
 
       <div class="contact-box">
-        <p style="margin: 0;">Intrebari? Contactati-ne:</p>
-        <p style="margin: 10px 0 0;">
-          <a href="tel:+373000000">+373 000 000</a> |
+        <p>Intrebari? Contactati-ne:</p>
+        <p>
+          <a href="tel:+373000000">+373 000 000</a> | 
           <a href="mailto:contact@rutemd.com">contact@rutemd.com</a>
         </p>
       </div>
@@ -253,7 +303,7 @@ Email: ${data.email}
 TOTAL: ${data.pretTotal} (plata la sofer)
 
 IMPORTANT:
-- Prezentati-va cu 15 minute inainte de plecare
+- Prezentati-va cu 45 minute inainte de plecare
 - Aveti la dumneavoastra un act de identitate valid
 - Anulare gratuita cu 24h inainte
 

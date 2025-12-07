@@ -3,7 +3,7 @@
 
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See GOOGLE_APPS_SCRIPT_SETUP.md for instructions
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID_HERE/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZj2jWvX-Q5-mGgwVIpFW3zYYbhitr01rI_Q5ehsywYe-xexAERSmPVPqEefnhz_JaLg/exec';
 
 export interface BookingData {
   nume: string;
@@ -45,7 +45,10 @@ export async function submitBooking(data: BookingData): Promise<BookingResponse>
       };
     }
 
-    const response = await fetch(GOOGLE_SCRIPT_URL, {
+    // Send booking data to Google Apps Script
+    // Note: Using no-cors mode means we can't read the response
+    // We'll assume success if no error was thrown
+    await fetch(GOOGLE_SCRIPT_URL, {
       method: 'POST',
       mode: 'no-cors', // Google Apps Script requires no-cors
       headers: {
@@ -53,10 +56,6 @@ export async function submitBooking(data: BookingData): Promise<BookingResponse>
       },
       body: JSON.stringify(data),
     });
-
-    // Due to no-cors mode, we can't read the response directly
-    // We'll assume success if no error was thrown
-    // For a more robust solution, you could use a different approach
 
     // Generate a local booking ID for display purposes
     const bookingId = `RMD-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
