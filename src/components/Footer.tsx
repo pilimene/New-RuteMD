@@ -17,7 +17,7 @@ export function Footer() {
               />
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Transport confortabil și sigur între Moldova și Turcia. Peste 10 ani de experiență în servicii de transport pasageri.
+              Transport confortabil și sigur între Moldova și Turcia. Peste 28 ani de experiență în servicii de transport pasageri.
             </p>
           </div>
 
@@ -32,7 +32,12 @@ export function Footer() {
               </li>
               <li>
                 <Link to="/routes" className="text-sm hover:text-[#3870db] transition-colors">
-                  Rute
+                  Rute Regulate
+                </Link>
+              </li>
+              <li>
+                <Link to="/bus-charter" className="text-sm hover:text-[#3870db] transition-colors">
+                  Închiriere Autocare
                 </Link>
               </li>
               <li>
@@ -67,7 +72,7 @@ export function Footer() {
                 <Mail className="w-5 h-5 mr-2 text-[#3870db] flex-shrink-0 mt-0.5" />
                 <div>
                   <a href="mailto:info@rutemd.md" className="text-sm hover:text-[#3870db] transition-colors">
-                    info@rutemd.md
+                    rutemd@gmail.com
                   </a>
                 </div>
               </li>
@@ -83,19 +88,17 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Column 4: Program */}
+          {/* Column 4: Disponibilitate */}
           <div>
-            <h3 className="text-white mb-4 text-[20px] font-semibold">Program</h3>
+            <h3 className="text-white mb-4 text-[20px] font-semibold">Disponibilitate</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <span className="text-gray-400">Luni - Vineri:</span>
+                <span className="text-gray-400">Suntem disponibili</span>
                 <br />
-                <span className="text-white">08:00 - 20:00</span>
+                <span className="text-white">Prin apel telefonic sau email</span>
               </li>
-              <li>
-                <span className="text-gray-400">Sâmbătă - Duminică:</span>
-                <br />
-                <span className="text-white">09:00 - 18:00</span>
+              <li className="pt-2">
+                <span className="text-gray-400">Pentru rezervări și informații, contactați-ne la numerele de telefon indicate.</span>
               </li>
             </ul>
             <div className="flex space-x-4 mt-6">

@@ -92,11 +92,11 @@ export function AboutPage() {
            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
              <div className="space-y-6">
                <h2 className="text-[#012141] text-3xl font-bold leading-tight">
-                 Peste un deceniu de <span className="text-[#3870db]">excelență</span> pe șoselele Europei.
+                 Peste un sfert de secol de <span className="text-[#3870db]">excelență</span> pe șoselele Europei.
                </h2>
                <div className="space-y-4 text-gray-600 leading-relaxed text-lg">
                  <p>
-                   RUTEMD a fost înființată în 2014 cu misiunea clară de a redefini standardele transportului de pasageri între Moldova și Turcia. Am pornit la drum cu un singur autocar și promisiunea de a nu face niciodată compromisuri la calitate.
+                   RUTEMD activează din 1998 cu misiunea clară de a redefini standardele transportului de pasageri între Moldova și Turcia. Am pornit la drum cu un singur autocar și promisiunea de a nu face niciodată compromisuri la calitate.
                  </p>
                  <p>
                    Astăzi, suntem mândri să operăm una dintre cele mai moderne flote din regiune, oferind zilnic servicii sigure, punctuale și confortabile pentru mii de pasageri care ne trec pragul.
@@ -106,7 +106,7 @@ export function AboutPage() {
                {/* Stats Row */}
                <div className="grid grid-cols-3 gap-8 pt-6 border-t border-gray-100">
                  <div>
-                   <div className="text-[#3870db] text-4xl font-bold mb-1">10+</div>
+                   <div className="text-[#3870db] text-4xl font-bold mb-1">28+</div>
                    <div className="text-gray-400 text-xs font-bold uppercase tracking-wider">Ani Experiență</div>
                  </div>
                  <div>
@@ -136,7 +136,7 @@ export function AboutPage() {
                        </div>
                        <div>
                          <div className="text-xs text-gray-500">Certificare</div>
-                         <div className="text-sm font-bold text-[#012141]">ISO 9001</div>
+                         <div className="text-sm font-bold text-[#012141]">EURO VI</div>
                        </div>
                      </div>
                      <div className="h-1 w-full bg-gray-100 rounded-full overflow-hidden">
@@ -180,9 +180,11 @@ export function AboutPage() {
                <h2 className="text-[#012141] text-3xl font-bold mb-4">Flota Noastră Modernă</h2>
                <p className="text-gray-500 max-w-xl">Investim constant în cele mai noi modele de autocare pentru a asigura confortul maxim.</p>
              </div>
-             <Button variant="outline" className="hidden md:flex border-[#3870db] text-[#3870db] hover:bg-blue-50">
-               Vezi Toată Flota <ChevronRight className="w-4 h-4 ml-2" />
-             </Button>
+             <Link to="/bus-charter">
+               <Button variant="outline" className="hidden md:flex border-[#3870db] text-[#3870db] hover:bg-blue-50">
+                 Vezi Toată Flota <ChevronRight className="w-4 h-4 ml-2" />
+               </Button>
+             </Link>
            </div>
 
            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">

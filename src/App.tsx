@@ -5,10 +5,12 @@ import { RouteDetailsPage } from './components/RouteDetailsPage';
 import { AboutPage } from './components/AboutPage';
 import { ContactPage } from './components/ContactPage';
 import { BusCharterPage } from './components/BusCharterPage';
+import { ScrollToTop } from './components/ScrollToTop';
 
 export default function App() {
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/routes" element={<RouteSelectionPage />} />

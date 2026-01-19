@@ -33,10 +33,10 @@ export const routes: Route[] = [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
       { city: 'Cahul', time: '12:00' },
-      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Otogar' },
+      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fevziye Cd. No:5, Fatih' },
     ],
     returnStops: [
-      { city: 'Istanbul', time: '12:00', location: 'Otogar' },
+      { city: 'Istanbul', time: '12:00', location: 'Kemal Paşa, Fevziye Cd. No:5, Fatih' },
       { city: 'Cahul', time: '05:00 (+1 zi)' },
       { city: 'Comrat', time: '06:00 (+1 zi)' },
       { city: 'Chișinău', time: '09:30 (+1 zi)', location: 'Gara de Nord' },
@@ -99,7 +99,7 @@ export const routes: Route[] = [
     duration: '21h',
     image: 'https://images.unsplash.com/photo-1617988995031-6d42638a1547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
     stops: [
-      { city: 'Istanbul', time: '12:00', location: 'Otogar' },
+      { city: 'Istanbul', time: '12:00', location: 'Kemal Paşa, Fevziye Cd. No:5, Fatih' },
       { city: 'Cahul', time: '05:00 (+1 zi)' },
       { city: 'Comrat', time: '06:00 (+1 zi)' },
       { city: 'Chișinău', time: '09:30 (+1 zi)', location: 'Gara de Nord' },
@@ -108,7 +108,7 @@ export const routes: Route[] = [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
       { city: 'Cahul', time: '12:00' },
-      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Otogar' },
+      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fevziye Cd. No:5, Fatih' },
     ],
   },
   {

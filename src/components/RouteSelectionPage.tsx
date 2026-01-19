@@ -70,7 +70,7 @@ export function RouteSelectionPage() {
 
                       <div>
                         <div className="mb-4 opacity-80 text-sm font-medium tracking-wider uppercase text-blue-200">
-                          Via Comrat, Cahul • {route.duration}
+                          Prin Hincesti, Comrat, Cahul • {route.duration}
                         </div>
                         <div className="flex items-center gap-4 mb-6">
                           <h2 className="text-3xl md:text-4xl font-bold">{route.origin}</h2>
@@ -139,7 +139,7 @@ export function RouteSelectionPage() {
 
                       <div>
                         <div className="mb-4 opacity-80 text-sm font-medium tracking-wider uppercase text-blue-200">
-                          Via Comrat, Cahul • {route.duration}
+                          Prin Hincesti, Comrat, Cahul • {route.duration}
                         </div>
                         <div className="flex items-center gap-4 mb-6">
                           <h2 className="text-3xl md:text-4xl font-bold">{route.origin}</h2>

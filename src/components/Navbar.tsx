@@ -11,10 +11,10 @@ export function Navbar() {
 
   const navLinks = [
     { name: 'Acasă', path: '/', icon: Home },
-    { name: 'Rute', path: '/routes', icon: Route },
-    { name: 'Închiriere Autobuze', path: '/bus-charter', icon: Bus },
+    { name: 'Rute Regulate', path: '/routes', icon: Route },
+    { name: 'Închiriere Autocare', path: '/bus-charter', icon: Bus },
     { name: 'Despre Noi', path: '/about', icon: Info },
-    { name: 'Contact', path: '/contact', icon: MessageSquare },
+    { name: 'Contacte', path: '/contact', icon: MessageSquare },
   ];
 
   const menuVariants = {
@@ -59,12 +59,12 @@ export function Navbar() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-4 lg:space-x-6 xl:space-x-10">
+          <div className="hidden lg:flex items-center space-x-3 lg:space-x-4 xl:space-x-8">
             {navLinks.map((link) => (
               <Link 
                 key={link.path}
                 to={link.path} 
-                className={`text-white/90 hover:text-white transition-colors text-sm font-medium tracking-wide uppercase hover:underline decoration-[#3870db] underline-offset-4 decoration-2 ${
+                className={`text-white/90 hover:text-white transition-colors text-sm font-medium tracking-normal lg:tracking-wide uppercase hover:underline decoration-[#3870db] underline-offset-4 decoration-2 ${
                   location.pathname === link.path ? 'text-white underline underline-offset-8' : ''
                 }`}
               >
@@ -74,15 +74,15 @@ export function Navbar() {
           </div>
 
           {/* Phone & CTA */}
-          <div className="hidden lg:flex items-center space-x-3 lg:space-x-4 xl:space-x-6">
-            <a href="tel:+37368112811" className="flex items-center text-white/90 hover:text-white transition-colors group">
+          <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            <a href="tel:+37368112811" className="hidden xl:flex items-center text-white/90 hover:text-white transition-colors group">
               <div className="p-2 rounded-full bg-white/10 group-hover:bg-[#3870db] transition-colors mr-2">
                 <Phone className="w-4 h-4" />
               </div>
-              <span className="text-sm font-semibold tracking-wide">+373 68 11 28 11</span>
+              <span className="text-sm font-semibold tracking-normal">+373 68 11 28 11</span>
             </a>
             <Link to="/contact">
-              <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-4 lg:px-5 xl:px-6 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-900/40">
+              <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-4 xl:px-6 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-900/40 text-sm">
                 Contacteaza-ne
               </Button>
             </Link>

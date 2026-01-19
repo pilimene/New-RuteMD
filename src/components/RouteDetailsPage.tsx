@@ -211,7 +211,7 @@ export function RouteDetailsPage() {
             {/* Support Box */}
             <div className="bg-[#012141] rounded-2xl p-6 text-center text-white shadow-lg">
               <h3 className="font-bold text-lg mb-2">Ai nevoie de ajutor?</h3>
-              <p className="text-blue-200/80 text-sm mb-4">Echipa noastră este disponibilă 24/7 pentru tine.</p>
+              <p className="text-blue-200/80 text-sm mb-4">Echipa noastră este disponibilă pentru tine.</p>
               <a href="tel:+373000000" className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all font-medium">
                 Sună Dispeceratul
               </a>
@@ -222,8 +222,8 @@ export function RouteDetailsPage() {
               <h2 className="text-[#012141] font-bold text-2xl mb-8">Întrebări Frecvente</h2>
               <Accordion type="single" collapsible className="w-full space-y-4">
                 {[
-                  { q: "Cât bagaj pot lua cu mine?", a: "Fiecare pasager are dreptul la un bagaj de cală (max 20kg) și un bagaj de mână (max 5kg). Bagaje suplimentare pot fi transportate contra cost." },
-                  { q: "Pot anula sau modifica rezervarea?", a: "Da, puteți anula sau modifica rezervarea cu până la 24 ore înainte de plecare fără costuri suplimentare. Taxa de modificare în ultimele 24h este de 10%." },
+                  { q: "Cât bagaj pot lua cu mine?", a: "Fiecare pasager are dreptul la un 2 bagaje de cală (max 40kg) și un bagaj de mână (max 5kg). Bagaje suplimentare pot fi transportate contra cost." },
+                  { q: "Pot anula sau modifica rezervarea?", a: "Da, puteți anula sau modifica rezervarea cu până la 24 ore înainte de plecare fără costuri suplimentare. Nu există taxe de modificare." },
                   { q: "Ce documente am nevoie?", a: "Pașaport valabil cel puțin 6 luni. Pentru cetățenii unor țări poate fi necesară viză." },
                   { q: "Sunt pauze în timpul călătoriei?", a: "Da, pauze la fiecare 3-4 ore la stații amenajate." }
                 ].map((item, i) => (
