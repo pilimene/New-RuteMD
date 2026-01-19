@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react';
-import logoImage from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
 
 export function Footer() {
   return (
@@ -9,11 +8,9 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           {/* Column 1: Logo & Description */}
           <div>
-            <img 
-              src={logoImage} 
-              alt="RUTEMD Logo" 
-              className="h-10 w-auto mb-4"
-            />
+            <div className="bg-white text-[#012141] px-4 py-2 rounded-lg inline-block mb-4">
+              <span className="text-xl tracking-tight font-bold">RUTEMD</span>
+            </div>
             <p className="text-sm text-gray-400 leading-relaxed">
               Transport confortabil și sigur între Moldova și Turcia. Peste 10 ani de experiență în servicii de transport pasageri.
             </p>

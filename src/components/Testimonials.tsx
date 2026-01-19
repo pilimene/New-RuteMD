@@ -1,4 +1,3 @@
-import React from 'react';
 import { Link } from 'react-router-dom';
 import { Star, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
@@ -73,10 +72,10 @@ export function Testimonials() {
                 </p>
 
                 <div className="space-y-3">
-                  <Button className="w-full bg-white text-[#012141] hover:bg-gray-100 hover:text-[#012141] h-12 font-bold text-base rounded-xl shadow-lg">
+                  <Button className="w-full bg-white text-[#012141] hover:bg-gray-100 h-12 font-bold text-base rounded-xl shadow-lg">
                     <Phone className="w-4 h-4 mr-2" /> Sună Acum: +373 123 456
                   </Button>
-                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl" style={{ backgroundColor: '#20B858' }}>
+                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl">
                     <MessageCircle className="w-4 h-4 mr-2" /> Chat pe WhatsApp
                   </Button>
                 </div>

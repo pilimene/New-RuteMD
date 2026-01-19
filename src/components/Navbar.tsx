@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Menu, X, Phone } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
-import logoImage from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -14,11 +13,9 @@ export function Navbar() {
         <div className="flex justify-between items-center h-20">
           {/* Logo */}
           <Link to="/" className="flex items-center group">
-            <img 
-              src={logoImage} 
-              alt="RUTEMD Logo" 
-              className="h-12 md:h-14 w-auto transition-transform group-hover:scale-105 duration-300"
-            />
+            <div className="bg-white text-[#012141] px-4 py-2 rounded-lg transition-transform group-hover:scale-105 duration-300">
+              <span className="text-xl md:text-2xl tracking-tighter font-black">RUTEMD</span>
+            </div>
           </Link>
 
           {/* Desktop Navigation */}
@@ -58,7 +55,7 @@ export function Navbar() {
           {/* Mobile Menu Button */}
           <button
             onClick={() => setIsMenuOpen(!isMenuOpen)}
-            className="desktop:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
+            className="md:hidden p-2 rounded-lg hover:bg-white/10 transition-colors"
           >
             {isMenuOpen ? <X className="w-6 h-6 text-white" /> : <Menu className="w-6 h-6 text-white" />}
           </button>
@@ -112,9 +109,9 @@ export function Navbar() {
               </Link>
               
               <div className="pt-4 mt-4 border-t border-white/10">
-                <a href="tel:+37368112811" className="flex items-center text-white mb-4">
+                <a href="tel:+37312345678" className="flex items-center text-white mb-4">
                   <Phone className="w-5 h-5 mr-3 text-[#3870db]" />
-                  <span className="text-lg">+373 68 11 28 11</span>
+                  <span className="text-lg">+373 123 456 78</span>
                 </a>
                 <Link to="/contact">
                   <Button className="w-full bg-[#3870db] hover:bg-[#2b5bb8] text-white py-6 text-lg rounded-xl">
