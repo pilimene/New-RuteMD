@@ -35,13 +35,13 @@ export function RouteSelectionPage() {
           </div>
 
           {/* Turcia */}
-          <div className="mb-16">
+          <div style={{ marginBottom: '4rem' }}>
             <h2 className="text-[#012141] font-bold text-3xl mb-8 flex items-center gap-3 px-1">
               <div className="w-1.5 h-8 bg-[#3870db] rounded-full" />
               Turcia
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {routes.filter(r => r.destination === 'Istanbul').map((route) => (
+              {routes.filter(r => r.destination === 'Istanbul' || r.origin === 'Istanbul').map((route) => (
                 <Link to={`/route/${route.id}`} key={route.id} className="group">
                   <Card className="overflow-hidden rounded-[24px] border-none shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px] relative group-hover:-translate-y-1">
                     <div className="absolute inset-0">
@@ -91,13 +91,26 @@ export function RouteSelectionPage() {
           </div>
 
           {/* Bulgaria */}
-          <div>
+          <div style={{ marginTop: '4rem' }}>
             <h2 className="text-[#012141] font-bold text-3xl mb-8 flex items-center gap-3 px-1">
               <div className="w-1.5 h-8 bg-[#3870db] rounded-full" />
               Bulgaria
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {routes.filter(r => r.destination === 'Varna' || r.destination === 'Burgas').map((route) => (
+              {routes
+                .filter(r => r.destination === 'Varna' || r.destination === 'Burgas' || r.origin === 'Varna' || r.origin === 'Burgas')
+                .sort((a, b) => {
+                  // Group by city (Varna first, then Burgas), outbound before return
+                  const cityA = a.destination === 'Varna' || a.origin === 'Varna' ? 'Varna' : 'Burgas';
+                  const cityB = b.destination === 'Varna' || b.origin === 'Varna' ? 'Varna' : 'Burgas';
+                  if (cityA !== cityB) {
+                    // Varna comes before Burgas
+                    return cityA === 'Varna' ? -1 : 1;
+                  }
+                  // Within same city, outbound (from Chișinău) comes first
+                  return a.origin === 'Chișinău' ? -1 : 1;
+                })
+                .map((route) => (
                 <Link to={`/route/${route.id}`} key={route.id} className="group">
                   <Card className="overflow-hidden rounded-[24px] border-none shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px] relative group-hover:-translate-y-1">
                     <div className="absolute inset-0">

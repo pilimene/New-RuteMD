@@ -5,18 +5,20 @@ import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion } from 'motion/react';
 import { routes as routesData } from '../data/routes';
 
-const popularRoutes = routesData.map((route) => ({
-  id: route.id,
-  city: route.destination,
-  image: route.image,
-  price: `€${route.price}`,
-  description: route.destination === 'Istanbul'
-    ? 'Orașul celor două continente'
-    : route.destination === 'Varna'
-    ? 'Perla Mării Negre'
-    : 'Coastă pitorească',
-  days: 'Duminică',
-}));
+const popularRoutes = routesData
+  .filter((route) => route.origin === 'Chișinău')
+  .map((route) => ({
+    id: route.id,
+    city: route.destination,
+    image: route.image,
+    price: `€${route.price}`,
+    description: route.destination === 'Istanbul'
+      ? 'Orașul celor două continente'
+      : route.destination === 'Varna'
+      ? 'Perla Mării Negre'
+      : 'Coastă pitorească',
+    days: 'Duminică',
+  }));
 
 export function PopularRoutes() {
   return (
