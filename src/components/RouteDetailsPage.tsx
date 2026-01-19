@@ -85,65 +85,8 @@ export function RouteDetailsPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-10 relative z-20 pb-24">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 lg:gap-12">
 
-          {/* Left Column: Itinerary & Info */}
-          <div className="lg:col-span-2 space-y-12">
-
-            {/* Timeline Section */}
-            <section className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 border border-gray-100 p-8 md:p-10">
-              <div className="flex flex-col md:flex-row items-center justify-between mb-12">
-                 <div>
-                   <h2 className="text-[#012141] font-bold text-2xl">Itinerariul Călătoriei</h2>
-                   <p className="text-gray-500 text-sm mt-1">Durată totală estimată: {route.duration}</p>
-                 </div>
-                 <Button variant="outline" className="hidden md:flex gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
-                   <MapPin className="w-4 h-4" /> Vezi pe hartă
-                 </Button>
-              </div>
-
-              {/* Responsive Timeline Container */}
-              <div className="relative">
-                {/* Mobile Line (Vertical) */}
-                <div className="md:hidden absolute left-4 top-2 bottom-2 w-0.5 bg-gray-100">
-                   <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#3870db] to-transparent opacity-50" />
-                </div>
-
-                {/* Desktop Line (Horizontal) */}
-                <div className="hidden md:block absolute top-4 left-0 right-0 h-0.5 bg-gray-100">
-                   <div className="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-[#3870db] to-transparent opacity-50" />
-                </div>
-
-                <div className={`grid grid-cols-1 md:grid-cols-${stops.length} gap-8 md:gap-4`}>
-                  {stops.map((stop, index) => (
-                    <div key={index} className="relative flex md:flex-col items-start md:items-center group">
-
-                      {/* Node */}
-                      <div className="relative z-10 shrink-0 mr-4 md:mr-0 md:mb-4">
-                        <div className="w-9 h-9 rounded-full bg-white border-[3px] border-[#3870db] shadow-[0_0_0_4px_rgba(56,112,219,0.1)] flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_0_0_6px_rgba(56,112,219,0.2)]">
-                          <div className="w-2 h-2 bg-[#012141] rounded-full" />
-                        </div>
-                      </div>
-
-                      {/* Content */}
-                      <div className="pt-1 md:pt-0 md:text-center w-full">
-                         <div className="text-xs font-bold text-[#3870db] uppercase tracking-wider mb-1">
-                           {index === 0 ? 'Plecare' : index === stops.length - 1 ? 'Sosire' : 'Tranzit'}
-                         </div>
-                         <h3 className="text-lg font-bold text-[#012141] mb-1 group-hover:text-[#3870db] transition-colors leading-tight">
-                           {stop.city}
-                         </h3>
-                         {stop.location && (
-                           <p className="text-xs text-gray-500 font-medium mb-2">{stop.location}</p>
-                         )}
-                         <div className="flex md:justify-center items-center gap-2 text-sm text-gray-500 bg-gray-50 md:bg-transparent p-2 md:p-0 rounded-lg md:rounded-none w-fit md:w-full">
-                           <Clock className="w-3.5 h-3.5 text-[#3870db]" />
-                           <span className="font-medium">{stop.time}</span>
-                         </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </section>
+          {/* Left Column: Itinerary & Info - Order 2 on mobile, 1 on desktop */}
+          <div className="lg:col-span-2 space-y-12 order-2 lg:order-1">
 
             {/* Spotlight Features Section */}
             <div className="bg-[#012141] rounded-2xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
@@ -208,6 +151,72 @@ export function RouteDetailsPage() {
               </div>
             </div>
 
+            {/* Timeline Section */}
+            <section className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 border border-gray-100 p-8 md:p-10">
+              <div className="flex flex-col md:flex-row items-center justify-between mb-12">
+                 <div>
+                   <h2 className="text-[#012141] font-bold text-2xl">Itinerariul Călătoriei</h2>
+                   <p className="text-gray-500 text-sm mt-1 text-center">Durată totală estimată: {route.duration}</p>
+                 </div>
+                 <Button variant="outline" className="hidden md:flex gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
+                   <MapPin className="w-4 h-4" /> Vezi pe hartă
+                 </Button>
+              </div>
+
+              {/* Responsive Timeline Container */}
+              <div className="relative">
+                {/* Mobile Line (Vertical) */}
+                <div className="md:hidden absolute left-4 top-2 bottom-2 w-0.5 bg-gray-100">
+                   <div className="absolute top-0 left-0 w-full h-1/2 bg-gradient-to-b from-[#3870db] to-transparent opacity-50" />
+                </div>
+
+                {/* Desktop Line (Horizontal) */}
+                <div className="hidden md:block absolute top-4 left-0 right-0 h-0.5 bg-gray-100">
+                   <div className="absolute top-0 left-0 h-full w-1/2 bg-gradient-to-r from-[#3870db] to-transparent opacity-50" />
+                </div>
+
+                <div className={`grid grid-cols-1 md:grid-cols-${stops.length} gap-8 md:gap-4`}>
+                  {stops.map((stop, index) => (
+                    <div key={index} className="relative flex md:flex-col items-start md:items-center group">
+
+                      {/* Node */}
+                      <div className="relative z-10 shrink-0 mr-4 md:mr-0 md:mb-4">
+                        <div className="w-9 h-9 rounded-full bg-white border-[3px] border-[#3870db] shadow-[0_0_0_4px_rgba(56,112,219,0.1)] flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:shadow-[0_0_0_6px_rgba(56,112,219,0.2)]">
+                          <div className="w-2 h-2 bg-[#012141] rounded-full" />
+                        </div>
+                      </div>
+
+                      {/* Content */}
+                      <div className="pt-1 md:pt-0 md:text-center w-full">
+                         <div className="text-xs font-bold text-[#3870db] uppercase tracking-wider mb-1">
+                           {index === 0 ? 'Plecare' : index === stops.length - 1 ? 'Sosire' : 'Tranzit'}
+                         </div>
+                         <h3 className="text-lg font-bold text-[#012141] mb-1 group-hover:text-[#3870db] transition-colors leading-tight">
+                           {stop.city}
+                         </h3>
+                         {stop.location && (
+                           <p className="text-xs text-gray-500 font-medium mb-2">{stop.location}</p>
+                         )}
+                         <div className="flex md:justify-center items-center gap-2 text-sm text-gray-500 bg-gray-50 md:bg-transparent p-2 md:p-0 rounded-lg md:rounded-none w-fit md:w-full">
+                           <Clock className="w-3.5 h-3.5 text-[#3870db]" />
+                           <span className="font-medium">{stop.time}</span>
+                         </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
+            {/* Support Box */}
+            <div className="bg-[#012141] rounded-2xl p-6 text-center text-white shadow-lg">
+              <h3 className="font-bold text-lg mb-2">Ai nevoie de ajutor?</h3>
+              <p className="text-blue-200/80 text-sm mb-4">Echipa noastră este disponibilă 24/7 pentru tine.</p>
+              <a href="tel:+373000000" className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all font-medium">
+                Sună Dispeceratul
+              </a>
+            </div>
+
             {/* FAQ Section */}
             <div className="bg-white rounded-2xl shadow-sm border border-gray-100 p-8 md:p-10">
               <h2 className="text-[#012141] font-bold text-2xl mb-8">Întrebări Frecvente</h2>
@@ -227,9 +236,9 @@ export function RouteDetailsPage() {
             </div>
           </div>
 
-          {/* Right Column: Sticky Booking Widget */}
-          <div className="lg:col-span-1">
-             <div className="sticky top-24 space-y-6">
+          {/* Right Column: Sticky Booking Widget - Order 1 on mobile, 2 on desktop */}
+          <div className="lg:col-span-1 order-1 lg:order-2">
+             <div className="lg:sticky lg:top-24 space-y-6">
                <Card className="p-6 rounded-2xl shadow-xl shadow-blue-900/10 border-t-4 border-t-[#3870db] bg-white">
                  <div className="text-center mb-8 relative">
                    <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">Preț Standard</p>
@@ -311,15 +320,6 @@ export function RouteDetailsPage() {
                    </div>
                  </div>
                </Card>
-
-               {/* Support Box */}
-               <div className="bg-[#012141] rounded-2xl p-6 text-center text-white shadow-lg">
-                 <h3 className="font-bold text-lg mb-2">Ai nevoie de ajutor?</h3>
-                 <p className="text-blue-200/80 text-sm mb-4">Echipa noastră este disponibilă 24/7 pentru tine.</p>
-                 <a href="tel:+373000000" className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all font-medium">
-                   Sună Dispeceratul
-                 </a>
-               </div>
              </div>
           </div>
 

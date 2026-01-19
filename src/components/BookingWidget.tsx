@@ -61,18 +61,29 @@ export function BookingWidget() {
     const fromCity = cityNameMap[from] || from;
     const toCity = cityNameMap[to] || to;
 
-    // Find matching route
-    const matchingRoute = routes.find((r) => {
+    // First, try to find an exact direction match
+    let matchingRoute = routes.find((r) => {
       const routeOrigin = normalizeCityName(r.origin);
       const routeDest = normalizeCityName(r.destination);
       const selectedFrom = normalizeCityName(fromCity);
       const selectedTo = normalizeCityName(toCity);
 
-      return (
-        (routeOrigin === selectedFrom && routeDest === selectedTo) ||
-        (routeOrigin === selectedTo && routeDest === selectedFrom)
-      );
+      // Exact match: origin matches from AND destination matches to
+      return routeOrigin === selectedFrom && routeDest === selectedTo;
     });
+
+    // If no exact match, try reverse direction
+    if (!matchingRoute) {
+      matchingRoute = routes.find((r) => {
+        const routeOrigin = normalizeCityName(r.origin);
+        const routeDest = normalizeCityName(r.destination);
+        const selectedFrom = normalizeCityName(fromCity);
+        const selectedTo = normalizeCityName(toCity);
+
+        // Reverse match: origin matches to AND destination matches from
+        return routeOrigin === selectedTo && routeDest === selectedFrom;
+      });
+    }
 
     if (matchingRoute) {
       navigate(`/route/${matchingRoute.id}`);
