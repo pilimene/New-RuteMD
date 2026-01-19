@@ -50,13 +50,12 @@ export function ContactPage() {
                       <Phone className="w-9 h-9 text-blue-100" />
                    </div>
                    <div>
-                      <h2 className="text-blue-200 font-bold uppercase tracking-widest text-xs mb-2 text-[11px]">Dispecerat Non-Stop</h2>
-                      <div className="space-y-1">
-                        <a href="tel:+37369000000" className="block text-3xl md:text-5xl font-bold tracking-tight hover:text-blue-200 transition-colors text-[32px]">
-                          +373 69 123 456
+                      <div className="space-y-2">
+                        <a href="tel:+37369101912" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
+                          +373 69 101 912
                         </a>
-                        <a href="tel:+37368000000" className="block text-xl md:text-2xl font-medium text-blue-100/60 hover:text-white transition-colors">
-                          +373 68 123 456
+                        <a href="tel:+37368112811" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
+                          +373 68 112 811
                         </a>
                       </div>
                    </div>
@@ -68,7 +67,6 @@ export function ContactPage() {
                    <Button className="w-full bg-white text-[#012141] hover:bg-blue-50 font-bold h-12 rounded-xl shadow-lg border border-transparent hover:border-blue-100">
                      Apelează Acum
                    </Button>
-                   <p className="text-center text-xs text-blue-200/60">Disponibil 24/7</p>
                 </div>
              </div>
           </div>
@@ -90,7 +88,7 @@ export function ContactPage() {
                    Preferi să scrii? Răspundem instant la mesaje.
                  </p>
                  
-                 <a href="https://wa.me/37369123456" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20 transition-colors">
+                 <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20 transition-colors">
                     Deschide Chat <ArrowRight className="w-4 h-4 ml-2" />
                  </a>
                </div>
@@ -111,7 +109,7 @@ export function ContactPage() {
                  </p>
                  
                  <a href="mailto:contact@rutemd.com" className="flex items-center justify-center w-full bg-gray-50 hover:bg-gray-100 text-[#012141] font-bold h-12 rounded-xl border border-gray-200 transition-all">
-                    contact@rutemd.com
+                    mdrute@gmail.com
                  </a>
                </div>
             </div>
@@ -125,10 +123,11 @@ export function ContactPage() {
                   <div className="w-12 h-12 bg-gray-100 rounded-xl flex items-center justify-center text-[#012141] mb-6">
                     <MapPin className="w-6 h-6" />
                   </div>
-                  <h3 className="text-xl font-bold text-[#012141] mb-2">Sediul Central</h3>
+                  <h3 className="text-xl font-bold text-[#012141] mb-2">Oficiul nostru</h3>
                   <p className="text-gray-500 leading-relaxed mb-6">
-                    Strada Mitropolit Varlaam 58,<br/>
-                    Chișinău, Republica Moldova
+                    Hotelul Chișinău, etajul 2, of. 202<br/>
+                    blvd. Negruzzi 7<br/>
+                    Chișinău, Moldova
                   </p>
                   <Button variant="outline" className="w-fit gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
                     <Globe className="w-4 h-4" /> Navighează
@@ -136,7 +135,7 @@ export function ContactPage() {
                </div>
                <div className="md:w-2/3 h-64 md:h-auto min-h-[250px] rounded-2xl overflow-hidden relative bg-gray-100">
                  <iframe 
-                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2720.087879308436!2d28.8337!3d47.0245!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40c97c3101c90001%3A0x500c163829c967a!2sChisinau%2C%20Moldova!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
+                   src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2719.8967756!2d28.8451!3d47.0305!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x77809116f7162bad!2sRuteMD!5e0!3m2!1sen!2s!4v1650000000000!5m2!1sen!2s"
                    className="w-full h-full grayscale hover:grayscale-0 transition-all duration-700"
                    loading="lazy"
                    title="RUTEMD Location"

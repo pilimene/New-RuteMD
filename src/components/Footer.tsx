@@ -54,9 +54,12 @@ export function Footer() {
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Phone className="w-5 h-5 mr-2 text-[#3870db] flex-shrink-0 mt-0.5" />
-                <div>
-                  <a href="tel:+37312345678" className="text-sm hover:text-[#3870db] transition-colors">
-                    +373 123 456 78
+                <div className="space-y-1">
+                  <a href="tel:+37369101912" className="text-sm hover:text-[#3870db] transition-colors block">
+                    +373 69 101 912
+                  </a>
+                  <a href="tel:+37368112811" className="text-sm hover:text-[#3870db] transition-colors block">
+                    +373 68 112 811
                   </a>
                 </div>
               </li>
@@ -72,7 +75,8 @@ export function Footer() {
                 <MapPin className="w-5 h-5 mr-2 text-[#3870db] flex-shrink-0 mt-0.5" />
                 <div>
                   <span className="text-sm">
-                    Str. Ștefan cel Mare 123, Chișinău, Moldova
+                    Hotelul Chișinău, etajul 2, of. 202<br/>
+                    blvd. Negruzzi 7, Chișinău, Moldova
                   </span>
                 </div>
               </li>
