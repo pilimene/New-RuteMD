@@ -129,6 +129,7 @@
   body {
     @apply bg-background text-foreground;
     font-family: 'Outfit', sans-serif;
+    background: linear-gradient(135deg, #012141 0%, #1a3a5a 100%);
   }
 }
 

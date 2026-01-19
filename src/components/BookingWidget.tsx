@@ -215,7 +215,7 @@ export function BookingWidget() {
         <div className="bg-white rounded-xl border border-gray-100 p-6 md:p-8">
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
             {/* From */}
-            <div className="md:col-span-3">
+            <div className="md:col-span-6 lg:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>De la</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={from} onValueChange={handleFromChange}>
@@ -236,7 +236,7 @@ export function BookingWidget() {
             </div>
 
             {/* To */}
-            <div className="md:col-span-3">
+            <div className="md:col-span-6 lg:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Până la</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={to} onValueChange={handleToChange}>
@@ -258,7 +258,7 @@ export function BookingWidget() {
             </div>
 
             {/* Date */}
-            <div className="md:col-span-3">
+            <div className="md:col-span-6 lg:col-span-3">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Data plecării</label>
               <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                 <PopoverTrigger asChild>
@@ -305,7 +305,7 @@ export function BookingWidget() {
             </div>
 
             {/* Passengers */}
-            <div className="md:col-span-1">
+            <div className="md:col-span-6 lg:col-span-1">
               <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Persoane</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors h-14 flex items-center">
                 <Select defaultValue="1">
@@ -324,7 +324,7 @@ export function BookingWidget() {
             </div>
 
             {/* Search Button */}
-            <div className="md:col-span-2">
+            <div className="md:col-span-12 lg:col-span-2">
               <Button
                 onClick={handleSearch}
                 disabled={!from || !to}
