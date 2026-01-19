@@ -30,7 +30,7 @@ export function RouteSelectionPage() {
               Alege Destinația
             </h1>
             <p className="text-gray-500 text-lg max-w-2xl mx-auto">
-              Oferim transport regulat către cele mai populare destinații. Plecări în fiecare Duminică, retur Miercuri.
+              Oferim transport regulat cu atocarul către cele mai populare destinații. Plecări în fiecare Duminică, retur Miercuri.
             </p>
           </div>
 

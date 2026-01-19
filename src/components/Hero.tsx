@@ -1,22 +1,22 @@
 import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
-import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
+import heroBusImage from '../assets/b18185243268eb818aabe5c1d596d6c6d3042822.png';
 
 export function Hero() {
   return (
     <section className="relative h-[75vh] min-h-[600px] flex items-center justify-center bg-[#012141] overflow-hidden">
       {/* Background Image with Parallax-like feel (static for now but high quality) */}
       <div className="absolute inset-0 z-0">
-        <ImageWithFallback
-          src="https://images.unsplash.com/photo-1559926629-2ac1c49b0257?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjBidXMlMjBoaWdod2F5JTIwc3Vuc2V0JTIwc2NlbmljJTIwdHVya2V5fGVufDF8fHx8MTc2MzU2MjExMXww&ixlib=rb-4.1.0&q=80&w=1080&utm_source=figma&utm_medium=referral"
-          alt="Luxury travel experience"
-          className="w-full h-full object-cover opacity-80"
+        <img
+          src={heroBusImage}
+          alt="RUTEMD Modern Bus Fleet"
+          className="w-full h-full object-cover scale-x-[-1] brightness-90 saturate-75"
         />
         {/* Gradient Overlays for text readability and premium feel */}
-        <div className="absolute inset-0 bg-gradient-to-r from-[#012141]/90 via-[#012141]/40 to-transparent"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#012141] via-transparent to-transparent opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-r from-[#012141]/90 via-[#012141]/60 to-[#012141]/40"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#012141]/85 via-[#012141]/30 to-transparent"></div>
       </div>
 
       {/* Content */}

@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Instagram, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, MessageCircle } from 'lucide-react';
 import logo from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
 
 export function Footer() {
@@ -102,13 +102,10 @@ export function Footer() {
               </li>
             </ul>
             <div className="flex space-x-4 mt-6">
-              <a href="#" className="text-gray-400 hover:text-[#3870db] transition-colors">
+              <a href="https://www.facebook.com/mdrute" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#3870db] transition-colors">
                 <Facebook className="w-6 h-6" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-[#3870db] transition-colors">
-                <Instagram className="w-6 h-6" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-[#3870db] transition-colors">
+              <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#3870db] transition-colors">
                 <MessageCircle className="w-6 h-6" />
               </a>
             </div>

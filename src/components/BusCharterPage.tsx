@@ -36,7 +36,7 @@ export function BusCharterPage() {
     {
       icon: <MapPin className="w-8 h-8 text-[#3870db]" />,
       title: "Excursii și Tururi Organizate",
-      description: "Transport confortabil pentru grupuri turistice în țară și străinătate"
+      description: "Transport confortabil pentru grupuri turistice în străinătate"
     },
     {
       icon: <Briefcase className="w-8 h-8 text-[#3870db]" />,
@@ -70,8 +70,8 @@ export function BusCharterPage() {
     "Șoferi profesioniști cu experiență internațională",
     "Autocare verificate tehnic și asigurate complet",
     "Flexibilitate totală în planificarea rutelor",
-    "Suport 24/7 pe toată durata călătoriei",
-    "Prețuri fixe fără costuri ascunse"
+    "Suport pe toată durata călătoriei",
+    "Prețuri flexibile fără costuri ascunse"
   ];
 
   const fleet = [
@@ -125,7 +125,7 @@ export function BusCharterPage() {
   const faqs = [
     {
       question: "Cu cât timp înainte trebuie să rezerv?",
-      answer: "Recomandăm rezervarea cu cel puțin 7-14 zile înainte pentru a asigura disponibilitatea. Pentru evenimente mai mari sau în sezonul de vârf, sugerăm rezervarea cu 3-4 săptămâni în avans. Totuși, acceptăm și rezervări last-minute în funcție de disponibilitate."
+      answer: "Recomandăm rezervarea cu cel puțin 30 zile înainte pentru a asigura disponibilitatea. Pentru evenimente mai mari sau în sezonul de vârf, sugerăm rezervarea cu 5-6 săptămâni în avans. Totuși, acceptăm și rezervări last-minute în funcție de disponibilitate."
     },
     {
       question: "Ce documente sunt necesare pentru călătorii internaționale?",
@@ -133,19 +133,19 @@ export function BusCharterPage() {
     },
     {
       question: "Este inclus șoferul în preț?",
-      answer: "Da, prețul include șoferul profesionist cu experiență internațională. De asemenea, acoperim toate cheltuielile șoferului (cazare, masă, combustibil) pentru călătorii mai lungi. Nu există costuri ascunse."
+      answer: "Da, prețul include șoferul profesionist cu experiență internațională. Dar nu include cheltuielile șoferului legate de cazare si masa. Nu există costuri ascunse."
     },
     {
       question: "Pot modifica traseul după semnarea contractului?",
-      answer: "Da, oferim flexibilitate maximă. Modificările pot fi făcute cu cel puțin 48 de ore înainte de plecare fără costuri suplimentare. Pentru modificări în timpul călătoriei, vom face tot posibilul să vă acomodăm cerințele, în funcție de distanță și program."
+      answer: "Da, oferim flexibilitate maximă, în funcție de distanță și program."
     },
     {
       question: "Ce se întâmplă în caz de întârzieri?",
-      answer: "Avem suport 24/7 și sistem de backup pentru orice situație. În cazuri rare de probleme tehnice, asigurăm un vehicul de rezervă în cel mai scurt timp. De asemenea, șoferii noștri sunt instruiți să gestioneze orice situație neprevăzută și să vă țină la curent."
+      answer: "În cazuri rare de probleme tehnice, asigurăm un vehicul de rezervă în cel mai scurt timp. De asemenea, șoferii noștri sunt instruiți să gestioneze orice situație neprevăzută și să vă țină la curent."
     },
     {
       question: "Ce facilități sunt disponibile în autocare?",
-      answer: "Toate vehiculele noastre sunt echipate cu aer condiționat, Wi-Fi gratuit, prize USB pentru fiecare scaun, toaletă (pe autocarele mari), sistem audio-video și scaune reclinabile confortabile. La cerere, putem asigura apă îmbuteliată și răcoritoare."
+      answer: "Toate vehiculele noastre sunt echipate cu aer condiționat, prize USB pentru fiecare scaun, sistem audio-video și scaune reclinabile confortabile. La cerere, putem asigura apă îmbuteliată și răcoritoare."
     }
   ];
   
@@ -170,7 +170,7 @@ export function BusCharterPage() {
             <ChevronRight className="w-4 h-4 mx-2 opacity-50" />
             <span className="hover:text-white transition-colors">Servicii</span>
             <ChevronRight className="w-4 h-4 mx-2 opacity-50" />
-            <span className="text-white font-medium">Închiriere Autobuze</span>
+            <span className="text-white font-medium">Închiriere Autocare</span>
           </div>
         </div>
       </div>
@@ -206,8 +206,8 @@ export function BusCharterPage() {
               transition={{ duration: 0.8 }}
               className="text-white mb-6 font-bold text-5xl md:text-7xl leading-tight tracking-tight"
             >
-              Închiriere Autobuze <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3870db] to-white">Premium & Comfort</span>
+              Închiriere Autocare <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3870db] to-white">Pentru Destinații Internaționale</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -215,7 +215,7 @@ export function BusCharterPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-white/80 max-w-2xl mx-auto text-xl leading-relaxed font-light"
             >
-              Flotă proprie de autocare moderne pentru orice tip de eveniment. 
+              Flotă proprie de autocare moderne, Premium & Comfort. 
               De la microbuze pentru grupuri mici, la autocare turistice de lux.
             </motion.p>
             
@@ -227,15 +227,15 @@ export function BusCharterPage() {
             >
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <Clock className="w-5 h-5 text-[#3870db]" />
-                <span>Răspuns în 2 ore</span>
+                <span>Asistență inclusă</span>
               </div>
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <Shield className="w-5 h-5 text-[#3870db]" />
-                <span>Asigurare inclusă</span>
+                <span>Autocare moderne</span>
               </div>
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <CheckCircle2 className="w-5 h-5 text-[#3870db]" />
-                <span>Prețuri fixe</span>
+                <span>Prețuri flexibile</span>
               </div>
             </motion.div>
           </div>
@@ -361,7 +361,7 @@ export function BusCharterPage() {
       </section>
 
       {/* Bus Gallery Dialog - Moved logic outside loop for cleaner DOM */}
-      <Dialog open={selectedBus !== null} onOpenChange={(open) => !open && setSelectedBus(null)}>
+      <Dialog open={selectedBus !== null} onOpenChange={(open: boolean) => !open && setSelectedBus(null)}>
         <DialogContent className="max-w-4xl bg-white border-none p-0 overflow-hidden rounded-2xl">
           {selectedBus !== null && (
             <div className="flex flex-col">
@@ -482,13 +482,11 @@ export function BusCharterPage() {
         </div>
       </section>
 
-      {/* Advantages & Destinations Combined Section */}
+      {/* Advantages Section */}
       <section className="py-16 bg-[#f8f9fa]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-            
             {/* Advantages */}
-            <div>
+            <div className="max-w-4xl mx-auto">
               <h2 className="text-[#012141] mb-8 font-medium text-3xl">
                 De Ce să Alegeți RuteMD?
               </h2>
@@ -503,33 +501,6 @@ export function BusCharterPage() {
                 ))}
               </div>
             </div>
-
-            {/* Destinations */}
-            <div>
-              <h2 className="text-[#012141] mb-8 font-medium text-3xl">
-                Destinații Populare
-              </h2>
-              <Card className="p-8 bg-white rounded-[20px] border-none shadow-lg hover:shadow-xl transition-shadow h-full">
-                <h3 className="text-[#012141] mb-6 font-bold text-2xl flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <MapPin className="w-6 h-6 text-[#3870db]" />
-                  </div>
-                  Rute Internaționale
-                </h3>
-                <p className="text-gray-500 mb-6 leading-relaxed">
-                  Oferim curse regulate și ocazionale către cele mai populare destinații din Europa. Confort maxim pe distanțe lungi.
-                </p>
-                <div className="flex flex-wrap gap-3">
-                  {['România', 'Bulgaria', 'Turcia', 'Grecia', 'Ungaria', 'Austria', 'Germania', 'Italia'].map((country, index) => (
-                    <span key={index} className="px-5 py-2.5 bg-blue-50 text-[#3870db] rounded-full text-[15px] font-medium hover:bg-blue-100 transition-colors cursor-default">
-                      {country}
-                    </span>
-                  ))}
-                </div>
-              </Card>
-            </div>
-
-          </div>
         </div>
       </section>
 
@@ -555,9 +526,14 @@ export function BusCharterPage() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Telefon & Rezervări</p>
-                          <a href="tel:+37312345678" className="text-2xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
-                            +373 123 456 78
-                          </a>
+                          <div className="space-y-1">
+                            <a href="tel:+37369101912" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                              +373 69 101 912
+                            </a>
+                            <a href="tel:+37368112811" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                              +373 68 112 811
+                            </a>
+                          </div>
                         </div>
                       </div>
 
@@ -567,9 +543,9 @@ export function BusCharterPage() {
                           <Briefcase className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Email Corporate</p>
-                          <a href="mailto:contact@rutemd.md" className="text-lg font-semibold text-[#012141] hover:text-[#3870db] transition-colors">
-                            contact@rutemd.md
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Email</p>
+                          <a href="mailto:mdrute@gmail.com" className="text-lg font-semibold text-[#012141] hover:text-[#3870db] transition-colors">
+                            mdrute@gmail.com
                           </a>
                         </div>
                       </div>
@@ -580,9 +556,10 @@ export function BusCharterPage() {
                           <MapPin className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Sediul Central</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Oficiul Nostru</p>
                           <p className="text-lg font-semibold text-[#012141]">
-                            Chișinău, bd. Ștefan cel Mare 132
+                            Hotelul Chișinău, etajul 2, of. 202<br />
+                            blvd. Negruzzi 7, Chișinău
                           </p>
                         </div>
                       </div>
@@ -593,9 +570,9 @@ export function BusCharterPage() {
                           <Clock className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Program</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Disponibilitate</p>
                           <p className="text-lg font-semibold text-[#012141]">
-                            Luni - Vineri: 08:00 - 20:00
+                            Prin apel telefonic sau email
                           </p>
                         </div>
                       </div>

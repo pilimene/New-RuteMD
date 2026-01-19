@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Home, Route, Bus, Info, MessageSquare, Facebook, Instagram } from 'lucide-react';
+import { Menu, X, Phone, Home, Route, Bus, Info, MessageSquare, Facebook } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
@@ -163,11 +163,11 @@ export function Navbar() {
                 </a>
 
                 <div className="flex gap-3">
-                  <a href="#" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
+                  <a href="https://www.facebook.com/mdrute" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
                     <Facebook className="w-5 h-5" />
                   </a>
-                  <a href="#" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
-                    <Instagram className="w-5 h-5" />
+                  <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
+                    <MessageSquare className="w-5 h-5" />
                   </a>
                 </div>
               </motion.div>
