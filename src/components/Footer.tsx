@@ -1,8 +1,10 @@
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Facebook, MessageCircle } from 'lucide-react';
 import logo from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
+import { useTranslation } from '../i18n';
 
 export function Footer() {
+  const { t } = useTranslation();
   return (
     <footer className="bg-[#012141] text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -10,44 +12,44 @@ export function Footer() {
           {/* Column 1: Logo & Description */}
           <div>
             <Link to="/" className="inline-block mb-4">
-              <img 
-                src={logo} 
-                alt="RUTEMD Logo" 
+              <img
+                src={logo}
+                alt="RUTEMD Logo"
                 className="h-10 w-auto"
               />
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed">
-              Transport confortabil și sigur între Moldova și Turcia. Peste 28 ani de experiență în servicii de transport pasageri.
+              {t.footer.description}
             </p>
           </div>
 
           {/* Column 2: Quick Links */}
           <div>
-            <h3 className="text-white mb-4 text-[20px] font-semibold">Link-uri Rapide</h3>
+            <h3 className="text-white mb-4 text-[20px] font-semibold">{t.footer.quickLinks}</h3>
             <ul className="space-y-2">
               <li>
                 <Link to="/" className="text-sm hover:text-[#3870db] transition-colors">
-                  Acasă
+                  {t.nav.home}
                 </Link>
               </li>
               <li>
                 <Link to="/routes" className="text-sm hover:text-[#3870db] transition-colors">
-                  Rute Regulate
+                  {t.nav.routes}
                 </Link>
               </li>
               <li>
                 <Link to="/bus-charter" className="text-sm hover:text-[#3870db] transition-colors">
-                  Închiriere Autocare
+                  {t.nav.busCharter}
                 </Link>
               </li>
               <li>
                 <Link to="/about" className="text-sm hover:text-[#3870db] transition-colors">
-                  Despre Noi
+                  {t.nav.about}
                 </Link>
               </li>
               <li>
                 <Link to="/contact" className="text-sm hover:text-[#3870db] transition-colors">
-                  Contact
+                  {t.nav.contact}
                 </Link>
               </li>
             </ul>
@@ -55,7 +57,7 @@ export function Footer() {
 
           {/* Column 3: Contact */}
           <div>
-            <h3 className="text-white mb-4 text-[20px] font-semibold">Contact</h3>
+            <h3 className="text-white mb-4 text-[20px] font-semibold">{t.footer.contact}</h3>
             <ul className="space-y-3">
               <li className="flex items-start">
                 <Phone className="w-5 h-5 mr-2 text-[#3870db] flex-shrink-0 mt-0.5" />
@@ -90,15 +92,15 @@ export function Footer() {
 
           {/* Column 4: Disponibilitate */}
           <div>
-            <h3 className="text-white mb-4 text-[20px] font-semibold">Disponibilitate</h3>
+            <h3 className="text-white mb-4 text-[20px] font-semibold">{t.footer.availability}</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <span className="text-gray-400">Suntem disponibili</span>
+                <span className="text-gray-400">{t.footer.availableBy}</span>
                 <br />
-                <span className="text-white">Prin apel telefonic sau email</span>
+                <span className="text-white">{t.footer.byPhoneOrEmail}</span>
               </li>
               <li className="pt-2">
-                <span className="text-gray-400">Pentru rezervări și informații, contactați-ne la numerele de telefon indicate.</span>
+                <span className="text-gray-400">{t.footer.bookingInfo}</span>
               </li>
             </ul>
             <div className="flex space-x-4 mt-6">
@@ -114,7 +116,7 @@ export function Footer() {
 
         <div className="border-t border-white/20 pt-8 text-center">
           <p className="text-sm text-gray-400">
-            © {new Date().getFullYear()} RUTEMD. Toate drepturile rezervate.
+            © {new Date().getFullYear()} RUTEMD. {t.footer.allRights}
           </p>
         </div>
       </div>
