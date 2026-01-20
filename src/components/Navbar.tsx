@@ -1,21 +1,27 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { Menu, X, Phone, Home, Route, Bus, Info, MessageSquare, Facebook } from 'lucide-react';
+import { Menu, X, Phone, Home, Route, Bus, Info, MessageSquare, Facebook, Globe } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
 import logo from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
+import { useLanguage } from '../i18n';
 
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
+  const { language, setLanguage, t } = useLanguage();
 
   const navLinks = [
-    { name: 'Acasă', path: '/', icon: Home },
-    { name: 'Rute Regulate', path: '/routes', icon: Route },
-    { name: 'Închiriere Autocare', path: '/bus-charter', icon: Bus },
-    { name: 'Despre Noi', path: '/about', icon: Info },
-    { name: 'Contacte', path: '/contact', icon: MessageSquare },
+    { name: t.nav.home, path: '/', icon: Home },
+    { name: t.nav.routes, path: '/routes', icon: Route },
+    { name: t.nav.busCharter, path: '/bus-charter', icon: Bus },
+    { name: t.nav.about, path: '/about', icon: Info },
+    { name: t.nav.contact, path: '/contact', icon: MessageSquare },
   ];
+
+  const toggleLanguage = () => {
+    setLanguage(language === 'ro' ? 'ru' : 'ro');
+  };
 
   const menuVariants = {
     closed: {
@@ -75,6 +81,16 @@ export function Navbar() {
 
           {/* Phone & CTA */}
           <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
+            {/* Language Switcher */}
+            <button
+              onClick={toggleLanguage}
+              className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/90 hover:text-white"
+              title={language === 'ro' ? 'Переключить на русский' : 'Comută în română'}
+            >
+              <Globe className="w-4 h-4" />
+              <span className="text-sm font-semibold uppercase">{language === 'ro' ? 'RU' : 'RO'}</span>
+            </button>
+
             <a href="tel:+37368501182" className="hidden xl:flex items-center text-white/90 hover:text-white transition-colors group">
               <div className="p-2 rounded-full bg-white/10 group-hover:bg-[#3870db] transition-colors mr-2">
                 <Phone className="w-4 h-4" />
@@ -83,7 +99,7 @@ export function Navbar() {
             </a>
             <Link to="/contact">
               <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-4 xl:px-6 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-900/40 text-sm">
-                Contacteaza-ne
+                {t.nav.contactUs}
               </Button>
             </Link>
           </div>
@@ -152,12 +168,23 @@ export function Navbar() {
               
               {/* Footer inside drawer */}
               <motion.div variants={itemVariants} className="p-6 border-t border-white/5 space-y-6">
+                {/* Language Switcher for Mobile */}
+                <button
+                  onClick={toggleLanguage}
+                  className="flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors"
+                >
+                  <Globe className="w-5 h-5 text-[#3870db]" />
+                  <span className="text-white font-bold">
+                    {language === 'ro' ? 'Русский' : 'Română'}
+                  </span>
+                </button>
+
                 <a href="tel:+37368501182" className="flex items-center group bg-white/5 p-4 rounded-2xl">
                   <div className="w-10 h-10 rounded-full bg-[#3870db]/20 flex items-center justify-center mr-3">
                     <Phone className="w-4 h-4 text-[#3870db]" />
                   </div>
                   <div>
-                    <span className="block text-white/40 text-[10px] font-bold uppercase tracking-widest">Sună Acum</span>
+                    <span className="block text-white/40 text-[10px] font-bold uppercase tracking-widest">{t.nav.callNow}</span>
                     <span className="block text-sm font-bold text-white tracking-tight">+373 68 50 11 82</span>
                   </div>
                 </a>

@@ -13,15 +13,18 @@ import {
 import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 import { format } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, ru } from 'date-fns/locale';
 import { routes } from '../data/routes';
+import { useTranslation } from '../i18n';
 
 export function BookingWidget() {
   const navigate = useNavigate();
+  const { t, language } = useTranslation();
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined);
   const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+  const dateLocale = language === 'ru' ? ru : ro;
 
   // Normalize city names for comparison (handles special characters)
   const normalizeCityName = (city: string): string => {
@@ -227,20 +230,20 @@ export function BookingWidget() {
           <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-end">
             {/* From */}
             <div className="md:col-span-6 lg:col-span-3">
-              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>De la</label>
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>{t.booking.from}</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={from} onValueChange={handleFromChange}>
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
-                      <SelectValue placeholder="Alege locația" />
+                      <SelectValue placeholder={t.booking.selectLocation} />
                     </div>
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="chisinau">Chișinău</SelectItem>
-                    <SelectItem value="istanbul">Istanbul</SelectItem>
-                    <SelectItem value="varna">Varna</SelectItem>
-                    <SelectItem value="burgas">Burgas</SelectItem>
+                    <SelectItem value="chisinau">{language === 'ru' ? 'Кишинёв' : 'Chișinău'}</SelectItem>
+                    <SelectItem value="istanbul">{language === 'ru' ? 'Стамбул' : 'Istanbul'}</SelectItem>
+                    <SelectItem value="varna">{language === 'ru' ? 'Варна' : 'Varna'}</SelectItem>
+                    <SelectItem value="burgas">{language === 'ru' ? 'Бургас' : 'Burgas'}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
@@ -248,19 +251,23 @@ export function BookingWidget() {
 
             {/* To */}
             <div className="md:col-span-6 lg:col-span-3">
-              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Până la</label>
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>{t.booking.to}</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors group h-14 flex items-center">
                 <Select value={to} onValueChange={handleToChange}>
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
-                      <SelectValue placeholder={from ? "Alege destinația" : "Selectează locația"} />
+                      <SelectValue placeholder={from ? t.booking.selectDestination : t.booking.selectLocationFirst} />
                     </div>
                   </SelectTrigger>
                   <SelectContent>
                     {getAvailableDestinations().map((dest) => (
                       <SelectItem key={dest} value={dest}>
-                        {dest === 'chisinau' ? 'Chișinău' : dest.charAt(0).toUpperCase() + dest.slice(1)}
+                        {dest === 'chisinau' ? (language === 'ru' ? 'Кишинёв' : 'Chișinău') :
+                         dest === 'istanbul' ? (language === 'ru' ? 'Стамбул' : 'Istanbul') :
+                         dest === 'varna' ? (language === 'ru' ? 'Варна' : 'Varna') :
+                         dest === 'burgas' ? (language === 'ru' ? 'Бургас' : 'Burgas') :
+                         dest.charAt(0).toUpperCase() + dest.slice(1)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -270,10 +277,10 @@ export function BookingWidget() {
 
             {/* Date */}
             <div className="md:col-span-6 lg:col-span-3">
-              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Data plecării</label>
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>{t.booking.departureDate}</label>
               <Popover open={isCalendarOpen} onOpenChange={setIsCalendarOpen}>
                 <PopoverTrigger asChild>
-                  <div 
+                  <div
                     className={`bg-gray-50 rounded-xl transition-colors relative h-14 flex items-center px-4 ${from && to ? 'hover:bg-gray-100 cursor-pointer' : 'cursor-not-allowed opacity-60'}`}
                     style={{ height: '56px' }}
                     onClick={() => {
@@ -284,7 +291,7 @@ export function BookingWidget() {
                   >
                     <CalendarIcon className="w-5 h-5 mr-3 text-[#3870db]" />
                     <span className="text-base font-medium text-gray-900">
-                      {selectedDate ? format(selectedDate, 'dd/MM/yyyy', { locale: ro }) : from && to ? 'Selectează data' : 'Selectează ruta mai întâi'}
+                      {selectedDate ? format(selectedDate, 'dd/MM/yyyy', { locale: dateLocale }) : from && to ? t.booking.selectDate : t.booking.selectRouteFirst}
                     </span>
                   </div>
                 </PopoverTrigger>
@@ -304,7 +311,7 @@ export function BookingWidget() {
                         const available = isDateAvailable(date);
                         return !available;
                       }}
-                      locale={ro}
+                      locale={dateLocale}
                       weekStartsOn={1}
                       fromDate={new Date()} // Start from today
                       defaultMonth={new Date()} // Show current month by default
@@ -317,7 +324,7 @@ export function BookingWidget() {
 
             {/* Passengers */}
             <div className="md:col-span-6 lg:col-span-1">
-              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>Persoane</label>
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>{t.booking.passengers}</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors h-14 flex items-center">
                 <Select defaultValue="1">
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-3 text-center" style={{ height: '56px' }}>
@@ -342,7 +349,7 @@ export function BookingWidget() {
                 className="w-full h-14 bg-[#3870db] hover:bg-[#2b5bb8] text-white rounded-xl font-bold text-lg shadow-lg shadow-blue-500/30 hover:shadow-blue-500/50 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 <Search className="w-5 h-5 mr-2" />
-                Caută
+                {t.booking.search}
               </Button>
             </div>
           </div>

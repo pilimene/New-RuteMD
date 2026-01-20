@@ -4,37 +4,40 @@ import { ArrowRight, MapPin } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { motion } from 'motion/react';
 import { routes as routesData } from '../data/routes';
-
-const popularRoutes = routesData
-  .filter((route) => route.origin === 'Chișinău')
-  .map((route) => ({
-    id: route.id,
-    city: route.destination,
-    image: route.image,
-    price: `${route.price} ${route.currency}`,
-    priceEquivalent: route.priceEquivalent,
-    description: route.destination === 'Istanbul'
-      ? 'Orașul celor două continente'
-      : route.destination === 'Varna'
-      ? 'Perla Mării Negre'
-      : 'Coastă pitorească',
-    days: 'Duminică',
-  }));
+import { useTranslation } from '../i18n';
 
 export function PopularRoutes() {
+  const { t } = useTranslation();
+
+  const popularRoutes = routesData
+    .filter((route) => route.origin === 'Chișinău')
+    .map((route) => ({
+      id: route.id,
+      city: route.destination,
+      image: route.image,
+      price: `${route.price} ${route.currency}`,
+      priceEquivalent: route.priceEquivalent,
+      description: route.destination === 'Istanbul'
+        ? t.popularRoutes.istanbul
+        : route.destination === 'Varna'
+        ? t.popularRoutes.varna
+        : t.popularRoutes.burgas,
+      days: t.popularRoutes.sunday,
+    }));
+
   return (
     <section className="py-12 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-10">
           <div className="max-w-2xl">
-            <span className="text-[#3870db] font-bold tracking-wider uppercase text-xs">Destinații</span>
+            <span className="text-[#3870db] font-bold tracking-wider uppercase text-xs">{t.popularRoutes.badge}</span>
             <h2 className="text-[#012141] text-3xl md:text-4xl font-bold leading-tight mt-1">
-              Descoperă orașele conectate
+              {t.popularRoutes.title}
             </h2>
           </div>
           <Link to="/routes">
             <Button variant="ghost" className="hidden md:flex text-[#3870db] hover:text-[#2b5bb8] p-0 font-semibold group text-sm">
-              Vezi toate rutele
+              {t.popularRoutes.viewAll}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>
@@ -74,14 +77,14 @@ export function PopularRoutes() {
 
                   <div className="flex items-center justify-between border-t border-white/20 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
                     <div>
-                      <span className="text-white/60 text-xs block">Preț de la</span>
+                      <span className="text-white/60 text-xs block">{t.popularRoutes.priceFrom}</span>
                       <span className="text-white text-xl font-bold">{route.price}</span>
                       {route.priceEquivalent && (
                         <span className="text-white/60 text-xs block mt-0.5">{route.priceEquivalent}</span>
                       )}
                     </div>
                     <Button size="sm" className="bg-white text-[#012141] hover:bg-gray-100 rounded-full px-5 font-bold text-xs h-9">
-                      Rezervă
+                      {t.popularRoutes.book}
                     </Button>
                   </div>
                 </div>
@@ -93,7 +96,7 @@ export function PopularRoutes() {
         <div className="mt-6 md:hidden text-center">
           <Link to="/routes">
             <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] font-semibold group text-sm">
-              Vezi toate rutele
+              {t.popularRoutes.viewAll}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
             </Button>
           </Link>

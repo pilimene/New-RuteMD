@@ -2,55 +2,58 @@ import { Link } from 'react-router-dom';
 import { Star, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
-
-const testimonials = [
-  {
-    name: 'Maria Popescu',
-    role: 'Turistă',
-    text: 'Servicii excelente! Autocarul era curat și confortabil. Recomand cu încredere!',
-    avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100',
-  },
-  {
-    name: 'Ion Moraru',
-    role: 'Business',
-    text: 'Prețuri accesibile, condiții foarte bune și personalul amabil. Cea mai bună opțiune.',
-    avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100',
-  }
-];
+import { useTranslation } from '../i18n';
 
 export function Testimonials() {
+  const { t } = useTranslation();
+
+  const testimonials = [
+    {
+      name: 'Maria Popescu',
+      role: t.testimonials.tourist,
+      text: t.testimonials.review1,
+      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100',
+    },
+    {
+      name: 'Ion Moraru',
+      role: t.testimonials.business,
+      text: t.testimonials.review2,
+      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100',
+    }
+  ];
+
   return (
     <section className="py-16 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         <div className="grid lg:grid-cols-12 gap-8">
-          
+
           {/* Left: Testimonials (Col-Span-7) */}
           <div className="lg:col-span-7 flex flex-col justify-center">
             <div className="mb-8">
-              <span className="text-[#3870db] font-bold tracking-wider uppercase text-xs">Recenzii</span>
-              <h2 className="text-[#012141] text-3xl font-bold mt-2">Ce spun călătorii</h2>
+              <span className="text-[#3870db] font-bold tracking-wider uppercase text-xs">{t.testimonials.badge}</span>
+              <h2 className="text-[#012141] text-3xl font-bold mt-2">{t.testimonials.title}</h2>
             </div>
 
             <div className="grid gap-6">
-              {testimonials.map((t, idx) => (
-                <motion.div 
+              {testimonials.map((item, idx) => (
+                <motion.div
                   key={idx}
                   initial={{ opacity: 0, y: 10 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ delay: idx * 0.1 }}
                   className="bg-gray-50 p-6 rounded-2xl border border-gray-100 flex gap-4"
                 >
-                   <img src={t.avatar} alt={t.name} className="w-12 h-12 rounded-full object-cover shrink-0" />
+                   <img src={item.avatar} alt={item.name} className="w-12 h-12 rounded-full object-cover shrink-0" />
                    <div>
                      <div className="flex gap-1 text-yellow-400 mb-2">
                        {[...Array(5)].map((_, i) => <Star key={i} className="w-3 h-3 fill-current" />)}
                      </div>
-                     <p className="text-gray-600 text-sm italic mb-2">"{t.text}"</p>
+                     <p className="text-gray-600 text-sm italic mb-2">"{item.text}"</p>
                      <div className="flex items-center gap-2">
-                       <span className="font-bold text-[#012141] text-sm">{t.name}</span>
+                       <span className="font-bold text-[#012141] text-sm">{item.name}</span>
                        <span className="text-gray-300 text-xs">•</span>
-                       <span className="text-gray-400 text-xs">{t.role}</span>
+                       <span className="text-gray-400 text-xs">{item.role}</span>
                      </div>
                    </div>
                 </motion.div>
@@ -66,20 +69,20 @@ export function Testimonials() {
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-purple-500 rounded-full blur-3xl opacity-10 -ml-10 -mb-10"></div>
 
               <div className="relative z-10">
-                <h3 className="text-3xl font-bold mb-4">Gata de plecare?</h3>
+                <h3 className="text-3xl font-bold mb-4">{t.testimonials.ctaTitle}</h3>
                 <p className="text-blue-100/80 mb-8 leading-relaxed">
-                  Rezervă-ți locul acum și bucură-te de o călătorie premium la cel mai bun preț.
+                  {t.testimonials.ctaDescription}
                 </p>
 
                 <div className="space-y-3">
                   <Button asChild className="w-full bg-white text-[#012141] hover:bg-gray-100 h-12 font-bold text-base rounded-xl shadow-lg">
                     <a href="tel:+37369101912">
-                      <Phone className="w-4 h-4 mr-2" /> Sună Acum: +373 69 10 19 12
+                      <Phone className="w-4 h-4 mr-2" /> {t.testimonials.callNow}: +373 69 10 19 12
                     </a>
                   </Button>
                   <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl">
                     <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer">
-                      <MessageCircle className="w-4 h-4 mr-2" /> Chat pe WhatsApp
+                      <MessageCircle className="w-4 h-4 mr-2" /> {t.testimonials.chatWhatsApp}
                     </a>
                   </Button>
                 </div>
@@ -87,7 +90,7 @@ export function Testimonials() {
 
               <div className="mt-8 pt-8 border-t border-white/10 flex justify-end text-xs text-blue-200/60 relative z-10">
                 <Link to="/contact" className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
-                  Pagina Contact <ArrowRight className="w-3 h-3" />
+                  {t.testimonials.contactPage} <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>
             </div>
