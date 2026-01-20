@@ -61,10 +61,10 @@ export function Footer() {
                 <Phone className="w-5 h-5 mr-2 text-[#3870db] flex-shrink-0 mt-0.5" />
                 <div className="space-y-1">
                   <a href="tel:+37369101912" className="text-sm hover:text-[#3870db] transition-colors block">
-                    +373 69 101 912
+                    +373 69 10 19 12
                   </a>
-                  <a href="tel:+37368112811" className="text-sm hover:text-[#3870db] transition-colors block">
-                    +373 68 112 811
+                  <a href="tel:+37368501182" className="text-sm hover:text-[#3870db] transition-colors block">
+                    +373 68 50 11 82
                   </a>
                 </div>
               </li>
@@ -105,7 +105,7 @@ export function Footer() {
               <a href="https://www.facebook.com/mdrute" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#3870db] transition-colors">
                 <Facebook className="w-6 h-6" />
               </a>
-              <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#3870db] transition-colors">
+              <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-[#3870db] transition-colors">
                 <MessageCircle className="w-6 h-6" />
               </a>
             </div>

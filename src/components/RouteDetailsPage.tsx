@@ -32,6 +32,15 @@ export function RouteDetailsPage() {
   const destination = isReverse ? route.origin : route.destination;
   const departureDay = isReverse ? route.returnDay : route.departureDay;
 
+  const openRouteOnMap = () => {
+    const originLocation = stops[0].location || stops[0].city;
+    const destinationLocation = stops[stops.length - 1].location || stops[stops.length - 1].city;
+    const waypoints = stops.slice(1, -1).map(stop => stop.location || stop.city).join('|');
+    
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originLocation)}&destination=${encodeURIComponent(destinationLocation)}${waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : ''}`;
+    window.open(url, '_blank');
+  };
+
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-[#012141]">
       <Navbar />
@@ -158,7 +167,11 @@ export function RouteDetailsPage() {
                    <h2 className="text-[#012141] font-bold text-2xl">Itinerariul Călătoriei</h2>
                    <p className="text-gray-500 text-sm mt-1 text-center">Durată totală estimată: {route.duration}</p>
                  </div>
-                 <Button variant="outline" className="hidden md:flex gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
+                 <Button 
+                   variant="outline" 
+                   className="hidden md:flex gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50"
+                   onClick={openRouteOnMap}
+                 >
                    <MapPin className="w-4 h-4" /> Vezi pe hartă
                  </Button>
               </div>
@@ -199,12 +212,22 @@ export function RouteDetailsPage() {
                          )}
                          <div className="flex md:justify-center items-center gap-2 text-sm text-gray-500 bg-gray-50 md:bg-transparent p-2 md:p-0 rounded-lg md:rounded-none w-fit md:w-full">
                            <Clock className="w-3.5 h-3.5 text-[#3870db]" />
-                           <span className="font-medium">{stop.time}</span>
+                           <span className="font-medium">
+                             {stop.time}
+                             {index === stops.length - 1 && <span className="text-[#3870db]">*</span>}
+                           </span>
                          </div>
                       </div>
                     </div>
                   ))}
                 </div>
+              </div>
+
+              {/* Time variation disclaimer */}
+              <div className="mt-6 bg-amber-50 border border-amber-200 rounded-lg p-4">
+                <p className="text-xs text-amber-800">
+                  <span className="text-[#3870db] font-bold">*</span> Orele de sosire sunt aproximative și pot varia în funcție de condițiile meteorologice și timpul de trecere a frontierelor.
+                </p>
               </div>
             </section>
 
@@ -247,6 +270,9 @@ export function RouteDetailsPage() {
                      <span className="text-6xl font-bold tracking-tighter">{route.price}</span>
                    </div>
                    <p className="text-gray-500 text-sm">per persoană / sens</p>
+                   {route.priceEquivalent && (
+                     <p className="text-gray-400 text-xs mt-1">{route.priceEquivalent}</p>
+                   )}
                  </div>
 
                  {/* Route Details - Compact Integration */}
@@ -274,7 +300,7 @@ export function RouteDetailsPage() {
                    </div>
                  </div>
 
-                 <div className="space-y-3 mb-8">
+                 <div className="mb-8">
                    <Dialog open={isBookingOpen} onOpenChange={setIsBookingOpen}>
                      <DialogTrigger asChild>
                        <Button className="w-full bg-[#3870db] hover:bg-[#2b5bb8] text-white shadow-lg shadow-blue-500/30 h-12 text-lg font-medium rounded-xl transition-all hover:-translate-y-0.5">
@@ -292,7 +318,7 @@ export function RouteDetailsPage() {
                        />
                      </DialogContent>
                    </Dialog>
-                   <Link to="/contact">
+                   <Link to="/contact" className="block mt-3">
                      <Button variant="outline" className="w-full border-gray-200 hover:bg-gray-50 text-gray-600 h-12 rounded-xl">
                        <Phone className="w-4 h-4 mr-2" /> Contactează-ne
                      </Button>
@@ -304,19 +330,44 @@ export function RouteDetailsPage() {
                      <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                        <Check className="w-3 h-3 text-green-600" />
                      </div>
-                     <p className="text-sm text-gray-500 leading-snug">Confirmare instantă pe email și SMS</p>
+                     <p className="text-sm text-gray-500 leading-snug">Confirmare pe email</p>
                    </div>
                    <div className="flex items-start gap-3">
                      <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                        <Check className="w-3 h-3 text-green-600" />
                      </div>
-                     <p className="text-sm text-gray-500 leading-snug">Plată securizată sau la șofer</p>
+                     <p className="text-sm text-gray-500 leading-snug">Plată în numerar la șofer</p>
                    </div>
                    <div className="flex items-start gap-3">
                      <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                        <ShieldCheck className="w-3 h-3 text-green-600" />
                      </div>
-                     <p className="text-sm text-gray-500 leading-snug">Anulare gratuită (24h)</p>
+                     <p className="text-sm text-gray-500 leading-snug">Apel de confirmare cu 1-2 zile înainte</p>
+                   </div>
+                 </div>
+
+                 {/* Contact Phone Numbers */}
+                 <div className="mt-6 pt-6 border-t border-gray-100">
+                   <p className="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold">Rezervări Telefonice</p>
+                   <div className="space-y-2">
+                     <a href="tel:+37369101912" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                       <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
+                         <Phone className="w-5 h-5 text-white" />
+                       </div>
+                       <div>
+                         <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+373 69 10 19 12</p>
+                         <p className="text-xs text-gray-500">Apelează acum</p>
+                       </div>
+                     </a>
+                     <a href="tel:+37368501182" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                       <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
+                         <Phone className="w-5 h-5 text-white" />
+                       </div>
+                       <div>
+                         <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+373 68 50 11 82</p>
+                         <p className="text-xs text-gray-500">Apelează acum</p>
+                       </div>
+                     </a>
                    </div>
                  </div>
                </Card>

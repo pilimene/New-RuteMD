@@ -3,7 +3,7 @@
 
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See GOOGLE_APPS_SCRIPT_SETUP.md for instructions
-const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyZj2jWvX-Q5-mGgwVIpFW3zYYbhitr01rI_Q5ehsywYe-xexAERSmPVPqEefnhz_JaLg/exec';
+const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHjyXfR-Nfr2S9Wp9GcYlghvTNNzCoqgDUcb3wbkiSTJqPAmSqSaGAY5BXLqlVoJod/exec';
 
 export interface BookingData {
   nume: string;

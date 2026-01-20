@@ -26,25 +26,25 @@ export function AboutPage() {
 
   const fleet = [
     {
-      name: 'Mercedes-Benz Tourismo',
-      capacity: '49 locuri',
-      year: '2022',
-      image: 'https://images.unsplash.com/photo-1570125909232-eb263c188f7e?auto=format&fit=crop&q=80&w=1000',
-      features: ['WiFi High-Speed', 'Climă 2 Zone', 'Scaune Premium', 'Priză USB'],
+      name: 'Setra',
+      capacity: '50 locuri',
+      year: '2018',
+      image: 'https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080',
+      features: ['Scaune Reglabile', 'Prize USB', 'Multimedia', 'Sistem Audio'],
     },
     {
-      name: 'Setra S516 HD',
-      capacity: '51 locuri',
-      year: '2021',
-      image: 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&q=80&w=1000',
-      features: ['Panorama View', 'Mini Bar', 'Multimedia', 'Toiletă'],
+      name: 'Mercedes Tourismo',
+      capacity: '53 locuri',
+      year: '2016',
+      image: 'https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080',
+      features: ['Scaune Reglabile', 'Prize USB', 'Multimedia', 'Confort Premium'],
     },
     {
-      name: 'MAN Lion\'s Coach',
-      capacity: '47 locuri',
-      year: '2023',
-      image: 'https://images.unsplash.com/photo-1629896286523-435bb224c018?auto=format&fit=crop&q=80&w=1000',
-      features: ['Extra Legroom', 'Ambient Light', 'Sistem Audio', 'Safety+'],
+      name: 'Setra Comfort Class',
+      capacity: '59 locuri',
+      year: '2010',
+      image: 'https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080',
+      features: ['Scaune Reglabile', 'Prize USB', 'Multimedia', 'Capacitate Mare'],
     },
   ];
 

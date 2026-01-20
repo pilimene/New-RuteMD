@@ -68,21 +68,24 @@ export function Testimonials() {
               <div className="relative z-10">
                 <h3 className="text-3xl font-bold mb-4">Gata de plecare?</h3>
                 <p className="text-blue-100/80 mb-8 leading-relaxed">
-                  Rezervă-ți locul acum și bucură-te de o călătorie premium la cel mai bun preț. Suntem aici 24/7.
+                  Rezervă-ți locul acum și bucură-te de o călătorie premium la cel mai bun preț.
                 </p>
 
                 <div className="space-y-3">
-                  <Button className="w-full bg-white text-[#012141] hover:bg-gray-100 h-12 font-bold text-base rounded-xl shadow-lg">
-                    <Phone className="w-4 h-4 mr-2" /> Sună Acum: +373 123 456
+                  <Button asChild className="w-full bg-white text-[#012141] hover:bg-gray-100 h-12 font-bold text-base rounded-xl shadow-lg">
+                    <a href="tel:+37369101912">
+                      <Phone className="w-4 h-4 mr-2" /> Sună Acum: +373 69 10 19 12
+                    </a>
                   </Button>
-                  <Button variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl">
-                    <MessageCircle className="w-4 h-4 mr-2" /> Chat pe WhatsApp
+                  <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl">
+                    <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer">
+                      <MessageCircle className="w-4 h-4 mr-2" /> Chat pe WhatsApp
+                    </a>
                   </Button>
                 </div>
               </div>
 
-              <div className="mt-8 pt-8 border-t border-white/10 flex items-center justify-between text-xs text-blue-200/60 relative z-10">
-                <span>Dispecerat Non-Stop</span>
+              <div className="mt-8 pt-8 border-t border-white/10 flex justify-end text-xs text-blue-200/60 relative z-10">
                 <Link to="/contact" className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
                   Pagina Contact <ArrowRight className="w-3 h-3" />
                 </Link>

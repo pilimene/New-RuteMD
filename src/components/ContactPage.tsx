@@ -52,10 +52,10 @@ export function ContactPage() {
                    <div>
                       <div className="space-y-2">
                         <a href="tel:+37369101912" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
-                          +373 69 101 912
+                          +373 69 10 19 12
                         </a>
-                        <a href="tel:+37368112811" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
-                          +373 68 112 811
+                        <a href="tel:+37368501182" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
+                          +373 68 50 11 82
                         </a>
                       </div>
                    </div>
@@ -88,7 +88,7 @@ export function ContactPage() {
                    Preferi să scrii? Răspundem instant la mesaje.
                  </p>
                  
-                 <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20 transition-colors">
+                 <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer" className="flex items-center justify-center w-full bg-[#25D366] hover:bg-[#20b858] text-white font-bold h-12 rounded-xl shadow-lg shadow-[#25D366]/20 transition-colors">
                     Deschide Chat <ArrowRight className="w-4 h-4 ml-2" />
                  </a>
                </div>

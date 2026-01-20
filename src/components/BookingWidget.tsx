@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Calendar as CalendarIcon, MapPin, Search } from 'lucide-react';
 import { Button } from './ui/button';
@@ -14,7 +14,7 @@ import { Popover, PopoverContent, PopoverTrigger } from './ui/popover';
 import { Calendar } from './ui/calendar';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
-import { routes, destinations } from '../data/routes';
+import { routes } from '../data/routes';
 
 export function BookingWidget() {
   const navigate = useNavigate();
@@ -254,7 +254,7 @@ export function BookingWidget() {
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-4" style={{ height: '56px' }}>
                     <div className="flex items-center">
                       <MapPin className="w-5 h-5 mr-3 text-[#3870db]" />
-                      <SelectValue placeholder={from ? "Alege destinația" : "Selectează mai întâi locația"} />
+                      <SelectValue placeholder={from ? "Alege destinația" : "Selectează locația"} />
                     </div>
                   </SelectTrigger>
                   <SelectContent>
@@ -293,13 +293,13 @@ export function BookingWidget() {
                     <Calendar
                       mode="single"
                       selected={selectedDate}
-                      onSelect={(date) => {
+                      onSelect={(date: Date | undefined) => {
                         if (date && isDateAvailable(date)) {
                           setSelectedDate(date);
                           setIsCalendarOpen(false);
                         }
                       }}
-                      disabled={(date) => {
+                      disabled={(date: Date) => {
                         // Disable dates that are not available
                         const available = isDateAvailable(date);
                         return !available;

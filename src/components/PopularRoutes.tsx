@@ -11,7 +11,8 @@ const popularRoutes = routesData
     id: route.id,
     city: route.destination,
     image: route.image,
-    price: `€${route.price}`,
+    price: `${route.price} ${route.currency}`,
+    priceEquivalent: route.priceEquivalent,
     description: route.destination === 'Istanbul'
       ? 'Orașul celor două continente'
       : route.destination === 'Varna'
@@ -75,6 +76,9 @@ export function PopularRoutes() {
                     <div>
                       <span className="text-white/60 text-xs block">Preț de la</span>
                       <span className="text-white text-xl font-bold">{route.price}</span>
+                      {route.priceEquivalent && (
+                        <span className="text-white/60 text-xs block mt-0.5">{route.priceEquivalent}</span>
+                      )}
                     </div>
                     <Button size="sm" className="bg-white text-[#012141] hover:bg-gray-100 rounded-full px-5 font-bold text-xs h-9">
                       Rezervă

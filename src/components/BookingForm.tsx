@@ -8,7 +8,7 @@ import { Calendar } from './ui/calendar';
 import { format } from 'date-fns';
 import { ro } from 'date-fns/locale';
 import { cn } from '../lib/utils';
-import { submitBooking, validateBookingData, isDateAvailable, type BookingData } from '../services/bookingService';
+import { submitBooking, isDateAvailable, type BookingData } from '../services/bookingService';
 import type { Route } from '../data/routes';
 
 interface BookingFormProps {
@@ -22,6 +22,7 @@ interface FormData {
   prenume: string;
   telefon: string;
   email: string;
+  website?: string; // Honeypot field
 }
 
 export function BookingForm({ route, isReverse = false, onClose }: BookingFormProps) {
@@ -31,13 +32,15 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
   const [formData, setFormData] = useState<FormData>({
     nume: '',
     prenume: '',
-    telefon: '',
+    telefon: '+373 ',
     email: '',
+    website: '', // Honeypot field
   });
   const [errors, setErrors] = useState<string[]>([]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [bookingResult, setBookingResult] = useState<{ success: boolean; bookingId?: string; error?: string } | null>(null);
   const [copied, setCopied] = useState(false);
+  const [formStartTime] = useState(Date.now());
 
   const origin = isReverse ? route.destination : route.origin;
   const destination = isReverse ? route.origin : route.destination;
@@ -53,7 +56,14 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
   };
 
   const handleInputChange = (field: keyof FormData, value: string) => {
-    setFormData(prev => ({ ...prev, [field]: value }));
+    // Special handling for phone number - only allow valid characters
+    if (field === 'telefon') {
+      // Only allow numbers, spaces, +, -, (, )
+      const cleanValue = value.replace(/[^\d\s+()-]/g, '');
+      setFormData(prev => ({ ...prev, [field]: cleanValue }));
+    } else {
+      setFormData(prev => ({ ...prev, [field]: value }));
+    }
     setErrors([]); // Clear errors on input
   };
 
@@ -67,21 +77,44 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
     }
 
     if (currentStep === 2) {
+      // Check honeypot field (should be empty)
+      if (formData.website && formData.website.trim() !== '') {
+        newErrors.push('Eroare de validare. Vă rugăm încercați din nou.');
+        setErrors(newErrors);
+        return false;
+      }
+
       if (!formData.nume.trim()) {
         newErrors.push('Numele este obligatoriu');
+      } else if (formData.nume.trim().length < 2) {
+        newErrors.push('Numele trebuie să conțină cel puțin 2 caractere');
       }
+      
       if (!formData.prenume.trim()) {
         newErrors.push('Prenumele este obligatoriu');
+      } else if (formData.prenume.trim().length < 2) {
+        newErrors.push('Prenumele trebuie să conțină cel puțin 2 caractere');
       }
+      
       if (!formData.telefon.trim()) {
         newErrors.push('Numărul de telefon este obligatoriu');
-      } else if (!/^[\d\s+()-]{8,}$/.test(formData.telefon)) {
-        newErrors.push('Numărul de telefon nu este valid');
+      } else {
+        // Improved phone validation for Moldova/International numbers
+        const phoneRegex = /^(\+373|373|0)?[67]\d{7}$|^\+?[1-9]\d{7,14}$/;
+        const cleanPhone = formData.telefon.replace(/[\s()-]/g, '');
+        if (!phoneRegex.test(cleanPhone)) {
+          newErrors.push('Numărul de telefon nu este valid. Folosiți formatul: +373 69 123 456');
+        }
       }
+      
       if (!formData.email.trim()) {
         newErrors.push('Adresa de email este obligatorie');
-      } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-        newErrors.push('Adresa de email nu este validă');
+      } else {
+        // Improved email validation
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailRegex.test(formData.email)) {
+          newErrors.push('Adresa de email nu este validă');
+        }
       }
     }
 
@@ -102,6 +135,19 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
 
   const handleSubmit = async () => {
     if (!validateStep(2)) return;
+
+    // Anti-spam: Check if form was filled too quickly (less than 3 seconds)
+    const timeTaken = Date.now() - formStartTime;
+    if (timeTaken < 3000) {
+      setErrors(['Vă rugăm să completați formularul cu atenție.']);
+      return;
+    }
+
+    // Anti-spam: Check honeypot field
+    if (formData.website && formData.website.trim() !== '') {
+      setErrors(['Eroare de validare. Vă rugăm contactați suportul.']);
+      return;
+    }
 
     setIsSubmitting(true);
     setErrors([]);
@@ -280,6 +326,11 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   <div className="text-xs text-blue-300 mt-1">
                     {passengers} × {route.currency}{route.price}
                   </div>
+                  {route.priceEquivalent && (
+                    <div className="text-xs text-blue-400 mt-1">
+                      {route.priceEquivalent}
+                    </div>
+                  )}
                 </div>
                 <div className="text-3xl font-bold">{totalFormatted}</div>
               </div>
@@ -290,9 +341,12 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
         {/* Step 2: Personal Information */}
         {step === 2 && (
           <div className="space-y-5 animate-in slide-in-from-right-4 duration-300">
-            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
+            <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
               <p className="text-amber-800 text-sm">
                 <strong>Important:</strong> Introduceți datele pasagerului principal. Aceste informații vor fi folosite pentru emiterea biletului electronic.
+              </p>
+              <p className="text-amber-800 text-sm">
+                <strong>📞 Confirmare:</strong> Veți fi contactat telefonic pentru confirmare cu 1-2 zile înainte de plecare.
               </p>
             </div>
 
@@ -338,13 +392,16 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     type="tel"
+                    inputMode="numeric"
+                    pattern="[\d\s+()-]*"
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
-                    placeholder="+373 60 123 456"
+                    placeholder="+373 69 123 456"
                     value={formData.telefon}
                     onChange={(e) => handleInputChange('telefon', e.target.value)}
+                    maxLength={20}
                   />
                 </div>
-                <p className="text-xs text-gray-500">Veți primi confirmarea prin SMS</p>
+                <p className="text-xs text-gray-500">Format: +373 69 123 456</p>
               </div>
 
               {/* Email */}
@@ -363,6 +420,20 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   />
                 </div>
                 <p className="text-xs text-gray-500">Biletul electronic va fi trimis pe acest email</p>
+              </div>
+
+              {/* Honeypot field - hidden from users, visible to bots */}
+              <div className="absolute opacity-0 pointer-events-none" aria-hidden="true" tabIndex={-1}>
+                <Label htmlFor="website">Website</Label>
+                <Input
+                  id="website"
+                  name="website"
+                  type="text"
+                  autoComplete="off"
+                  value={formData.website || ''}
+                  onChange={(e) => handleInputChange('website' as keyof FormData, e.target.value)}
+                  tabIndex={-1}
+                />
               </div>
             </div>
           </div>
@@ -430,6 +501,11 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   <div className="text-xs text-gray-500 mt-1">
                     {passengers} bilet{passengers > 1 ? 'e' : ''} × {route.currency}{route.price}
                   </div>
+                  {route.priceEquivalent && (
+                    <div className="text-xs text-gray-400 mt-1">
+                      {route.priceEquivalent}
+                    </div>
+                  )}
                 </div>
                 <div className="text-3xl font-bold text-[#3870db]">{totalFormatted}</div>
               </div>
@@ -513,7 +589,8 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-800">
               <p><strong>Următorii pași:</strong></p>
               <ul className="mt-2 space-y-1 text-left list-disc list-inside">
-                <li>Verificați email-ul pentru biletul electronic</li>
+                <li>Verificați email-ul pentru confirmarea rezervării</li>
+                <li>Veți fi contactat telefonic cu 1-2 zile înainte de plecare</li>
                 <li>Prezentați-vă cu 15 min înainte de plecare</li>
                 <li>Aveți la dvs. un act de identitate valid</li>
               </ul>

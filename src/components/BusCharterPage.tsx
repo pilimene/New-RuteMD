@@ -16,10 +16,11 @@ import {
   Shield,
   Headphones,
   MapPin,
-  Wifi,
-  Coffee,
+  Usb,
+  Armchair,
   ChevronLeft,
-  Tv
+  Tv,
+  X
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -30,7 +31,7 @@ export function BusCharterPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedBus, setSelectedBus] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [centerIndex, setCenterIndex] = useState(0);
+  const [centerIndex, setCenterIndex] = useState(1);
 
   const services = [
     {
@@ -76,8 +77,8 @@ export function BusCharterPage() {
 
   const fleet = [
     { 
-      seats: "8", 
-      type: "Mercedes Sprinter", 
+      seats: "22", 
+      type: "Mercedes Sprinter 519", 
       mainImage: "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
       galleryImages: [
         "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -85,17 +86,8 @@ export function BusCharterPage() {
       ]
     },
     { 
-      seats: "20", 
-      type: "Mercedes Tourismo", 
-      mainImage: "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    },
-    { 
-      seats: "49", 
-      type: "Setra 513", 
+      seats: "50", 
+      type: "Setra", 
       mainImage: "https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
       galleryImages: [
         "https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -103,8 +95,17 @@ export function BusCharterPage() {
       ]
     },
     { 
+      seats: "51", 
+      type: "Mercedes Travego", 
+      mainImage: "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      galleryImages: [
+        "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
+        "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080"
+      ]
+    },
+    { 
       seats: "53", 
-      type: "Setra 613", 
+      type: "Mercedes Tourismo", 
       mainImage: "https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
       galleryImages: [
         "https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
@@ -112,8 +113,8 @@ export function BusCharterPage() {
       ]
     },
     { 
-      seats: "55", 
-      type: "Neoplan Cityliner", 
+      seats: "59", 
+      type: "Setra Comfort Class", 
       mainImage: "https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
       galleryImages: [
         "https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
@@ -372,6 +373,15 @@ export function BusCharterPage() {
                   className="w-full h-full object-contain"
                 />
                 
+                {/* Close Button */}
+                <button
+                  onClick={() => setSelectedBus(null)}
+                  className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
+                  aria-label="Închide"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+                
                 {/* Navigation Overlays */}
                 <div className="absolute inset-0 flex items-center justify-between p-4">
                   <button
@@ -421,12 +431,12 @@ export function BusCharterPage() {
                     <div className="text-sm font-medium text-gray-900">{fleet[selectedBus].seats} Locuri</div>
                   </div>
                   <div className="text-center">
-                    <Coffee className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
+                    <Armchair className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
                     <div className="text-sm font-medium text-gray-900">Scaune Reglabile</div>
                   </div>
                   <div className="text-center">
-                    <Wifi className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
-                    <div className="text-sm font-medium text-gray-900">Wi-Fi Gratuit</div>
+                    <Usb className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
+                    <div className="text-sm font-medium text-gray-900">Prize USB</div>
                   </div>
                   <div className="text-center">
                     <Tv className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
@@ -528,10 +538,10 @@ export function BusCharterPage() {
                           <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Telefon & Rezervări</p>
                           <div className="space-y-1">
                             <a href="tel:+37369101912" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
-                              +373 69 101 912
+                              +373 69 10 19 12
                             </a>
-                            <a href="tel:+37368112811" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
-                              +373 68 112 811
+                            <a href="tel:+37368501182" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                              +373 68 50 11 82
                             </a>
                           </div>
                         </div>

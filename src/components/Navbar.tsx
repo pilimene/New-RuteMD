@@ -75,11 +75,11 @@ export function Navbar() {
 
           {/* Phone & CTA */}
           <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
-            <a href="tel:+37368112811" className="hidden xl:flex items-center text-white/90 hover:text-white transition-colors group">
+            <a href="tel:+37368501182" className="hidden xl:flex items-center text-white/90 hover:text-white transition-colors group">
               <div className="p-2 rounded-full bg-white/10 group-hover:bg-[#3870db] transition-colors mr-2">
                 <Phone className="w-4 h-4" />
               </div>
-              <span className="text-sm font-semibold tracking-normal">+373 68 11 28 11</span>
+              <span className="text-sm font-semibold tracking-normal">+373 68 50 11 82</span>
             </a>
             <Link to="/contact">
               <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-4 xl:px-6 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-900/40 text-sm">
@@ -152,13 +152,13 @@ export function Navbar() {
               
               {/* Footer inside drawer */}
               <motion.div variants={itemVariants} className="p-6 border-t border-white/5 space-y-6">
-                <a href="tel:+37368112811" className="flex items-center group bg-white/5 p-4 rounded-2xl">
+                <a href="tel:+37368501182" className="flex items-center group bg-white/5 p-4 rounded-2xl">
                   <div className="w-10 h-10 rounded-full bg-[#3870db]/20 flex items-center justify-center mr-3">
                     <Phone className="w-4 h-4 text-[#3870db]" />
                   </div>
                   <div>
                     <span className="block text-white/40 text-[10px] font-bold uppercase tracking-widest">Sună Acum</span>
-                    <span className="block text-sm font-bold text-white tracking-tight">+373 68 11 28 11</span>
+                    <span className="block text-sm font-bold text-white tracking-tight">+373 68 50 11 82</span>
                   </div>
                 </a>
 
@@ -166,7 +166,7 @@ export function Navbar() {
                   <a href="https://www.facebook.com/mdrute" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
                     <Facebook className="w-5 h-5" />
                   </a>
-                  <a href="https://wa.me/37369101912" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
+                  <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer" className="flex-1 h-12 rounded-xl bg-white/5 flex items-center justify-center text-white/60 hover:bg-[#3870db] hover:text-white transition-all">
                     <MessageSquare className="w-5 h-5" />
                   </a>
                 </div>
