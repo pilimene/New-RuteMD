@@ -1,20 +1,35 @@
 # 🔒 RUTEMD Security Guide
 
+> **⚠️ IMPORTANT NOTE**: Content Security Policy (CSP) has been **removed from HTML** to prevent console errors during development. CSP should be configured on your **web server** (Apache/Nginx) in production, not in HTML meta tags.
+
 ## Security Features Implemented
 
 ### 1. **Content Security Policy (CSP)**
-The website has comprehensive CSP headers in `index.html` to prevent XSS attacks:
+**Status**: Should be configured on web server (not in HTML)
 
-```html
-Content-Security-Policy:
-- default-src 'self' - Only load resources from same origin
-- script-src 'self' 'unsafe-inline' 'unsafe-eval' - Allow scripts (needed for React/Vite)
-- style-src 'self' 'unsafe-inline' - Allow styles (needed for Tailwind)
-- img-src: self, data URIs, Unsplash, Google
-- connect-src: self, Google Apps Script
-- frame-src: Google Maps only
-- object-src 'none' - Block plugins
+For **production deployment**, configure CSP on your web server:
+
+**Nginx Example** (`/etc/nginx/sites-available/your-site`):
+```nginx
+add_header Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://script.google.com; frame-src https://www.google.com; object-src 'none';" always;
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-Content-Type-Options "nosniff" always;
+add_header Referrer-Policy "strict-origin-when-cross-origin" always;
 ```
+
+**Apache Example** (`.htaccess` or `httpd.conf`):
+```apache
+Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: https: blob:; connect-src 'self' https://script.google.com; frame-src https://www.google.com; object-src 'none';"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+```
+
+**What CSP blocks**:
+- ❌ Inline scripts (XSS attacks)
+- ❌ External scripts (malicious code injection)
+- ❌ Unauthorized resource loading
+- ✅ Allows: Your app, Google Fonts, Google Maps, Google Apps Script
 
 ### 2. **Anti-Spam Protection**
 The booking form has **3 layers** of anti-spam protection:

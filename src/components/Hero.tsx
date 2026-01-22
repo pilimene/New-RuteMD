@@ -16,7 +16,7 @@ export function Hero() {
           alt="Autocar Chișinău Istanbul - Transport Moldova Turcia | RUTEMD"
           className="w-full h-full object-cover scale-x-[-1] brightness-90 saturate-75"
           loading="eager"
-          fetchPriority="high"
+          fetchpriority="high"
         />
         {/* Gradient Overlays for text readability and premium feel */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#012141]/90 via-[#012141]/60 to-[#012141]/40"></div>
