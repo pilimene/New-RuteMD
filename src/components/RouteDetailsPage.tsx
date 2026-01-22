@@ -16,6 +16,7 @@ import { BookingForm } from './BookingForm';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { getRouteById } from '../data/routes';
 import { useTranslation } from '../i18n';
+import { SEO } from './SEO';
 
 export function RouteDetailsPage() {
   const { routeId } = useParams<{ routeId: string }>();
@@ -33,6 +34,97 @@ export function RouteDetailsPage() {
   const origin = isReverse ? route.destination : route.origin;
   const destination = isReverse ? route.origin : route.destination;
   const departureDay = isReverse ? route.returnDay : route.departureDay;
+
+  // SEO content based on language and route
+  const destinationCountry = route.destination === 'Istanbul' ? 
+    (language === 'ru' ? 'Турция' : 'Turcia') : 
+    (language === 'ru' ? 'Болгария' : 'Bulgaria');
+
+  const seoContent = {
+    ro: {
+      title: `Autocar ${route.origin} - ${route.destination} | ${route.price} ${route.currency} | Bilete Online`,
+      description: `Transport cu autocarul ${route.origin} - ${route.destination}. Plecare ${route.departureDay}, durată ${route.duration}. Bilete de la ${route.price} ${route.currency}. Autocare Mercedes premium, bagaj 40kg inclus. Rezervă online acum!`,
+      keywords: `autocar ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, bilete autocar ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, transport ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, curse autocar ${route.origin.toLowerCase()}, bilete ${route.destination.toLowerCase()}, ${route.origin.toLowerCase()} ${destinationCountry.toLowerCase()}, rutemd`
+    },
+    ru: {
+      title: `Автобус ${route.origin} - ${route.destination} | ${route.price} ${route.currency} | Билеты Онлайн`,
+      description: `Автобусные перевозки ${route.origin} - ${route.destination}. Отправление ${route.departureDay}, продолжительность ${route.duration}. Билеты от ${route.price} ${route.currency}. Премиум автобусы Mercedes, багаж 40кг включен. Бронируйте онлайн!`,
+      keywords: `автобус ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, билеты автобус ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, перевозки ${route.origin.toLowerCase()} ${route.destination.toLowerCase()}, рейсы автобус ${route.origin.toLowerCase()}, билеты ${route.destination.toLowerCase()}, ${route.origin.toLowerCase()} ${destinationCountry.toLowerCase()}, rutemd`
+    }
+  };
+
+  const content = seoContent[language];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "TripAction",
+    "name": `${route.origin} - ${route.destination}`,
+    "description": content.description,
+    "provider": {
+      "@type": "BusCompany",
+      "name": "RUTEMD",
+      "url": "https://rutemd.md"
+    },
+    "fromLocation": {
+      "@type": "City",
+      "name": route.origin,
+      "containedInPlace": {
+        "@type": "Country",
+        "name": "Moldova"
+      }
+    },
+    "toLocation": {
+      "@type": "City",
+      "name": route.destination,
+      "containedInPlace": {
+        "@type": "Country",
+        "name": route.destination === 'Istanbul' ? 'Turkey' : 'Bulgaria'
+      }
+    },
+    "offers": {
+      "@type": "Offer",
+      "price": route.price,
+      "priceCurrency": route.currency,
+      "availability": "https://schema.org/InStock",
+      "validFrom": new Date().toISOString().split('T')[0],
+      "url": `https://rutemd.md/route/${routeId}`
+    },
+    "itinerary": {
+      "@type": "ItemList",
+      "itemListElement": route.stops.map((stop, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "Place",
+          "name": stop.city,
+          "address": stop.location
+        }
+      }))
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": language === 'ru' ? "Главная" : "Acasă",
+          "item": "https://rutemd.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": language === 'ru' ? "Маршруты" : "Rute",
+          "item": "https://rutemd.md/routes"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": `${route.origin} - ${route.destination}`,
+          "item": `https://rutemd.md/route/${routeId}`
+        }
+      ]
+    }
+  };
 
   const translateCity = (city: string) => {
     if (language !== 'ru') return city;
@@ -58,6 +150,13 @@ export function RouteDetailsPage() {
     return dayMap[day] || day;
   };
 
+  const translateTime = (time: string) => {
+    if (language === 'ru') {
+      return time.replace('(+1 zi)', '(+1 день)');
+    }
+    return time;
+  };
+
   const openRouteOnMap = () => {
     const originLocation = stops[0].location || stops[0].city;
     const destinationLocation = stops[stops.length - 1].location || stops[stops.length - 1].city;
@@ -76,13 +175,21 @@ export function RouteDetailsPage() {
 
   return (
     <div className="min-h-screen bg-white font-sans selection:bg-blue-100 selection:text-[#012141]">
+      <SEO 
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        canonicalUrl={`https://rutemd.md/route/${routeId}`}
+        structuredData={structuredData}
+        lang={language}
+      />
       <Navbar />
 
       {/* Cinematic Hero Section */}
       <div className="relative h-[60vh] min-h-[500px] w-full overflow-hidden group">
         <ImageWithFallback
           src={route.image}
-          alt={`${route.origin} - ${route.destination}`}
+          alt={`Autocar ${route.origin} ${route.destination} - Transport ${route.price} ${route.currency} | RUTEMD`}
           className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[20s]"
         />
         <div className="absolute inset-0 bg-gradient-to-b from-[#012141]/80 via-[#012141]/60 to-[#012141]" />
@@ -246,7 +353,7 @@ export function RouteDetailsPage() {
                          <div className="flex md:justify-center items-center gap-2 text-sm text-gray-500 bg-gray-50 md:bg-transparent p-2 md:p-0 rounded-lg md:rounded-none w-fit md:w-full">
                            <Clock className="w-3.5 h-3.5 text-[#3870db]" />
                            <span className="font-medium">
-                             {stop.time}
+                             {translateTime(stop.time)}
                              {index === stops.length - 1 && <span className="text-[#3870db]">*</span>}
                            </span>
                          </div>

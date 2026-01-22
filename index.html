@@ -5,28 +5,35 @@
       <meta charset="UTF-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       
+      <!-- Security Headers -->
+      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://images.unsplash.com https://*.googleusercontent.com; font-src 'self' data:; connect-src 'self' https://script.google.com https://www.google.com; frame-src https://www.google.com; object-src 'none'; base-uri 'self'; form-action 'self' https://script.google.com;" />
+      <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+      <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+      <meta name="referrer" content="strict-origin-when-cross-origin" />
+      
       <!-- Primary Meta Tags -->
-      <title>RUTEMD - Transport Internațional Moldova-Turcia | Chișinău-Istanbul, Varna, Burgas</title>
-      <meta name="title" content="RUTEMD - Transport Internațional Moldova-Turcia | Chișinău-Istanbul, Varna, Burgas" />
-      <meta name="description" content="Transport confortabil și sigur între Moldova și Turcia. Rute regulate Chișinău-Istanbul, Chișinău-Varna, Chișinău-Burgas. Rezervări online, prețuri accesibile, autobuze moderne." />
-      <meta name="keywords" content="transport moldova turcia, chisinau istanbul, chisinau varna, chisinau burgas, autocar moldova turcia, bilete autocar turcia, transport international moldova, rutemd" />
+      <title>Transport cu Autocar Moldova - Turcia | Bilete Online | RUTEMD</title>
+      <meta name="title" content="Transport cu Autocar Moldova - Turcia | Bilete Online | RUTEMD" />
+      <meta name="description" content="Curse regulate cu autocarul între Moldova și Turcia. Transport confortabil Chișinău - Istanbul, Varna, Burgas. Bilete online, prețuri accesibile, autocare moderne Mercedes. Plecări săptămânale." />
+      <meta name="keywords" content="transport autocar moldova turcia, bilete autocar chisinau istanbul, curse autocar moldova turcia, transport cu autocarul chisinau istanbul, autocar chisinau varna, autocar chisinau burgas, bilete autocar turcia, transport international moldova, curse regulate moldova turcia, rutemd" />
       <meta name="author" content="RUTEMD" />
       <meta name="robots" content="index, follow" />
       
       <!-- Open Graph / Facebook -->
       <meta property="og:type" content="website" />
       <meta property="og:url" content="https://rutemd.md/" />
-      <meta property="og:title" content="RUTEMD - Transport Internațional Moldova-Turcia" />
-      <meta property="og:description" content="Transport confortabil și sigur între Moldova și Turcia. Rute regulate Chișinău-Istanbul, Chișinău-Varna, Chișinău-Burgas." />
+      <meta property="og:title" content="Transport cu Autocar Moldova - Turcia | Bilete Online | RUTEMD" />
+      <meta property="og:description" content="Curse regulate cu autocarul între Moldova și Turcia. Transport confortabil Chișinău - Istanbul, Varna, Burgas. Bilete online, autocare moderne Mercedes." />
       <meta property="og:image" content="https://rutemd.md/og-image.jpg" />
       <meta property="og:locale" content="ro_RO" />
+      <meta property="og:locale:alternate" content="ru_RU" />
       <meta property="og:site_name" content="RUTEMD" />
 
       <!-- Twitter -->
       <meta property="twitter:card" content="summary_large_image" />
       <meta property="twitter:url" content="https://rutemd.md/" />
-      <meta property="twitter:title" content="RUTEMD - Transport Internațional Moldova-Turcia" />
-      <meta property="twitter:description" content="Transport confortabil și sigur între Moldova și Turcia. Rute regulate Chișinău-Istanbul, Chișinău-Varna, Chișinău-Burgas." />
+      <meta property="twitter:title" content="Transport cu Autocar Moldova - Turcia | Bilete Online | RUTEMD" />
+      <meta property="twitter:description" content="Curse regulate cu autocarul între Moldova și Turcia. Transport confortabil Chișinău - Istanbul, Varna, Burgas." />
       <meta property="twitter:image" content="https://rutemd.md/og-image.jpg" />
 
       <!-- Canonical URL -->
@@ -35,49 +42,63 @@
       <!-- Favicon -->
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+      
+      <!-- Preconnect to external domains for faster loading -->
+      <link rel="preconnect" href="https://script.google.com" />
+      <link rel="preconnect" href="https://www.google.com" />
+      <link rel="dns-prefetch" href="https://script.google.com" />
+      <link rel="dns-prefetch" href="https://www.google.com" />
 
       <!-- Structured Data / JSON-LD -->
       <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "TransportationCompany",
+        "@type": "BusCompany",
         "name": "RUTEMD",
-        "description": "Transport internațional de pasageri între Moldova și Turcia",
+        "alternateName": "Rute MD",
+        "description": "Transport internațional cu autocarul între Moldova și Turcia. Curse regulate, autocare moderne Mercedes.",
         "url": "https://rutemd.md",
         "logo": "https://rutemd.md/logo.png",
         "image": "https://rutemd.md/og-image.jpg",
-        "telephone": "+373-68-11-28-11",
-        "email": "info@rutemd.md",
+        "telephone": ["+373-69-10-19-12", "+373-68-50-11-82"],
+        "email": "mdrute@gmail.com",
+        "foundingDate": "1998",
         "address": {
           "@type": "PostalAddress",
-          "streetAddress": "Str. Ștefan cel Mare 123",
+          "streetAddress": "Hotelul Chișinău, etajul 2, of. 202, blvd. Negruzzi 7",
           "addressLocality": "Chișinău",
           "addressCountry": "MD"
         },
         "areaServed": [
-          {
-            "@type": "City",
-            "name": "Chișinău"
-          },
-          {
-            "@type": "City",
-            "name": "Istanbul"
-          },
-          {
-            "@type": "City",
-            "name": "Varna"
-          },
-          {
-            "@type": "City",
-            "name": "Burgas"
-          }
+          {"@type": "Country", "name": "Moldova"},
+          {"@type": "Country", "name": "Turkey"},
+          {"@type": "Country", "name": "Bulgaria"}
         ],
-        "sameAs": [
-          "https://facebook.com/rutemd",
-          "https://instagram.com/rutemd"
-        ],
-        "priceRange": "€€",
-        "openingHours": "Mo-Fr 08:00-20:00, Sa-Su 09:00-18:00"
+        "serviceArea": {
+          "@type": "GeoCircle",
+          "geoMidpoint": {
+            "@type": "GeoCoordinates",
+            "latitude": "47.0105",
+            "longitude": "28.8638"
+          },
+          "geoRadius": "2000000"
+        },
+        "hasOfferCatalog": {
+          "@type": "OfferCatalog",
+          "name": "Rute Regulate",
+          "itemListElement": [
+            {
+              "@type": "Offer",
+              "itemOffered": {
+                "@type": "Trip",
+                "name": "Chișinău - Istanbul",
+                "provider": {"@type": "Organization", "name": "RUTEMD"}
+              }
+            }
+          ]
+        },
+        "priceRange": "800-1000 MDL",
+        "paymentAccepted": "Cash"
       }
       </script>
     </head>

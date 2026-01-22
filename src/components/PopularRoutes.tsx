@@ -55,7 +55,7 @@ export function PopularRoutes() {
               >
                 <ImageWithFallback
                   src={route.image}
-                  alt={route.city}
+                  alt={`Autocar Chișinău ${route.city} - Bilete Online | RUTEMD`}
                   className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#012141] via-[#012141]/20 to-transparent opacity-60 group-hover:opacity-80 transition-opacity duration-300"></div>

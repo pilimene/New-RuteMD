@@ -26,8 +26,87 @@ import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { Dialog, DialogContent } from './ui/dialog';
 import { motion } from 'motion/react';
+import { useTranslation } from '../i18n';
+import { fleetData } from '../data/fleet';
+import { SEO } from './SEO';
+import partnerLogo1 from '../assets/Logos partners/ISP_Eximbank_Color.png';
+import partnerLogo2 from '../assets/Logos partners/logo3 (1).png';
+import partnerLogo3 from '../assets/Logos partners/output-onlinepngtools (2).png';
+import partnerLogo4 from '../assets/Logos partners/output-onlinepngtools (3).png';
+import partnerLogo5 from '../assets/Logos partners/output-onlinepngtools (4).png';
+import partnerLogo6 from '../assets/Logos partners/output-onlinepngtools (5).png';
+import partnerLogo7 from '../assets/Logos partners/Ppe-apa-Delfin1.png';
+import partnerLogo8 from '../assets/Logos partners/start (1).png';
 
 export function BusCharterPage() {
+  const { t, language } = useTranslation();
+
+  // SEO content based on language - Focus on CHARTER SERVICES
+  const seoContent = {
+    ro: {
+      title: 'Închiriere Autocare Moldova | Transport Echipe Sportive, Evenimente, Turism',
+      description: 'Închiriere autocare și microbuze în Moldova - echipe sportive, evenimente corporate, excursii, teatru. Flotă premium 22-56 locuri. Transport profesional pentru grupuri. Prețuri competitive. Rezervă acum!',
+      keywords: 'inchiriere autocare moldova, arenda autocar, autocar cu sofer arenda, inchiriere microbuze moldova, autocare pentru evenimente, autocare echipe sportive, transport corporate moldova, autocare teatru, inchiriere autobus chisinau, transport grupuri moldova, rutemd charter'
+    },
+    ru: {
+      title: 'Аренда Автобусов Молдова | Транспорт Спортивных Команд, Мероприятий, Туризм',
+      description: 'Аренда автобусов и микроавтобусов в Молдове - спортивные команды, корпоративные мероприятия, экскурсии, театр. Премиум парк 22-56 мест. Профессиональный транспорт для групп. Конкурентные цены. Бронируйте!',
+      keywords: 'аренда автобусов молдова, аренда автобуса с водителем, аренда микроавтобусов молдова, автобусы для мероприятий, автобусы для спортивных команд, корпоративный транспорт молдова, автобусы для театра, аренда автобуса кишинев, транспорт для групп молдова, rutemd charter'
+    }
+  };
+
+  const content = seoContent[language];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": language === 'ru' ? "Аренда автобусов RUTEMD" : "Închiriere autocare RUTEMD",
+    "description": content.description,
+    "provider": {
+      "@type": "BusCompany",
+      "name": "RUTEMD",
+      "url": "https://rutemd.md"
+    },
+    "areaServed": {
+      "@type": "Country",
+      "name": "Moldova"
+    },
+    "offers": {
+      "@type": "AggregateOffer",
+      "priceCurrency": "MDL",
+      "offerCount": fleetData.length,
+      "itemOffered": fleetData.map(vehicle => ({
+        "@type": "Product",
+        "name": vehicle.type,
+        "description": `${vehicle.seats} ${language === 'ru' ? 'мест' : 'locuri'}`,
+        "category": language === 'ru' ? "Аренда автобусов" : "Închiriere autocare"
+      }))
+    },
+    "serviceType": [
+      language === 'ru' ? "Транспорт для спортивных команд" : "Transport echipe sportive",
+      language === 'ru' ? "Транспорт для корпоративных мероприятий" : "Transport evenimente corporate",
+      language === 'ru' ? "Организованные экскурсии" : "Excursii organizate",
+      language === 'ru' ? "Транспорт для театральных групп" : "Transport grupuri teatrale",
+      language === 'ru' ? "Трансферы в аэропорт" : "Transferuri aeroport"
+    ],
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": language === 'ru' ? "Главная" : "Acasă",
+          "item": "https://rutemd.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": language === 'ru' ? "Аренда автобусов" : "Închiriere Autocare",
+          "item": "https://rutemd.md/bus-charter"
+        }
+      ]
+    }
+  };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedBus, setSelectedBus] = useState<number | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -36,142 +115,107 @@ export function BusCharterPage() {
   const services = [
     {
       icon: <MapPin className="w-8 h-8 text-[#3870db]" />,
-      title: "Excursii și Tururi Organizate",
-      description: "Transport confortabil pentru grupuri turistice în străinătate"
+      title: t.busCharter.service1Title,
+      description: t.busCharter.service1Desc
     },
     {
       icon: <Briefcase className="w-8 h-8 text-[#3870db]" />,
-      title: "Transport pentru Evenimente Corporate",
-      description: "Conferințe, training-uri, team building-uri"
+      title: t.busCharter.service2Title,
+      description: t.busCharter.service2Desc
     },
     {
       icon: <Trophy className="w-8 h-8 text-[#3870db]" />,
-      title: "Deplasări Sportive și Cantonamente",
-      description: "Transport sigur pentru echipe și suporteri"
+      title: t.busCharter.service3Title,
+      description: t.busCharter.service3Desc
     },
     {
       icon: <Building2 className="w-8 h-8 text-[#3870db]" />,
-      title: "Transport pentru Târguri și Expoziții",
-      description: "Delegații de afaceri în Europa"
+      title: t.busCharter.service4Title,
+      description: t.busCharter.service4Desc
     },
     {
       icon: <Users className="w-8 h-8 text-[#3870db]" />,
-      title: "Transport Angajați și Personal",
-      description: "Curse regulate pentru fabrici și companii"
+      title: t.busCharter.service5Title,
+      description: t.busCharter.service5Desc
     },
     {
       icon: <PartyPopper className="w-8 h-8 text-[#3870db]" />,
-      title: "Evenimente Speciale și Sărbători",
-      description: "Nunți, botezuri, aniversări"
+      title: t.busCharter.service6Title,
+      description: t.busCharter.service6Desc
     }
   ];
 
   const advantages = [
-    "Flotă proprie - Nu suntem brokeri sau intermediari",
-    "Șoferi profesioniști cu experiență internațională",
-    "Autocare verificate tehnic și asigurate complet",
-    "Flexibilitate totală în planificarea rutelor",
-    "Suport pe toată durata călătoriei",
-    "Prețuri flexibile fără costuri ascunse"
+    t.busCharter.advantage1,
+    t.busCharter.advantage2,
+    t.busCharter.advantage3,
+    t.busCharter.advantage4,
+    t.busCharter.advantage5,
+    t.busCharter.advantage6
   ];
 
-  const fleet = [
-    { 
-      seats: "22", 
-      type: "Mercedes Sprinter 519", 
-      mainImage: "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    },
-    { 
-      seats: "50", 
-      type: "Setra", 
-      mainImage: "https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    },
-    { 
-      seats: "51", 
-      type: "Mercedes Travego", 
-      mainImage: "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1631450007927-17fc9e29a031?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwaW50ZXJpb3J8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1713273136386-0b696bd08154?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pYnVzJTIwOCUyMHNlYXRzfGVufDF8fHx8MTc2MzQxMDcxMnww&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    },
-    { 
-      seats: "53", 
-      type: "Mercedes Tourismo", 
-      mainImage: "https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1579372785655-a81b19e99b8b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxsdXh1cnklMjB0b3VyJTIwYnVzfGVufDF8fHx8MTc2MzQwMDgyM3ww&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    },
-    { 
-      seats: "59", 
-      type: "Setra Comfort Class", 
-      mainImage: "https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-      galleryImages: [
-        "https://images.unsplash.com/photo-1762378724772-68c054805e8c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBjb2FjaCUyMGJ1c3xlbnwxfHx8fDE3NjM0MTA3MTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
-        "https://images.unsplash.com/photo-1702605042180-0c2d567953a9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxjb2FjaCUyMGJ1cyUyMDMwJTIwc2VhdHN8ZW58MXx8fHwxNzYzNDEwNzEzfDA&ixlib=rb-4.1.0&q=80&w=1080"
-      ]
-    }
-  ];
+  // Use shared fleet data
+  const fleet = fleetData;
 
   const faqs = [
     {
-      question: "Cu cât timp înainte trebuie să rezerv?",
-      answer: "Recomandăm rezervarea cu cel puțin 30 zile înainte pentru a asigura disponibilitatea. Pentru evenimente mai mari sau în sezonul de vârf, sugerăm rezervarea cu 5-6 săptămâni în avans. Totuși, acceptăm și rezervări last-minute în funcție de disponibilitate."
+      question: t.busCharter.faq1Q,
+      answer: t.busCharter.faq1A
     },
     {
-      question: "Ce documente sunt necesare pentru călătorii internaționale?",
-      answer: "Pentru călătorii internaționale, fiecare pasager trebuie să aibă pașaport valabil sau buletin (în funcție de destinație) și eventual vize necesare. Noi ne ocupăm de toate documentele necesare pentru vehicul și șofer. Vă vom oferi o listă completă după confirmarea rezervării."
+      question: t.busCharter.faq2Q,
+      answer: t.busCharter.faq2A
     },
     {
-      question: "Este inclus șoferul în preț?",
-      answer: "Da, prețul include șoferul profesionist cu experiență internațională. Dar nu include cheltuielile șoferului legate de cazare si masa. Nu există costuri ascunse."
+      question: t.busCharter.faq3Q,
+      answer: t.busCharter.faq3A
     },
     {
-      question: "Pot modifica traseul după semnarea contractului?",
-      answer: "Da, oferim flexibilitate maximă, în funcție de distanță și program."
+      question: t.busCharter.faq4Q,
+      answer: t.busCharter.faq4A
     },
     {
-      question: "Ce se întâmplă în caz de întârzieri?",
-      answer: "În cazuri rare de probleme tehnice, asigurăm un vehicul de rezervă în cel mai scurt timp. De asemenea, șoferii noștri sunt instruiți să gestioneze orice situație neprevăzută și să vă țină la curent."
+      question: t.busCharter.faq5Q,
+      answer: t.busCharter.faq5A
     },
     {
-      question: "Ce facilități sunt disponibile în autocare?",
-      answer: "Toate vehiculele noastre sunt echipate cu aer condiționat, prize USB pentru fiecare scaun, sistem audio-video și scaune reclinabile confortabile. La cerere, putem asigura apă îmbuteliată și răcoritoare."
+      question: t.busCharter.faq6Q,
+      answer: t.busCharter.faq6A
     }
   ];
   
   const partners = [
-    "https://images.unsplash.com/photo-1732788562330-633380e99349?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtaW5pbWFsaXN0JTIwY29ycG9yYXRlJTIwbG9nbyUyMGJsYWNrJTIwb24lMjB3aGl0ZXxlbnwxfHx8fDE3NjQ4MDQyNjh8MA&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1633796212691-0cfba2ab1dab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGNvbXBhbnklMjBsb2dvJTIwc3ltYm9sfGVufDF8fHx8MTc2NDgwNDI2OHww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1595409583957-5d1ec5869de9?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxzaW1wbGUlMjBicmFuZCUyMGxvZ28lMjBtYXJrfGVufDF8fHx8MTc2NDgwNDI2OHww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1763792396324-17f2b907a263?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxtb2Rlcm4lMjBidXNpbmVzcyUyMGxvZ28lMjBkZXNpZ24lMjBtaW5pbWFsaXN0fGVufDF8fHx8MTc2NDgwNDI2OHww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1560005360-f5df6037001a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHxnZW9tZXRyaWMlMjBsb2dvJTIwZGVzaWdufGVufDF8fHx8MTc2NDgwNDI2OXww&ixlib=rb-4.1.0&q=80&w=1080",
-    "https://images.unsplash.com/photo-1753037366208-be3fba467e48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3Nzg4Nzd8MHwxfHNlYXJjaHwxfHx0eXBvZ3JhcGh5JTIwbG9nbyUyMGRlc2lnbiUyMG1pbmltYWx8ZW58MXx8fHwxNzY0ODA0MjY5fDA&ixlib=rb-4.1.0&q=80&w=1080"
+    partnerLogo1,
+    partnerLogo2,
+    partnerLogo3,
+    partnerLogo4,
+    partnerLogo5,
+    partnerLogo6,
+    partnerLogo7,
+    partnerLogo8
   ];
 
   return (
     <div className="min-h-screen bg-[#f0f0f0]">
+      <SEO 
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        canonicalUrl="https://rutemd.md/bus-charter"
+        structuredData={structuredData}
+        lang={language}
+      />
       <Navbar />
       
       {/* Breadcrumb */}
       <div className="bg-[#012141] py-4 border-b border-white/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center text-[14px] text-blue-200/60">
-            <Link to="/" className="hover:text-white transition-colors">Acasă</Link>
+            <Link to="/" className="hover:text-white transition-colors">{t.busCharter.breadcrumbHome}</Link>
             <ChevronRight className="w-4 h-4 mx-2 opacity-50" />
-            <span className="hover:text-white transition-colors">Servicii</span>
+            <span className="hover:text-white transition-colors">{t.busCharter.breadcrumbServices}</span>
             <ChevronRight className="w-4 h-4 mx-2 opacity-50" />
-            <span className="text-white font-medium">Închiriere Autocare</span>
+            <span className="text-white font-medium">{t.busCharter.breadcrumbCharter}</span>
           </div>
         </div>
       </div>
@@ -207,8 +251,8 @@ export function BusCharterPage() {
               transition={{ duration: 0.8 }}
               className="text-white mb-6 font-bold text-5xl md:text-7xl leading-tight tracking-tight"
             >
-              Închiriere Autocare <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3870db] to-white">Pentru Destinații Internaționale</span>
+              {t.busCharter.title} <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3870db] to-white">{t.busCharter.titleHighlight}</span>
             </motion.h1>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
@@ -216,8 +260,7 @@ export function BusCharterPage() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="text-white/80 max-w-2xl mx-auto text-xl leading-relaxed font-light"
             >
-              Flotă proprie de autocare moderne, Premium & Comfort. 
-              De la microbuze pentru grupuri mici, la autocare turistice de lux.
+              {t.busCharter.description}
             </motion.p>
             
             <motion.div
@@ -228,15 +271,15 @@ export function BusCharterPage() {
             >
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <Clock className="w-5 h-5 text-[#3870db]" />
-                <span>Asistență inclusă</span>
+                <span>{t.busCharter.supportIncluded}</span>
               </div>
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <Shield className="w-5 h-5 text-[#3870db]" />
-                <span>Autocare moderne</span>
+                <span>{t.busCharter.modernCoaches}</span>
               </div>
               <div className="flex items-center gap-3 bg-white/5 px-6 py-2 rounded-full backdrop-blur-sm border border-white/10">
                 <CheckCircle2 className="w-5 h-5 text-[#3870db]" />
-                <span>Prețuri flexibile</span>
+                <span>{t.busCharter.flexiblePrices}</span>
               </div>
             </motion.div>
           </div>
@@ -320,7 +363,7 @@ export function BusCharterPage() {
                           </h3>
                           <div className="flex items-center justify-center gap-2 text-gray-500 mb-6">
                             <Users className="w-5 h-5" />
-                            <span className="text-lg font-medium">{vehicle.seats} Locuri</span>
+                            <span className="text-lg font-medium">{vehicle.seats} {t.busCharter.seats}</span>
                           </div>
                           
                           {isCenter && (
@@ -334,7 +377,7 @@ export function BusCharterPage() {
                               }}
                               className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-3 rounded-full font-medium shadow-lg shadow-blue-500/30 transition-all"
                             >
-                              Vezi Galerie Foto
+                              {t.busCharter.viewGallery}
                             </motion.button>
                           )}
                         </div>
@@ -363,10 +406,11 @@ export function BusCharterPage() {
 
       {/* Bus Gallery Dialog - Moved logic outside loop for cleaner DOM */}
       <Dialog open={selectedBus !== null} onOpenChange={(open: boolean) => !open && setSelectedBus(null)}>
-        <DialogContent className="max-w-4xl bg-white border-none p-0 overflow-hidden rounded-2xl">
+        <DialogContent className="max-w-6xl w-full h-full md:w-[95vw] md:h-[95vh] lg:h-[90vh] md:max-h-[95vh] lg:max-h-[90vh] bg-white border-none p-0 overflow-hidden rounded-none md:rounded-2xl flex flex-col m-0 md:m-4">
           {selectedBus !== null && (
-            <div className="flex flex-col">
-              <div className="relative h-[500px] bg-black">
+            <div className="flex flex-col h-full overflow-hidden">
+              {/* Image Section - Full height on mobile, flexible on desktop */}
+              <div className="relative flex-shrink-0 h-[50vh] md:h-[55vh] lg:flex-1 lg:min-h-[500px] bg-black flex items-center justify-center overflow-hidden">
                 <ImageWithFallback
                   src={fleet[selectedBus].galleryImages[currentImageIndex]}
                   alt={`${fleet[selectedBus].type} - Poză ${currentImageIndex + 1}`}
@@ -376,71 +420,99 @@ export function BusCharterPage() {
                 {/* Close Button */}
                 <button
                   onClick={() => setSelectedBus(null)}
-                  className="absolute top-4 right-4 z-50 bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
-                  aria-label="Închide"
+                  className="absolute top-4 right-4 z-[60] bg-black/80 hover:bg-black text-white p-3 rounded-full backdrop-blur-sm transition-all shadow-xl"
+                  aria-label={t.busCharter.close}
                 >
                   <X className="w-6 h-6" />
                 </button>
                 
-                {/* Navigation Overlays */}
-                <div className="absolute inset-0 flex items-center justify-between p-4">
-                  <button
-                    onClick={() => setCurrentImageIndex((prev) => 
-                      prev === 0 ? fleet[selectedBus].galleryImages.length - 1 : prev - 1
-                    )}
-                    className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
-                  >
-                    <ChevronLeft className="w-6 h-6" />
-                  </button>
-                  <button
-                    onClick={() => setCurrentImageIndex((prev) => 
-                      prev === fleet[selectedBus].galleryImages.length - 1 ? 0 : prev + 1
-                    )}
-                    className="bg-black/50 hover:bg-black/70 text-white p-3 rounded-full backdrop-blur-sm transition-all"
-                  >
-                    <ChevronRight className="w-6 h-6" />
-                  </button>
-                </div>
+                {/* Navigation Arrows */}
+                {fleet[selectedBus].galleryImages.length > 1 && (
+                  <>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => 
+                          prev === 0 ? fleet[selectedBus].galleryImages.length - 1 : prev - 1
+                        );
+                      }}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 z-[55] bg-black/80 hover:bg-black text-white p-3 rounded-full backdrop-blur-sm transition-all shadow-xl hover:scale-110"
+                      aria-label="Previous image"
+                    >
+                      <ChevronLeft className="w-6 h-6" />
+                    </button>
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setCurrentImageIndex((prev) => 
+                          prev === fleet[selectedBus].galleryImages.length - 1 ? 0 : prev + 1
+                        );
+                      }}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 z-[55] bg-black/80 hover:bg-black text-white p-3 rounded-full backdrop-blur-sm transition-all shadow-xl hover:scale-110"
+                      aria-label="Next image"
+                    >
+                      <ChevronRight className="w-6 h-6" />
+                    </button>
+                  </>
+                )}
                 
-                {/* Caption */}
-                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-                  <h3 className="text-2xl font-bold">{fleet[selectedBus].type}</h3>
-                  <p className="opacity-80">{fleet[selectedBus].seats} Locuri Pasageri</p>
-                </div>
+                {/* Image Counter */}
+                {fleet[selectedBus].galleryImages.length > 1 && (
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-[55] bg-black/80 text-white px-4 py-2 rounded-full backdrop-blur-sm text-sm font-medium">
+                    {currentImageIndex + 1} / {fleet[selectedBus].galleryImages.length}
+                  </div>
+                )}
               </div>
 
-              {/* Thumbnails & Features */}
-              <div className="p-6 bg-white">
-                <div className="flex gap-3 mb-6 overflow-x-auto pb-2">
-                  {fleet[selectedBus].galleryImages.map((img, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => setCurrentImageIndex(idx)}
-                      className={`relative w-20 h-20 flex-shrink-0 rounded-lg overflow-hidden border-2 transition-all ${
-                        idx === currentImageIndex ? 'border-[#3870db]' : 'border-transparent opacity-60 hover:opacity-100'
-                      }`}
-                    >
-                      <ImageWithFallback src={img} alt="Thumbnail" className="w-full h-full object-cover" />
-                    </button>
-                  ))}
+              {/* Content Section - Scrollable */}
+              <div className="bg-white overflow-y-auto flex-1 min-h-0">
+                {/* Bus Info */}
+                <div className="p-6 border-b border-gray-100">
+                  <h3 className="text-2xl md:text-3xl font-bold text-[#012141] mb-2">{fleet[selectedBus].type}</h3>
+                  <p className="text-gray-600">{fleet[selectedBus].seats} {t.busCharter.passengerSeats}</p>
                 </div>
 
-                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4 bg-gray-50 rounded-xl">
-                  <div className="text-center">
-                    <Users className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
-                    <div className="text-sm font-medium text-gray-900">{fleet[selectedBus].seats} Locuri</div>
+                {/* Thumbnails */}
+                {fleet[selectedBus].galleryImages.length > 1 && (
+                  <div className="p-6 border-b border-gray-100">
+                    <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">{t.busCharter.viewGallery}</h4>
+                    <div className="flex gap-3 overflow-x-auto pb-2 -mx-6 px-6 scrollbar-hide">
+                      {fleet[selectedBus].galleryImages.map((img, idx) => (
+                        <button
+                          key={idx}
+                          onClick={() => setCurrentImageIndex(idx)}
+                          className={`relative w-24 h-24 md:w-28 md:h-28 flex-shrink-0 rounded-xl overflow-hidden border-2 transition-all ${
+                            idx === currentImageIndex 
+                              ? 'border-[#3870db] ring-2 ring-[#3870db]/20 scale-105' 
+                              : 'border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-300'
+                          }`}
+                        >
+                          <ImageWithFallback src={img} alt="Thumbnail" className="w-full h-full object-cover" />
+                        </button>
+                      ))}
+                    </div>
                   </div>
-                  <div className="text-center">
-                    <Armchair className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
-                    <div className="text-sm font-medium text-gray-900">Scaune Reglabile</div>
-                  </div>
-                  <div className="text-center">
-                    <Usb className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
-                    <div className="text-sm font-medium text-gray-900">Prize USB</div>
-                  </div>
-                  <div className="text-center">
-                    <Tv className="w-6 h-6 mx-auto mb-2 text-[#3870db]" />
-                    <div className="text-sm font-medium text-gray-900">Multimedia</div>
+                )}
+
+                {/* Features */}
+                <div className="p-6">
+                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div className="text-center p-4 bg-gray-50 rounded-xl">
+                      <Users className="w-8 h-8 mx-auto mb-3 text-[#3870db]" />
+                      <div className="text-sm font-semibold text-gray-900">{fleet[selectedBus].seats} {t.busCharter.seats}</div>
+                    </div>
+                    <div className="text-center p-4 bg-gray-50 rounded-xl">
+                      <Armchair className="w-8 h-8 mx-auto mb-3 text-[#3870db]" />
+                      <div className="text-sm font-semibold text-gray-900">{t.busCharter.recliningSeats}</div>
+                    </div>
+                    <div className="text-center p-4 bg-gray-50 rounded-xl">
+                      <Usb className="w-8 h-8 mx-auto mb-3 text-[#3870db]" />
+                      <div className="text-sm font-semibold text-gray-900">{t.busCharter.usbPorts}</div>
+                    </div>
+                    <div className="text-center p-4 bg-gray-50 rounded-xl">
+                      <Tv className="w-8 h-8 mx-auto mb-3 text-[#3870db]" />
+                      <div className="text-sm font-semibold text-gray-900">{t.busCharter.multimedia}</div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -455,14 +527,14 @@ export function BusCharterPage() {
           <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
             <div className="text-center md:text-left">
               <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight">
-                Servicii Specializate
+                {t.busCharter.servicesTitle}
               </h2>
-              <p className="text-gray-500 text-sm mt-1">Soluții de transport adaptate pentru orice nevoie</p>
+              <p className="text-gray-500 text-sm mt-1">{t.busCharter.servicesSubtitle}</p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
             <Link to="/contact">
               <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
-                Contactează-ne <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                {t.nav.contactUs} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
               </Button>
             </Link>
           </div>
@@ -498,7 +570,7 @@ export function BusCharterPage() {
             {/* Advantages */}
             <div className="max-w-4xl mx-auto">
               <h2 className="text-[#012141] mb-8 font-medium text-3xl">
-                De Ce să Alegeți RuteMD?
+                {t.busCharter.whyChooseTitle}
               </h2>
               <div className="grid grid-cols-1 gap-4">
                 {advantages.map((advantage, index) => (
@@ -520,9 +592,9 @@ export function BusCharterPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-medium text-3xl">Solicită o Ofertă</h2>
+              <h2 className="text-[#012141] mb-6 font-medium text-3xl">{t.busCharter.requestQuote}</h2>
               <p className="text-[#6a6a6a] mb-8">
-                Completează formularul și te vom contacta în cel mai scurt timp cu o ofertă personalizată pentru călătoria ta.
+                {t.busCharter.requestQuoteDesc}
               </p>
               <div className="space-y-10">
                 <Card className="p-8 bg-white rounded-[20px] border-none shadow-lg overflow-hidden relative">
@@ -535,7 +607,7 @@ export function BusCharterPage() {
                           <Headphones className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Telefon & Rezervări</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.phoneReservations}</p>
                           <div className="space-y-1">
                             <a href="tel:+37369101912" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
                               +373 69 10 19 12
@@ -553,7 +625,7 @@ export function BusCharterPage() {
                           <Briefcase className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Email</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.email}</p>
                           <a href="mailto:mdrute@gmail.com" className="text-lg font-semibold text-[#012141] hover:text-[#3870db] transition-colors">
                             mdrute@gmail.com
                           </a>
@@ -566,7 +638,7 @@ export function BusCharterPage() {
                           <MapPin className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Oficiul Nostru</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.ourOffice}</p>
                           <p className="text-lg font-semibold text-[#012141]">
                             Hotelul Chișinău, etajul 2, of. 202<br />
                             blvd. Negruzzi 7, Chișinău
@@ -580,9 +652,9 @@ export function BusCharterPage() {
                           <Clock className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
-                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">Disponibilitate</p>
+                          <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.availabilityTitle}</p>
                           <p className="text-lg font-semibold text-[#012141]">
-                            Prin apel telefonic sau email
+                            {t.busCharter.availabilityDesc}
                           </p>
                         </div>
                       </div>
@@ -593,7 +665,7 @@ export function BusCharterPage() {
 
             {/* FAQ */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-medium text-3xl">Întrebări Frecvente</h2>
+              <h2 className="text-[#012141] mb-6 font-medium text-3xl">{t.busCharter.faqTitle}</h2>
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
                   <div 
@@ -628,11 +700,11 @@ export function BusCharterPage() {
       <section className="py-20 bg-white border-t border-gray-100 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
            <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-2">
-              Parteneri de Încredere
+              {t.busCharter.partnersTitle}
             </h2>
             <div className="h-1 w-20 bg-[#3870db] mx-auto rounded-full mb-4"/>
             <p className="text-gray-500 text-sm md:text-base max-w-2xl mx-auto">
-              Companii de top care aleg serviciile noastre pentru transportul angajaților și evenimente corporate.
+              {t.busCharter.partnersSubtitle}
             </p>
         </div>
 
@@ -650,15 +722,29 @@ export function BusCharterPage() {
                duration: 30 
              }}
            >
-             {[...partners, ...partners].map((src, i) => (
-                <div key={i} className="relative w-32 h-16 md:w-40 md:h-20 flex-shrink-0 opacity-50 hover:opacity-100 transition-opacity duration-300 grayscale hover:grayscale-0">
-                  <ImageWithFallback 
-                    src={src} 
-                    alt="Partner Logo" 
-                    className="w-full h-full object-contain"
-                  />
-                </div>
-             ))}
+             {[...partners, ...partners].map((src, i) => {
+                const logoIndex = i % partners.length;
+                const isDelfinLogo = src === partnerLogo7;
+                const isStartLogo = src === partnerLogo8;
+                return (
+                  <div 
+                    key={i} 
+                    className={`relative w-32 h-16 md:w-40 md:h-20 flex-shrink-0 transition-opacity duration-300 ${
+                      isStartLogo 
+                        ? 'opacity-100' 
+                        : 'opacity-50 hover:opacity-100'
+                    } ${
+                      isDelfinLogo ? 'grayscale' : 'grayscale hover:grayscale-0'
+                    }`}
+                  >
+                    <ImageWithFallback 
+                      src={src} 
+                      alt={`Partner Logo ${logoIndex + 1}`}
+                      className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                    />
+                  </div>
+                );
+             })}
            </motion.div>
         </div>
       </section>

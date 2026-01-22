@@ -7,8 +7,8 @@ const amenities = [
   { icon: Usb, label: 'Prize USB' },
   { icon: Coffee, label: 'Pauze Regulate' },
   { icon: Luggage, label: 'Bagaje Incluse' },
-  { icon: Headphones, label: 'Asistență 24/7' },
-  { icon: CreditCard, label: 'Plată Flexibilă' },
+  { icon: Headphones, label: 'Serviciu Clienți' },
+  { icon: CreditCard, label: 'Plată Numerar' },
 ];
 
 export function Amenities() {

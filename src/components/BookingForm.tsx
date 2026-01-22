@@ -6,10 +6,11 @@ import { Label } from './ui/label';
 import { Card } from './ui/card';
 import { Calendar } from './ui/calendar';
 import { format } from 'date-fns';
-import { ro } from 'date-fns/locale';
+import { ro, ru } from 'date-fns/locale';
 import { cn } from '../lib/utils';
 import { submitBooking, isDateAvailable, type BookingData } from '../services/bookingService';
 import type { Route } from '../data/routes';
+import { useTranslation } from '../i18n';
 
 interface BookingFormProps {
   route: Route;
@@ -26,6 +27,9 @@ interface FormData {
 }
 
 export function BookingForm({ route, isReverse = false, onClose }: BookingFormProps) {
+  const { t, language } = useTranslation();
+  const dateLocale = language === 'ru' ? ru : ro;
+  
   const [step, setStep] = useState(1);
   const [date, setDate] = useState<Date>();
   const [passengers, setPassengers] = useState(1);
@@ -44,15 +48,26 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
 
   const origin = isReverse ? route.destination : route.origin;
   const destination = isReverse ? route.origin : route.destination;
-  const departureDay = isReverse ? route.returnDay : route.departureDay;
+  const departureDayRaw = isReverse ? route.returnDay : route.departureDay;
   const departureTime = isReverse ? route.returnStops[0].time : route.stops[0].time;
+  
+  // Translate day name for display only (keep original for date checking)
+  const dayMap: Record<string, keyof typeof t.days> = {
+    'Duminică': 'sunday',
+    'Miercuri': 'wednesday',
+    'Воскресенье': 'sunday',
+    'Среда': 'wednesday',
+  };
+  const departureDayDisplay = dayMap[departureDayRaw] ? t.days[dayMap[departureDayRaw]] : departureDayRaw;
 
   const total = passengers * route.price;
   const totalFormatted = `${route.currency}${total}`;
 
   // Determine which dates are available based on departure day
+  // Use original day name (not translated) for date checking
+  const routeKey = `${origin}-${destination}`;
   const isDateDisabled = (day: Date) => {
-    return !isDateAvailable(day, departureDay);
+    return !isDateAvailable(day, departureDayRaw, routeKey);
   };
 
   const handleInputChange = (field: keyof FormData, value: string) => {
@@ -72,48 +87,48 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
 
     if (currentStep === 1) {
       if (!date) {
-        newErrors.push('Vă rugăm selectați data călătoriei');
+        newErrors.push(t.bookingForm.errorSelectDate);
       }
     }
 
     if (currentStep === 2) {
       // Check honeypot field (should be empty)
       if (formData.website && formData.website.trim() !== '') {
-        newErrors.push('Eroare de validare. Vă rugăm încercați din nou.');
+        newErrors.push(t.bookingForm.errorValidation);
         setErrors(newErrors);
         return false;
       }
 
       if (!formData.nume.trim()) {
-        newErrors.push('Numele este obligatoriu');
+        newErrors.push(t.bookingForm.errorNameRequired);
       } else if (formData.nume.trim().length < 2) {
-        newErrors.push('Numele trebuie să conțină cel puțin 2 caractere');
+        newErrors.push(t.bookingForm.errorNameMinLength);
       }
       
       if (!formData.prenume.trim()) {
-        newErrors.push('Prenumele este obligatoriu');
+        newErrors.push(t.bookingForm.errorSurnameRequired);
       } else if (formData.prenume.trim().length < 2) {
-        newErrors.push('Prenumele trebuie să conțină cel puțin 2 caractere');
+        newErrors.push(t.bookingForm.errorSurnameMinLength);
       }
       
       if (!formData.telefon.trim()) {
-        newErrors.push('Numărul de telefon este obligatoriu');
+        newErrors.push(t.bookingForm.errorPhoneRequired);
       } else {
         // Improved phone validation for Moldova/International numbers
         const phoneRegex = /^(\+373|373|0)?[67]\d{7}$|^\+?[1-9]\d{7,14}$/;
         const cleanPhone = formData.telefon.replace(/[\s()-]/g, '');
         if (!phoneRegex.test(cleanPhone)) {
-          newErrors.push('Numărul de telefon nu este valid. Folosiți formatul: +373 69 123 456');
+          newErrors.push(t.bookingForm.errorPhoneInvalid);
         }
       }
       
       if (!formData.email.trim()) {
-        newErrors.push('Adresa de email este obligatorie');
+        newErrors.push(t.bookingForm.errorEmailRequired);
       } else {
         // Improved email validation
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
         if (!emailRegex.test(formData.email)) {
-          newErrors.push('Adresa de email nu este validă');
+          newErrors.push(t.bookingForm.errorEmailInvalid);
         }
       }
     }
@@ -139,13 +154,13 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
     // Anti-spam: Check if form was filled too quickly (less than 3 seconds)
     const timeTaken = Date.now() - formStartTime;
     if (timeTaken < 3000) {
-      setErrors(['Vă rugăm să completați formularul cu atenție.']);
+      setErrors([t.bookingForm.errorFormTooFast]);
       return;
     }
 
     // Anti-spam: Check honeypot field
     if (formData.website && formData.website.trim() !== '') {
-      setErrors(['Eroare de validare. Vă rugăm contactați suportul.']);
+      setErrors([t.bookingForm.errorValidation]);
       return;
     }
 
@@ -158,7 +173,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       telefon: formData.telefon.trim(),
       email: formData.email.trim(),
       ruta: `${origin} - ${destination}`,
-      dataCalatorie: date ? format(date, 'dd MMMM yyyy', { locale: ro }) : '',
+      dataCalatorie: date ? format(date, 'dd MMMM yyyy', { locale: dateLocale }) : '',
       nrPasageri: passengers,
       pretTotal: totalFormatted,
     };
@@ -170,10 +185,10 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       if (result.success) {
         setStep(4); // Success step
       } else {
-        setErrors([result.error || 'A apărut o eroare. Vă rugăm încercați din nou.']);
+        setErrors([result.error || t.bookingForm.errorGeneric]);
       }
     } catch {
-      setErrors(['A apărut o eroare de conexiune. Vă rugăm încercați din nou.']);
+      setErrors([t.bookingForm.errorConnection]);
     } finally {
       setIsSubmitting(false);
     }
@@ -193,7 +208,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       <div className="bg-[#012141] p-6 text-white shrink-0">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h2 className="text-2xl font-bold">Rezervare Bilet</h2>
+            <h2 className="text-2xl font-bold">{t.bookingForm.title}</h2>
             <p className="text-blue-200 text-sm flex items-center gap-2 mt-1">
               <MapPin className="w-3 h-3" />
               {origin} → {destination}
@@ -201,7 +216,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
           </div>
           <div className="text-right">
             <div className="text-3xl font-bold">{route.currency}{route.price}</div>
-            <div className="text-blue-200 text-xs">per persoană</div>
+            <div className="text-blue-200 text-xs">{t.bookingForm.perPerson}</div>
           </div>
         </div>
 
@@ -221,9 +236,9 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
               ))}
             </div>
             <div className="flex justify-between text-xs text-blue-200 mt-2 font-medium">
-              <span className={step >= 1 ? 'text-white' : ''}>Data & Locuri</span>
-              <span className={step >= 2 ? 'text-white' : ''}>Date Personale</span>
-              <span className={step >= 3 ? 'text-white' : ''}>Confirmare</span>
+              <span className={step >= 1 ? 'text-white' : ''}>{t.bookingForm.step1Label}</span>
+              <span className={step >= 2 ? 'text-white' : ''}>{t.bookingForm.step2Label}</span>
+              <span className={step >= 3 ? 'text-white' : ''}>{t.bookingForm.step3Label}</span>
             </div>
           </>
         )}
@@ -254,8 +269,8 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                 <Bus className="w-6 h-6 text-white" />
               </div>
               <div>
-                <div className="font-medium text-[#012141]">Plecare în fiecare {departureDay}</div>
-                <div className="text-sm text-gray-500">Ora plecării: {departureTime} • Durată: ~{route.duration}</div>
+                <div className="font-medium text-[#012141]">{t.bookingForm.departureEvery} {departureDayDisplay}</div>
+                <div className="text-sm text-gray-500">{t.bookingForm.departureTime}: {departureTime} • {t.bookingForm.duration}: ~{route.duration}</div>
               </div>
             </div>
 
@@ -263,7 +278,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <div className="space-y-3">
               <Label className="text-[#012141] font-medium flex items-center gap-2">
                 <CalendarIcon className="w-4 h-4 text-[#3870db]" />
-                Selectează Data Plecării
+                {t.bookingForm.selectDepartureDate}
               </Label>
               <Calendar
                 mode="single"
@@ -271,7 +286,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                 onSelect={setDate}
                 disabled={isDateDisabled}
                 className="rounded-xl border border-gray-200 shadow-sm w-full flex justify-center bg-white"
-                locale={ro}
+                locale={dateLocale}
                 classNames={{
                   day_selected: "bg-[#3870db] text-white hover:bg-[#3870db] hover:text-white focus:bg-[#3870db] focus:text-white",
                   day_today: "bg-blue-50 text-[#3870db] font-bold",
@@ -281,7 +296,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
               {date && (
                 <div className="bg-green-50 text-green-700 px-4 py-2 rounded-lg text-sm flex items-center gap-2">
                   <Check className="w-4 h-4" />
-                  Selectat: {format(date, 'EEEE, dd MMMM yyyy', { locale: ro })}
+                  {t.bookingForm.selected}: {format(date, 'EEEE, dd MMMM yyyy', { locale: dateLocale })}
                 </div>
               )}
             </div>
@@ -290,7 +305,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <div className="space-y-3">
               <Label className="text-[#012141] font-medium flex items-center gap-2">
                 <Users className="w-4 h-4 text-[#3870db]" />
-                Număr Pasageri
+                {t.bookingForm.numberOfPassengers}
               </Label>
               <div className="flex items-center gap-4 bg-gray-50 p-4 rounded-xl">
                 <Button
@@ -304,7 +319,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                 </Button>
                 <div className="flex-1 text-center">
                   <span className="text-3xl font-bold text-[#012141]">{passengers}</span>
-                  <span className="text-gray-500 text-sm ml-2">{passengers === 1 ? 'persoană' : 'persoane'}</span>
+                  <span className="text-gray-500 text-sm ml-2">{passengers === 1 ? t.bookingForm.person : t.bookingForm.persons}</span>
                 </div>
                 <Button
                   variant="outline"
@@ -322,7 +337,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <div className="bg-[#012141] rounded-xl p-4 text-white">
               <div className="flex justify-between items-center">
                 <div>
-                  <div className="text-blue-200 text-sm">Total de plată</div>
+                  <div className="text-blue-200 text-sm">{t.bookingForm.totalPayment}</div>
                   <div className="text-xs text-blue-300 mt-1">
                     {passengers} × {route.currency}{route.price}
                   </div>
@@ -343,10 +358,10 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
           <div className="space-y-5 animate-in slide-in-from-right-4 duration-300">
             <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 space-y-2">
               <p className="text-amber-800 text-sm">
-                <strong>Important:</strong> Introduceți datele pasagerului principal. Aceste informații vor fi folosite pentru emiterea biletului electronic.
+                <strong>{t.bookingForm.important}:</strong> {t.bookingForm.importantNote}
               </p>
               <p className="text-amber-800 text-sm">
-                <strong>📞 Confirmare:</strong> Veți fi contactat telefonic pentru confirmare cu 1-2 zile înainte de plecare.
+                <strong>{t.bookingForm.confirmationNote}</strong>
               </p>
             </div>
 
@@ -354,13 +369,13 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
               {/* Name */}
               <div className="space-y-2">
                 <Label className="text-[#012141] font-medium">
-                  Nume <span className="text-red-500">*</span>
+                  {t.bookingForm.nameLabel} <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
-                    placeholder="Popescu"
+                    placeholder={t.bookingForm.namePlaceholder}
                     value={formData.nume}
                     onChange={(e) => handleInputChange('nume', e.target.value)}
                   />
@@ -370,13 +385,13 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
               {/* Surname */}
               <div className="space-y-2">
                 <Label className="text-[#012141] font-medium">
-                  Prenume <span className="text-red-500">*</span>
+                  {t.bookingForm.surnameLabel} <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
                   <User className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
-                    placeholder="Ion"
+                    placeholder={t.bookingForm.surnamePlaceholder}
                     value={formData.prenume}
                     onChange={(e) => handleInputChange('prenume', e.target.value)}
                   />
@@ -386,7 +401,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
               {/* Phone */}
               <div className="space-y-2">
                 <Label className="text-[#012141] font-medium">
-                  Telefon <span className="text-red-500">*</span>
+                  {t.bookingForm.phoneLabel} <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
                   <Phone className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
@@ -395,31 +410,31 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                     inputMode="numeric"
                     pattern="[\d\s+()-]*"
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
-                    placeholder="+373 69 123 456"
+                    placeholder={t.bookingForm.phonePlaceholder}
                     value={formData.telefon}
                     onChange={(e) => handleInputChange('telefon', e.target.value)}
                     maxLength={20}
                   />
                 </div>
-                <p className="text-xs text-gray-500">Format: +373 69 123 456</p>
+                <p className="text-xs text-gray-500">{t.bookingForm.phoneFormat}</p>
               </div>
 
               {/* Email */}
               <div className="space-y-2">
                 <Label className="text-[#012141] font-medium">
-                  Email <span className="text-red-500">*</span>
+                  {t.bookingForm.emailLabel} <span className="text-red-500">*</span>
                 </Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
                   <Input
                     type="email"
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
-                    placeholder="ion.popescu@email.com"
+                    placeholder={t.bookingForm.emailPlaceholder}
                     value={formData.email}
                     onChange={(e) => handleInputChange('email', e.target.value)}
                   />
                 </div>
-                <p className="text-xs text-gray-500">Biletul electronic va fi trimis pe acest email</p>
+                <p className="text-xs text-gray-500">{t.bookingForm.emailNote}</p>
               </div>
 
               {/* Honeypot field - hidden from users, visible to bots */}
@@ -443,8 +458,8 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
         {step === 3 && (
           <div className="space-y-6 animate-in slide-in-from-right-4 duration-300">
             <div className="text-center py-2">
-              <h3 className="text-xl font-bold text-[#012141]">Verifică Rezervarea</h3>
-              <p className="text-gray-500 text-sm mt-1">Asigură-te că toate datele sunt corecte</p>
+              <h3 className="text-xl font-bold text-[#012141]">{t.bookingForm.reviewTitle}</h3>
+              <p className="text-gray-500 text-sm mt-1">{t.bookingForm.reviewSubtitle}</p>
             </div>
 
             {/* Route Card */}
@@ -456,13 +471,13 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                     <Bus className="w-5 h-5 text-blue-300" />
                     <span className="text-blue-200 text-sm font-medium">RUTEMD</span>
                   </div>
-                  <div className="text-xs bg-white/10 px-2 py-1 rounded-full">{departureDay}</div>
+                  <div className="text-xs bg-white/10 px-2 py-1 rounded-full">{departureDayDisplay}</div>
                 </div>
                 <div className="text-2xl font-bold mb-2">
                   {origin} → {destination}
                 </div>
                 <div className="text-blue-200 text-sm">
-                  {date ? format(date, 'EEEE, dd MMMM yyyy', { locale: ro }) : ''} • {departureTime}
+                  {date ? format(date, 'EEEE, dd MMMM yyyy', { locale: dateLocale }) : ''} • {departureTime}
                 </div>
               </div>
             </Card>
@@ -471,23 +486,23 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <Card className="p-5 bg-gray-50 border-gray-100 space-y-4 rounded-xl">
               <h4 className="font-medium text-[#012141] flex items-center gap-2">
                 <User className="w-4 h-4 text-[#3870db]" />
-                Date Pasager
+                {t.bookingForm.passengerData}
               </h4>
               <div className="grid grid-cols-2 gap-4 text-sm">
                 <div>
-                  <span className="text-gray-500">Nume</span>
+                  <span className="text-gray-500">{t.bookingForm.nameLabel}</span>
                   <p className="font-medium text-[#012141]">{formData.nume} {formData.prenume}</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Pasageri</span>
-                  <p className="font-medium text-[#012141]">{passengers} {passengers === 1 ? 'persoană' : 'persoane'}</p>
+                  <span className="text-gray-500">{t.bookingForm.passengers}</span>
+                  <p className="font-medium text-[#012141]">{passengers} {passengers === 1 ? t.bookingForm.person : t.bookingForm.persons}</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Telefon</span>
+                  <span className="text-gray-500">{t.bookingForm.phoneLabel}</span>
                   <p className="font-medium text-[#012141]">{formData.telefon}</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Email</span>
+                  <span className="text-gray-500">{t.bookingForm.emailLabel}</span>
                   <p className="font-medium text-[#012141] break-all">{formData.email}</p>
                 </div>
               </div>
@@ -497,9 +512,9 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             <Card className="p-5 border-2 border-[#3870db] bg-blue-50/50 rounded-xl">
               <div className="flex justify-between items-center">
                 <div>
-                  <div className="text-[#012141] font-medium">Total de plată</div>
+                  <div className="text-[#012141] font-medium">{t.bookingForm.totalPayment}</div>
                   <div className="text-xs text-gray-500 mt-1">
-                    {passengers} bilet{passengers > 1 ? 'e' : ''} × {route.currency}{route.price}
+                    {passengers} {passengers > 1 ? t.bookingForm.ticketsPlural : t.bookingForm.tickets} × {route.currency}{route.price}
                   </div>
                   {route.priceEquivalent && (
                     <div className="text-xs text-gray-400 mt-1">
@@ -518,9 +533,9 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   <span className="text-amber-600">💵</span>
                 </div>
                 <div>
-                  <p className="font-medium text-amber-800">Plata se face la șofer</p>
+                  <p className="font-medium text-amber-800">{t.bookingForm.paymentAtDriver}</p>
                   <p className="text-amber-700 text-sm mt-1">
-                    Puteți achita în numerar (LEI, EUR) direct la îmbarcare.
+                    {t.bookingForm.paymentNote}
                   </p>
                 </div>
               </div>
@@ -536,16 +551,16 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             </div>
 
             <div>
-              <h3 className="text-2xl font-bold text-[#012141]">Rezervare Confirmată!</h3>
+              <h3 className="text-2xl font-bold text-[#012141]">{t.bookingForm.bookingConfirmed}</h3>
               <p className="text-gray-500 mt-2">
-                Biletul electronic a fost trimis pe adresa<br />
+                {t.bookingForm.ticketSent}<br />
                 <strong className="text-[#012141]">{formData.email}</strong>
               </p>
             </div>
 
             {/* Booking ID Card */}
             <Card className="p-5 bg-[#012141] text-white rounded-xl">
-              <div className="text-blue-200 text-sm mb-2">Cod Rezervare</div>
+              <div className="text-blue-200 text-sm mb-2">{t.bookingForm.bookingCode}</div>
               <div className="flex items-center justify-center gap-3">
                 <code className="text-2xl font-mono font-bold tracking-wider">
                   {bookingResult.bookingId}
@@ -559,40 +574,40 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   {copied ? <Check className="w-5 h-5 text-green-400" /> : <Copy className="w-5 h-5" />}
                 </Button>
               </div>
-              <p className="text-blue-200 text-xs mt-3">Prezentați acest cod la îmbarcare</p>
+              <p className="text-blue-200 text-xs mt-3">{t.bookingForm.showCodeAtBoarding}</p>
             </Card>
 
             {/* Trip Summary */}
             <Card className="p-4 bg-gray-50 border-gray-100 rounded-xl text-left">
               <div className="grid grid-cols-2 gap-3 text-sm">
                 <div>
-                  <span className="text-gray-500">Rută</span>
+                  <span className="text-gray-500">{t.bookingForm.route}</span>
                   <p className="font-medium text-[#012141]">{origin} → {destination}</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Data</span>
+                  <span className="text-gray-500">{t.routeDetails.departure}</span>
                   <p className="font-medium text-[#012141]">
-                    {date ? format(date, 'dd.MM.yyyy', { locale: ro }) : ''}
+                    {date ? format(date, 'dd.MM.yyyy', { locale: dateLocale }) : ''}
                   </p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Pasageri</span>
+                  <span className="text-gray-500">{t.bookingForm.passengers}</span>
                   <p className="font-medium text-[#012141]">{passengers}</p>
                 </div>
                 <div>
-                  <span className="text-gray-500">Total</span>
+                  <span className="text-gray-500">{t.bookingForm.totalPayment}</span>
                   <p className="font-bold text-[#3870db]">{totalFormatted}</p>
                 </div>
               </div>
             </Card>
 
             <div className="bg-blue-50 rounded-xl p-4 text-sm text-blue-800">
-              <p><strong>Următorii pași:</strong></p>
+              <p><strong>{t.bookingForm.nextSteps}:</strong></p>
               <ul className="mt-2 space-y-1 text-left list-disc list-inside">
-                <li>Verificați email-ul pentru confirmarea rezervării</li>
-                <li>Veți fi contactat telefonic cu 1-2 zile înainte de plecare</li>
-                <li>Prezentați-vă cu 15 min înainte de plecare</li>
-                <li>Aveți la dvs. un act de identitate valid</li>
+                <li>{t.bookingForm.nextStep1}</li>
+                <li>{t.bookingForm.nextStep2}</li>
+                <li>{t.bookingForm.nextStep3}</li>
+                <li>{t.bookingForm.nextStep4}</li>
               </ul>
             </div>
           </div>
@@ -608,7 +623,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             className="h-12 px-6 rounded-xl border-gray-200 hover:bg-white hover:text-[#3870db]"
             disabled={isSubmitting}
           >
-            Înapoi
+            {t.bookingForm.back}
           </Button>
         )}
 
@@ -617,7 +632,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             className="flex-1 h-12 bg-[#3870db] hover:bg-[#2b5bb8] text-white rounded-xl text-lg shadow-lg shadow-blue-500/20"
             onClick={handleNext}
           >
-            Continuă
+            {t.bookingForm.continue}
             <ChevronRight className="w-5 h-5 ml-2" />
           </Button>
         )}
@@ -631,12 +646,12 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             {isSubmitting ? (
               <>
                 <Loader2 className="w-5 h-5 mr-2 animate-spin" />
-                Se procesează...
+                {t.bookingForm.processing}
               </>
             ) : (
               <>
                 <Check className="w-5 h-5 mr-2" />
-                Confirmă Rezervarea
+                {t.bookingForm.confirmBooking}
               </>
             )}
           </Button>
@@ -647,7 +662,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             className="flex-1 h-12 bg-[#012141] hover:bg-[#012141]/90 text-white rounded-xl text-lg"
             onClick={onClose}
           >
-            Închide
+            {t.bookingForm.close}
           </Button>
         )}
       </div>

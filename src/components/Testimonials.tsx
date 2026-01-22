@@ -3,22 +3,24 @@ import { Star, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
 import { useTranslation } from '../i18n';
+import mariaAvatar from '../assets/Maria.png';
+import pavelAvatar from '../assets/Pavel Istrati.jpg';
 
 export function Testimonials() {
   const { t } = useTranslation();
 
   const testimonials = [
     {
-      name: 'Maria Popescu',
+      name: 'Maria Andreeva',
       role: t.testimonials.tourist,
       text: t.testimonials.review1,
-      avatar: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&h=100',
+      avatar: mariaAvatar,
     },
     {
-      name: 'Ion Moraru',
+      name: 'Pavel Istrati',
       role: t.testimonials.business,
       text: t.testimonials.review2,
-      avatar: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=100&h=100',
+      avatar: pavelAvatar,
     }
   ];
 

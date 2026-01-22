@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Button } from './ui/button';
 import { motion } from 'motion/react';
 import { ArrowRight } from 'lucide-react';
-import heroBusImage from '../assets/b18185243268eb818aabe5c1d596d6c6d3042822.png';
+import heroBusImage from '../assets/b18185243268eb818aabe5c1d596d6c6d3042822.jpg';
 import { useTranslation } from '../i18n';
 
 export function Hero() {
@@ -13,8 +13,10 @@ export function Hero() {
       <div className="absolute inset-0 z-0">
         <img
           src={heroBusImage}
-          alt="RUTEMD Modern Bus Fleet"
+          alt="Autocar Chișinău Istanbul - Transport Moldova Turcia | RUTEMD"
           className="w-full h-full object-cover scale-x-[-1] brightness-90 saturate-75"
+          loading="eager"
+          fetchPriority="high"
         />
         {/* Gradient Overlays for text readability and premium feel */}
         <div className="absolute inset-0 bg-gradient-to-r from-[#012141]/90 via-[#012141]/60 to-[#012141]/40"></div>

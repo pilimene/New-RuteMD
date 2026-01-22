@@ -5,19 +5,96 @@ import { Button } from './ui/button';
 import { ChevronRight, MapPin, Phone, Mail, MessageSquare, ArrowRight, Globe } from 'lucide-react';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { useTranslation } from '../i18n';
+import { SEO } from './SEO';
+import officeImage from '../assets/office.jpg';
 
 export function ContactPage() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
+
+  // SEO content based on language
+  const seoContent = {
+    ro: {
+      title: 'Contact RUTEMD | Telefon, WhatsApp, Email | Rezervări Autocare Moldova',
+      description: 'Contactați RUTEMD pentru rezervări autocare Moldova-Turcia & Bulgaria. Telefon: +373 69 10 19 12, WhatsApp disponibil, Email: mdrute@gmail.com. Oficiu: Chișinău, blvd. Negruzzi 7. Răspundem rapid!',
+      keywords: 'contact rutemd, telefon rutemd, rezervari autocare moldova, whatsapp rutemd, email rutemd, oficiu rutemd chisinau, contact autocare moldova, rezervari bilete autocar, telefon rezervari autocar, contact transport moldova'
+    },
+    ru: {
+      title: 'Контакты RUTEMD | Телефон, WhatsApp, Email | Бронирование Автобусов Молдова',
+      description: 'Свяжитесь с RUTEMD для бронирования автобусов Молдова-Турция и Болгария. Телефон: +373 69 10 19 12, WhatsApp доступен, Email: mdrute@gmail.com. Офис: Кишинёв, бул. Негруцци 7. Быстрый ответ!',
+      keywords: 'контакты rutemd, телефон rutemd, бронирование автобусов молдова, whatsapp rutemd, email rutemd, офис rutemd кишинев, контакты автобусы молдова, бронирование билеты автобус, телефон бронирование автобус, контакт транспорт молдова'
+    }
+  };
+
+  const content = seoContent[language];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "ContactPage",
+    "name": content.title,
+    "description": content.description,
+    "url": "https://rutemd.md/contact",
+    "inLanguage": language === 'ru' ? 'ru-RU' : 'ro-RO',
+    "mainEntity": {
+      "@type": "BusCompany",
+      "name": "RUTEMD",
+      "url": "https://rutemd.md",
+      "telephone": ["+37369101912", "+37368501182"],
+      "email": "mdrute@gmail.com",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Hotelul Chișinău, etajul 2, of. 202, blvd. Negruzzi 7",
+        "addressLocality": "Chișinău",
+        "addressCountry": "MD"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": "47.0305",
+        "longitude": "28.8451"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+37369101912",
+        "contactType": language === 'ru' ? "Служба поддержки клиентов" : "customer service",
+        "availableLanguage": ["Romanian", "Russian"],
+        "areaServed": "MD"
+      }
+    },
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": language === 'ru' ? "Главная" : "Acasă",
+          "item": "https://rutemd.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": language === 'ru' ? "Контакты" : "Contact",
+          "item": "https://rutemd.md/contact"
+        }
+      ]
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans selection:bg-blue-100 selection:text-[#012141]">
+      <SEO 
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        canonicalUrl="https://rutemd.md/contact"
+        structuredData={structuredData}
+        lang={language}
+      />
       <Navbar />
 
       {/* Compact Cinematic Hero */}
       <div className="relative h-[40vh] min-h-[350px] w-full overflow-hidden group">
         <ImageWithFallback
-          src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1920"
-          alt="Corporate Skyscraper"
+          src={officeImage}
+          alt="Contact RUTEMD - Rezervări Autocare Moldova | Telefon, WhatsApp, Email"
           className="absolute inset-0 w-full h-full object-cover scale-105 group-hover:scale-110 transition-transform duration-[20s]"
         />
         <div className="absolute inset-0 bg-[#012141]/80" />

@@ -9,7 +9,7 @@ export function CTABanner() {
           Gata să Călătorești?
         </h2>
         <p className="text-white/90 mb-8 max-w-2xl mx-auto text-[18px]">
-          Contactează-ne pentru rezervări sau informații suplimentare. Suntem disponibili 24/7!
+          Contactează-ne pentru rezervări sau informații suplimentare. Suntem aici să te ajutăm!
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

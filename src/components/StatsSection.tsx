@@ -1,34 +1,36 @@
 import { Users, Map, Calendar, ShieldCheck } from 'lucide-react';
 import { motion } from 'motion/react';
-
-const stats = [
-  { 
-    label: 'Pasageri Transportați', 
-    value: '50.000+', 
-    icon: Users,
-    color: 'from-blue-400 to-blue-600'
-  },
-  { 
-    label: 'Kilometri Parcurși', 
-    value: '1.2M+', 
-    icon: Map,
-    color: 'from-indigo-400 to-indigo-600'
-  },
-  { 
-    label: 'Ani de Excelență', 
-    value: '10+', 
-    icon: Calendar,
-    color: 'from-sky-400 to-sky-600'
-  },
-  { 
-    label: 'Grad de Siguranță', 
-    value: '100%', 
-    icon: ShieldCheck,
-    color: 'from-teal-400 to-teal-600'
-  },
-];
+import { useTranslation } from '../i18n';
 
 export function StatsSection() {
+  const { t } = useTranslation();
+
+  const stats = [
+    { 
+      label: t.stats.passengersTransported, 
+      value: '20.000+', 
+      icon: Users,
+      color: 'from-blue-400 to-blue-600'
+    },
+    { 
+      label: t.stats.kilometersTraveled, 
+      value: '1.2M+', 
+      icon: Map,
+      color: 'from-indigo-400 to-indigo-600'
+    },
+    { 
+      label: t.stats.yearsOfExcellence, 
+      value: '20+', 
+      icon: Calendar,
+      color: 'from-sky-400 to-sky-600'
+    },
+    { 
+      label: t.stats.competenceLevel, 
+      value: '100%', 
+      icon: ShieldCheck,
+      color: 'from-teal-400 to-teal-600'
+    },
+  ];
   return (
     <div className="bg-white py-12 sm:py-16">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">

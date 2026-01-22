@@ -55,10 +55,24 @@
         '@': path.resolve(__dirname, './src'),
       },
     },
-    build: {
-      target: 'esnext',
-      outDir: 'build',
+  build: {
+    target: 'esnext',
+    outDir: 'build',
+    // Code splitting optimization
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Split vendor chunks for better caching
+          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-popover'],
+          'motion-vendor': ['motion', 'embla-carousel-react'],
+          'utils': ['date-fns', 'clsx', 'tailwind-merge'],
+        },
+      },
     },
+    // Optimize chunk size
+    chunkSizeWarningLimit: 1000,
+  },
     server: {
       port: 3000,
       open: true,

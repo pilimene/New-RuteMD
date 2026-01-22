@@ -6,9 +6,72 @@ import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
 import { routes } from '../data/routes';
 import { useTranslation } from '../i18n';
+import { SEO } from './SEO';
 
 export function RouteSelectionPage() {
   const { t, language } = useTranslation();
+
+  // SEO content based on language - Focus on ALL routes
+  const seoContent = {
+    ro: {
+      title: 'Rute Autocar Moldova - Turcia & Bulgaria | Chișinău - Istanbul, Varna, Burgas',
+      description: 'Curse regulate cu autocarul din Moldova către Turcia și Bulgaria. Chișinău - Istanbul (1000 MDL), Varna (800 MDL), Burgas (800 MDL). Plecări săptămânale, autocare Mercedes premium. Rezervă acum!',
+      keywords: 'rute autocar moldova, autocar chisinau istanbul, autocar chisinau varna, autocar chisinau burgas, transport moldova turcia, transport moldova bulgaria, curse regulate chisinau, bilete autocar turcia, bilete autocar bulgaria, rutemd'
+    },
+    ru: {
+      title: 'Автобусные Маршруты Молдова - Турция и Болгария | Кишинёв - Стамбул, Варна, Бургас',
+      description: 'Регулярные автобусные рейсы из Молдовы в Турцию и Болгарию. Кишинёв - Стамбул (1000 MDL), Варна (800 MDL), Бургас (800 MDL). Еженедельные отправления, премиум автобусы Mercedes. Бронируйте!',
+      keywords: 'автобусные маршруты молдова, автобус кишинев стамбул, автобус кишинев варна, автобус кишинев бургас, перевозки молдова турция, перевозки молдова болгария, регулярные рейсы кишинев, билеты автобус турция, билеты автобус болгария, rutemd'
+    }
+  };
+
+  const content = seoContent[language];
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    "name": content.title,
+    "description": content.description,
+    "url": "https://rutemd.md/routes",
+    "inLanguage": language === 'ru' ? 'ru-RU' : 'ro-RO',
+    "breadcrumb": {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": language === 'ru' ? "Главная" : "Acasă",
+          "item": "https://rutemd.md/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": language === 'ru' ? "Маршруты" : "Rute",
+          "item": "https://rutemd.md/routes"
+        }
+      ]
+    },
+    "mainEntity": {
+      "@type": "ItemList",
+      "name": language === 'ru' ? "Доступные маршруты" : "Rute disponibile",
+      "itemListElement": routes.map((route, index) => ({
+        "@type": "ListItem",
+        "position": index + 1,
+        "item": {
+          "@type": "TripAction",
+          "name": `${route.origin} - ${route.destination}`,
+          "fromLocation": {
+            "@type": "City",
+            "name": route.origin
+          },
+          "toLocation": {
+            "@type": "City",
+            "name": route.destination
+          }
+        }
+      }))
+    }
+  };
 
   const translateDay = (day: string) => {
     const dayMap: Record<string, string> = {
@@ -23,8 +86,27 @@ export function RouteSelectionPage() {
     return dayMap[day] || day;
   };
 
+  const translateCity = (city: string) => {
+    if (language !== 'ru') return city;
+    const cityMap: Record<string, string> = {
+      'Chișinău': 'Кишинёв',
+      'Istanbul': 'Стамбул',
+      'Varna': 'Варна',
+      'Burgas': 'Бургас',
+    };
+    return cityMap[city] || city;
+  };
+
   return (
     <div className="min-h-screen bg-[#f0f0f0]">
+      <SEO 
+        title={content.title}
+        description={content.description}
+        keywords={content.keywords}
+        canonicalUrl="https://rutemd.md/routes"
+        structuredData={structuredData}
+        lang={language}
+      />
       <Navbar />
 
       <div className="bg-white border-b border-black/10 shadow-sm relative z-20">
@@ -63,7 +145,7 @@ export function RouteSelectionPage() {
                     <div className="absolute inset-0">
                       <ImageWithFallback
                         src={route.image}
-                        alt={`${route.origin} - ${route.destination}`}
+                        alt={`Autocar ${route.origin} ${route.destination} - ${route.price} ${route.currency} | RUTEMD`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-[#012141]/90 group-hover:to-[#012141] transition-colors duration-500" />
@@ -89,9 +171,9 @@ export function RouteSelectionPage() {
                           {t.routeSelection.via} • {route.duration}
                         </div>
                         <div className="flex items-center gap-4 mb-6">
-                          <h2 className="text-3xl md:text-4xl font-bold">{language === 'ru' && route.origin === 'Chișinău' ? 'Кишинёв' : route.origin}</h2>
+                          <h2 className="text-3xl md:text-4xl font-bold">{translateCity(route.origin)}</h2>
                           <ChevronRight className="w-8 h-8 text-[#3870db]" />
-                          <h2 className="text-3xl md:text-4xl font-bold">{language === 'ru' && route.destination === 'Istanbul' ? 'Стамбул' : route.destination}</h2>
+                          <h2 className="text-3xl md:text-4xl font-bold">{translateCity(route.destination)}</h2>
                         </div>
 
                         <div className="w-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white hover:text-[#012141] transition-all duration-300 rounded-xl py-4 flex items-center justify-center font-bold gap-2 group/btn">
@@ -132,7 +214,7 @@ export function RouteSelectionPage() {
                     <div className="absolute inset-0">
                       <ImageWithFallback
                         src={route.image}
-                        alt={`${route.origin} - ${route.destination}`}
+                        alt={`Autocar ${route.origin} ${route.destination} - ${route.price} ${route.currency} | RUTEMD`}
                         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                       />
                       <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-[#012141]/90 group-hover:to-[#012141] transition-colors duration-500" />
@@ -158,19 +240,9 @@ export function RouteSelectionPage() {
                           {t.routeSelection.via} • {route.duration}
                         </div>
                         <div className="flex items-center gap-4 mb-6">
-                          <h2 className="text-3xl md:text-4xl font-bold">
-                            {language === 'ru' && route.origin === 'Chișinău' ? 'Кишинёв' :
-                             language === 'ru' && route.origin === 'Varna' ? 'Варна' :
-                             language === 'ru' && route.origin === 'Burgas' ? 'Бургас' :
-                             route.origin}
-                          </h2>
+                          <h2 className="text-3xl md:text-4xl font-bold">{translateCity(route.origin)}</h2>
                           <ChevronRight className="w-8 h-8 text-[#3870db]" />
-                          <h2 className="text-3xl md:text-4xl font-bold">
-                            {language === 'ru' && route.destination === 'Varna' ? 'Варна' :
-                             language === 'ru' && route.destination === 'Burgas' ? 'Бургас' :
-                             language === 'ru' && route.destination === 'Chișinău' ? 'Кишинёв' :
-                             route.destination}
-                          </h2>
+                          <h2 className="text-3xl md:text-4xl font-bold">{translateCity(route.destination)}</h2>
                         </div>
 
                         <div className="w-full bg-white/10 backdrop-blur-sm border border-white/10 hover:bg-white hover:text-[#012141] transition-all duration-300 rounded-xl py-4 flex items-center justify-center font-bold gap-2 group/btn">

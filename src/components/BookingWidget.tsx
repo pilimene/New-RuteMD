@@ -16,6 +16,7 @@ import { format } from 'date-fns';
 import { ro, ru } from 'date-fns/locale';
 import { routes } from '../data/routes';
 import { useTranslation } from '../i18n';
+import { isDateDisabled } from '../data/disabledDates';
 
 export function BookingWidget() {
   const navigate = useNavigate();
@@ -209,13 +210,23 @@ export function BookingWidget() {
     const month = date.getMonth();
     const day = date.getDate();
     
-    return availableDates.some(availableDate => {
+    const isInAvailableDates = availableDates.some(availableDate => {
       return (
         availableDate.getFullYear() === year &&
         availableDate.getMonth() === month &&
         availableDate.getDate() === day
       );
     });
+    
+    if (!isInAvailableDates) return false;
+    
+    // Check if date is manually disabled
+    const routeKey = from && to ? `${from}-${to}` : undefined;
+    if (isDateDisabled(date, routeKey)) {
+      return false;
+    }
+    
+    return true;
   };
 
   return (
@@ -324,7 +335,7 @@ export function BookingWidget() {
 
             {/* Passengers */}
             <div className="md:col-span-6 lg:col-span-1">
-              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2 whitespace-nowrap overflow-hidden" style={{ fontSize: '12px', lineHeight: '1rem', height: '16px' }}>{t.booking.passengers}</label>
+              <label className="block font-semibold text-gray-400 uppercase tracking-wider mb-2" style={{ fontSize: '12px', lineHeight: '1rem', minHeight: '16px' }}>{t.booking.passengers}</label>
               <div className="bg-gray-50 rounded-xl hover:bg-gray-100 transition-colors h-14 flex items-center">
                 <Select defaultValue="1">
                   <SelectTrigger className="w-full h-14 border-none bg-transparent focus:ring-0 text-base font-medium pl-3 text-center" style={{ height: '56px' }}>

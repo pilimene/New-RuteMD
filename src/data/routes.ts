@@ -1,3 +1,8 @@
+// Import route images
+import istanbulRouteImage from '../assets/istanbul-route.jpg';
+import varnaRouteImage from '../assets/varna-route.jpg';
+import burgasRouteImage from '../assets/burgas-route.jpg';
+
 export interface RouteStop {
   city: string;
   time: string;
@@ -29,13 +34,13 @@ export const routes: Route[] = [
     price: 1000,
     currency: 'MDL',
     priceEquivalent: '≈50 EUR / 55 USD',
-    duration: '20h',
-    image: 'https://images.unsplash.com/photo-1617988995031-6d42638a1547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    duration: '21h',
+    image: istanbulRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
       { city: 'Cahul', time: '12:00' },
-      { city: 'Istanbul', time: '06:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
+      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
     ],
     returnStops: [
       { city: 'Istanbul', time: '12:00', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
@@ -54,7 +59,7 @@ export const routes: Route[] = [
     currency: 'MDL',
     priceEquivalent: '≈40 EUR / 45 USD',
     duration: '10h',
-    image: 'https://images.unsplash.com/photo-1725098944106-2eb5207812ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: varnaRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
@@ -78,7 +83,7 @@ export const routes: Route[] = [
     currency: 'MDL',
     priceEquivalent: '≈45 EUR / 50 USD',
     duration: '12h',
-    image: 'https://images.unsplash.com/photo-1609674771899-c96553ccd411?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: burgasRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
@@ -101,19 +106,19 @@ export const routes: Route[] = [
     price: 1000,
     currency: 'MDL',
     priceEquivalent: '≈50 EUR / 55 USD',
-    duration: '20h',
-    image: 'https://images.unsplash.com/photo-1617988995031-6d42638a1547?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    duration: '21h',
+    image: istanbulRouteImage,
     stops: [
       { city: 'Istanbul', time: '12:00', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
       { city: 'Cahul', time: '05:00 (+1 zi)' },
       { city: 'Comrat', time: '06:00 (+1 zi)' },
-      { city: 'Chișinău', time: '08:00 (+1 zi)', location: 'Gara de Nord' },
+      { city: 'Chișinău', time: '09:00 (+1 zi)', location: 'Gara de Nord' },
     ],
     returnStops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
       { city: 'Comrat', time: '11:00' },
       { city: 'Cahul', time: '12:00' },
-      { city: 'Istanbul', time: '06:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
+      { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
     ],
   },
   {
@@ -126,7 +131,7 @@ export const routes: Route[] = [
     currency: 'MDL',
     priceEquivalent: '≈40 EUR / 45 USD',
     duration: '10h',
-    image: 'https://images.unsplash.com/photo-1725098944106-2eb5207812ed?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: varnaRouteImage,
     stops: [
       { city: 'Varna', time: '20:30', location: 'Catedrala Adormirea Maicii Domnului din Varna' },
       { city: 'Cahul', time: '05:00 (+1 zi)' },
@@ -150,7 +155,7 @@ export const routes: Route[] = [
     currency: 'MDL',
     priceEquivalent: '≈45 EUR / 50 USD',
     duration: '12h',
-    image: 'https://images.unsplash.com/photo-1609674771899-c96553ccd411?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&q=80&w=1080',
+    image: burgasRouteImage,
     stops: [
       { city: 'Burgas', time: '19:00', location: 'OMV, бул. Стефан Стамболов 113' },
       { city: 'Cahul', time: '05:00 (+1 zi)' },

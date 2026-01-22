@@ -3,7 +3,17 @@
 
 // IMPORTANT: Replace this URL with your deployed Google Apps Script Web App URL
 // See GOOGLE_APPS_SCRIPT_SETUP.md for instructions
+//
+// SECURITY NOTE: This URL is public by design (Google Apps Script Web Apps are meant to be called from web)
+// ENSURE YOUR GOOGLE APPS SCRIPT HAS PROPER BACKEND VALIDATION:
+// - Validate all input fields (length, format, required fields)
+// - Check for suspicious patterns (SQL injection attempts, etc.)
+// - Rate limit requests (use PropertiesService to track IP/timestamp)
+// - Sanitize data before saving to Google Sheets
+// - Never trust client-side validation alone!
 const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHjyXfR-Nfr2S9Wp9GcYlghvTNNzCoqgDUcb3wbkiSTJqPAmSqSaGAY5BXLqlVoJod/exec';
+
+import { isDateDisabled } from '../data/disabledDates';
 
 export interface BookingData {
   nume: string;
@@ -171,7 +181,7 @@ export function getAvailableDates(departureDay: string, monthsAhead: number = 3)
 /**
  * Check if a date is available for booking
  */
-export function isDateAvailable(date: Date, departureDay: string): boolean {
+export function isDateAvailable(date: Date, departureDay: string, routeKey?: string): boolean {
   const dayMap: Record<string, number> = {
     'Duminică': 0,
     'Luni': 1,
@@ -187,5 +197,14 @@ export function isDateAvailable(date: Date, departureDay: string): boolean {
   today.setHours(0, 0, 0, 0);
 
   // Must be in the future and on the correct day
-  return date > today && date.getDay() === targetDay;
+  if (!(date > today && date.getDay() === targetDay)) {
+    return false;
+  }
+
+  // Check if date is manually disabled
+  if (isDateDisabled(date, routeKey)) {
+    return false;
+  }
+
+  return true;
 }
