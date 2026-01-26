@@ -140,7 +140,7 @@ export function Navbar() {
                 <img src={logo} alt="Logo" className="h-10 w-auto" />
               </div>
 
-              <div className="flex-1 overflow-y-auto py-8 px-4 space-y-2">
+              <div className="flex-1 overflow-y-auto pt-2 pb-8 px-4 space-y-2">
                 {navLinks.map((link) => {
                   const Icon = link.icon;
                   const isActive = location.pathname === link.path;

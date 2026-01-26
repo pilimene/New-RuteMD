@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Card } from './ui/card';
@@ -40,6 +40,16 @@ import partnerLogo8 from '../assets/Logos partners/start (1).png';
 
 export function BusCharterPage() {
   const { t, language } = useTranslation();
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
 
   // SEO content based on language - Focus on CHARTER SERVICES
   const seoContent = {
@@ -719,7 +729,7 @@ export function BusCharterPage() {
              transition={{ 
                repeat: Infinity, 
                ease: "linear", 
-               duration: 30 
+               duration: isMobile ? 15 : 30 
              }}
            >
              {[...partners, ...partners].map((src, i) => {

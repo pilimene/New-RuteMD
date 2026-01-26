@@ -131,10 +131,10 @@ export function ContactPage() {
                    </div>
                    <div>
                       <div className="space-y-2">
-                        <a href="tel:+37369101912" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
+                        <a href="tel:+37369101912" className="block text-xl sm:text-2xl md:text-2xl lg:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
                           +373 69 10 19 12
                         </a>
-                        <a href="tel:+37368501182" className="block text-3xl md:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
+                        <a href="tel:+37368501182" className="block text-xl sm:text-2xl md:text-2xl lg:text-4xl font-bold tracking-tight hover:text-blue-200 transition-colors">
                           +373 68 50 11 82
                         </a>
                       </div>
@@ -209,7 +209,14 @@ export function ContactPage() {
                     blvd. Negruzzi 7<br/>
                     Chișinău, Moldova
                   </p>
-                  <Button variant="outline" className="w-fit gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50">
+                  <Button 
+                    variant="outline" 
+                    className="w-fit gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50"
+                    onClick={() => {
+                      const address = encodeURIComponent('Hotelul Chișinău, etajul 2, of. 202, blvd. Negruzzi 7, Chișinău, Moldova');
+                      window.open(`https://www.google.com/maps/dir/?api=1&destination=${address}`, '_blank');
+                    }}
+                  >
                     <Globe className="w-4 h-4" /> {t.contactPage.navigate}
                   </Button>
                </div>

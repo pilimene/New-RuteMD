@@ -26,7 +26,7 @@ export function PopularRoutes() {
     }));
 
   return (
-    <section className="py-12 bg-gray-50">
+    <section className="pt-12 sm:pt-16 pb-6 sm:pb-8 bg-gray-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row justify-between items-end mb-10">
           <div className="max-w-2xl">
@@ -66,7 +66,7 @@ export function PopularRoutes() {
                    </span>
                 </div>
 
-                <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
+                <div className="absolute bottom-0 left-0 right-0 p-6 transform md:translate-y-4 md:group-hover:translate-y-0 transition-transform duration-300">
                   <div className="mb-3">
                       <div className="flex items-center text-white/80 mb-1 text-xs">
                           <MapPin className="w-3 h-3 mr-1" />
@@ -75,7 +75,7 @@ export function PopularRoutes() {
                       <h3 className="text-white text-3xl font-bold mb-1">{route.city}</h3>
                   </div>
 
-                  <div className="flex items-center justify-between border-t border-white/20 pt-4 opacity-0 group-hover:opacity-100 transition-opacity duration-300 delay-100">
+                  <div className="flex items-center justify-between border-t border-white/20 pt-4 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity duration-300 delay-100">
                     <div>
                       <span className="text-white/60 text-xs block">{t.popularRoutes.priceFrom}</span>
                       <span className="text-white text-xl font-bold">{route.price}</span>

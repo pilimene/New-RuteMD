@@ -37,7 +37,7 @@ export const ro = {
   // Popular Routes
   popularRoutes: {
     badge: 'Curse Regulate',
-    title: 'Rute Autocar Moldova - Turcia & Bulgaria',
+    title: 'Autocar spre Turcia si Bulgaria',
     viewAll: 'Vezi toate rutele',
     priceFrom: 'Preț de la',
     book: 'Rezervă',

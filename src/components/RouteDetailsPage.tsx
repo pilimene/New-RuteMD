@@ -305,7 +305,7 @@ export function RouteDetailsPage() {
               <div className="flex flex-col md:flex-row items-center justify-between mb-12">
                  <div>
                    <h2 className="text-[#012141] font-bold text-2xl">{t.routeDetails.itinerary}</h2>
-                   <p className="text-gray-500 text-sm mt-1 text-center">{t.routeDetails.totalDuration}: {route.duration}</p>
+                   <p className="text-gray-500 text-sm mt-1 text-center md:text-left">{t.routeDetails.totalDuration}: {route.duration}</p>
                  </div>
                  <Button
                    variant="outline"
@@ -315,6 +315,15 @@ export function RouteDetailsPage() {
                    <MapPin className="w-4 h-4" /> {t.routeDetails.viewOnMap}
                  </Button>
               </div>
+              
+              {/* Mobile View on Map Button */}
+              <Button
+                variant="outline"
+                className="md:hidden w-full gap-2 text-[#3870db] border-blue-100 hover:bg-blue-50 mb-8"
+                onClick={openRouteOnMap}
+              >
+                <MapPin className="w-4 h-4" /> {t.routeDetails.viewOnMap}
+              </Button>
 
               {/* Responsive Timeline Container */}
               <div className="relative">
@@ -372,7 +381,7 @@ export function RouteDetailsPage() {
             </section>
 
             {/* Support Box */}
-            <div className="bg-[#012141] rounded-2xl p-6 text-center text-white shadow-lg">
+            <div className="hidden md:block bg-[#012141] rounded-2xl p-6 text-center text-white shadow-lg">
               <h3 className="font-bold text-lg mb-2">{t.routeDetails.needHelp}</h3>
               <p className="text-blue-200/80 text-sm mb-4">{t.routeDetails.teamAvailable}</p>
               <a href="tel:+373000000" className="inline-flex items-center justify-center w-full py-3 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-all font-medium">
