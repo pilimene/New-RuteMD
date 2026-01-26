@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ScrollToTop } from './components/ScrollToTop';
 
 // Lazy load pages for better performance (code splitting)
@@ -25,6 +26,7 @@ function PageLoader() {
 export default function App() {
   return (
     <Router>
+      <SpeedInsights />
       <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes>

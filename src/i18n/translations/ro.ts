@@ -140,7 +140,7 @@ export const ro = {
     introTitle: '28+ Ani Experiență în',
     introTitleHighlight: 'Transport & Servicii',
     introTitleEnd: 'Autocare Moldova',
-    introParagraph1: 'RUTEMD oferă servicii complete de transport din 1998: curse regulate internaționale (Chișinău - Istanbul, Varna, Burgas) și închiriere autocare pentru evenimente, echipe sportive, teatru. Flotă modernă Mercedes, șoferi profesioniști, siguranță maximă.',
+    introParagraph1: 'RUTEMD oferă servicii complete de transport din 1998: curse regulate internaționale (Chișinău - Istanbul, Varna, Burgas) și închiriere autocare pentru evenimente, echipe sportive, teatru. Flotă modernă Mercedes si Setra, șoferi profesioniști, siguranță maximă.',
     introParagraph2: 'Peste 28 ani experiență în transport de pasageri. De la curse internaționale săptămânale până la servicii charter personalizate - oferim soluții complete pentru orice nevoie de transport. Mii de clienți mulțumiți, prețuri competitive, confort premium.',
     yearsExperience: 'Ani Experiență',
     passengers: 'Pasageri',
