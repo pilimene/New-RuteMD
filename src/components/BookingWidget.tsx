@@ -182,8 +182,11 @@ export function BookingWidget() {
     endDate.setMonth(endDate.getMonth() + 2);
     endDate.setHours(23, 59, 59, 999);
 
-    // Generate dates starting from today
-    for (let d = new Date(today); d <= endDate; d.setDate(d.getDate() + 1)) {
+    // Generate dates starting from tomorrow (no same-day bookings allowed)
+    const tomorrow = new Date(today);
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    
+    for (let d = new Date(tomorrow); d <= endDate; d.setDate(d.getDate() + 1)) {
       const dateToCheck = new Date(d);
       dateToCheck.setHours(0, 0, 0, 0);
       const dayOfWeek = dateToCheck.getDay();
@@ -199,6 +202,16 @@ export function BookingWidget() {
   // Check if a date is available - simplified comparison
   const isDateAvailable = (date: Date | undefined) => {
     if (!date) return false;
+    
+    // Prevent same-day bookings
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    const checkDate = new Date(date);
+    checkDate.setHours(0, 0, 0, 0);
+    
+    if (checkDate.getTime() === today.getTime()) {
+      return false; // No same-day bookings
+    }
     
     const availableDates = getAvailableDates;
     if (availableDates.length === 0) {

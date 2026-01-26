@@ -462,16 +462,36 @@ export function RouteDetailsPage() {
                          isReverse={isReverse}
                          onClose={() => setIsBookingOpen(false)}
                        />
-                     </DialogContent>
-                   </Dialog>
-                   <Link to="/contact" className="block mt-3">
-                     <Button variant="outline" className="w-full border-gray-200 hover:bg-gray-50 text-gray-600 h-12 rounded-xl">
-                       <Phone className="w-4 h-4 mr-2" /> {t.nav.contactUs}
-                     </Button>
-                   </Link>
-                 </div>
+                    </DialogContent>
+                  </Dialog>
+                  
+                  {/* Contact Phone Numbers */}
+                  <div className="mt-3">
+                    <p className="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold">{t.routeDetails.phoneReservations}</p>
+                    <div className="space-y-2">
+                      <a href="tel:+37368501182" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                        <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
+                          <Phone className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+373 68 50 11 82</p>
+                          <p className="text-xs text-gray-500">{t.routeDetails.callNow}</p>
+                        </div>
+                      </a>
+                      <a href="tel:+905358223890" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                        <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
+                          <Phone className="w-5 h-5 text-white" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+90 5358223890</p>
+                          <p className="text-xs text-gray-500">{t.routeDetails.callNow}</p>
+                        </div>
+                      </a>
+                    </div>
+                  </div>
+                </div>
 
-                 <div className="space-y-4 pt-6 border-t border-dashed border-gray-200">
+                <div className="space-y-4 pt-6 border-t border-dashed border-gray-200">
                    <div className="flex items-start gap-3">
                      <div className="w-5 h-5 rounded-full bg-green-50 flex items-center justify-center shrink-0">
                        <Check className="w-3 h-3 text-green-600" />
@@ -489,33 +509,8 @@ export function RouteDetailsPage() {
                        <ShieldCheck className="w-3 h-3 text-green-600" />
                      </div>
                      <p className="text-sm text-gray-500 leading-snug">{t.routeDetails.confirmationCall}</p>
-                   </div>
-                 </div>
-
-                 {/* Contact Phone Numbers */}
-                 <div className="mt-6 pt-6 border-t border-gray-100">
-                   <p className="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold">{t.routeDetails.phoneReservations}</p>
-                   <div className="space-y-2">
-                     <a href="tel:+37369101912" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
-                       <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
-                         <Phone className="w-5 h-5 text-white" />
-                       </div>
-                       <div>
-                         <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+373 69 10 19 12</p>
-                         <p className="text-xs text-gray-500">{t.routeDetails.callNow}</p>
-                       </div>
-                     </a>
-                     <a href="tel:+37368501182" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
-                       <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
-                         <Phone className="w-5 h-5 text-white" />
-                       </div>
-                       <div>
-                         <p className="text-sm font-bold text-[#012141] group-hover:text-[#3870db] transition-colors">+373 68 50 11 82</p>
-                         <p className="text-xs text-gray-500">{t.routeDetails.callNow}</p>
-                       </div>
-                     </a>
-                   </div>
-                 </div>
+                  </div>
+                </div>
                </Card>
              </div>
           </div>

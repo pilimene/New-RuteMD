@@ -256,8 +256,19 @@ export function getAvailableDates(departureDay: string, monthsAhead: number = 3)
 
 /**
  * Check if a date is available for booking
+ * @param date - The date to check
+ * @param departureDay - The day of week when the route departs (e.g., 'Duminică')
+ * @param routeKey - Optional route identifier
+ * @param departureTime - Optional departure time in HH:MM format (e.g., '10:00')
+ * @param bookingCutoffHours - Hours before departure when booking closes (default: 0, meaning no same-day bookings)
  */
-export function isDateAvailable(date: Date, departureDay: string, routeKey?: string): boolean {
+export function isDateAvailable(
+  date: Date, 
+  departureDay: string, 
+  routeKey?: string,
+  departureTime?: string,
+  bookingCutoffHours: number = 0
+): boolean {
   const dayMap: Record<string, number> = {
     'Duminică': 0,
     'Luni': 1,
@@ -269,18 +280,49 @@ export function isDateAvailable(date: Date, departureDay: string, routeKey?: str
   };
 
   const targetDay = dayMap[departureDay];
+  if (targetDay === undefined) return false;
+
+  const now = new Date();
   const today = new Date();
   today.setHours(0, 0, 0, 0);
 
-  // Must be in the future and on the correct day
-  if (!(date > today && date.getDay() === targetDay)) {
+  const checkDate = new Date(date);
+  checkDate.setHours(0, 0, 0, 0);
+
+  // Must be on the correct day of week
+  if (checkDate.getDay() !== targetDay) {
     return false;
   }
 
   // Check if date is manually disabled
-  if (isDateDisabled(date, routeKey)) {
+  if (isDateDisabled(checkDate, routeKey)) {
     return false;
   }
 
-  return true;
+  // Check if date is today (same day as departure)
+  const isToday = checkDate.getTime() === today.getTime();
+  
+  if (isToday) {
+    // If booking cutoff is set and we have a departure time, check if we're past the cutoff
+    if (bookingCutoffHours > 0 && departureTime) {
+      const [depHours, depMinutes] = departureTime.split(':').map(Number);
+      const departureDateTime = new Date(now);
+      departureDateTime.setHours(depHours, depMinutes, 0, 0);
+      
+      // Calculate cutoff time
+      const cutoffTime = new Date(departureDateTime);
+      cutoffTime.setHours(cutoffTime.getHours() - bookingCutoffHours);
+      
+      // If current time is past the cutoff, booking is closed
+      if (now >= cutoffTime) {
+        return false;
+      }
+    } else {
+      // No cutoff time specified - prevent all same-day bookings
+      return false;
+    }
+  }
+
+  // Must be today (if within cutoff) or in the future
+  return checkDate >= today;
 }

@@ -66,8 +66,20 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
   // Determine which dates are available based on departure day
   // Use original day name (not translated) for date checking
   const routeKey = `${origin}-${destination}`;
+  
+  // Extract time from departure time string (e.g., "10:00" from "10:00" or "10:00 (+1 zi)")
+  const extractTime = (timeStr: string): string | undefined => {
+    const match = timeStr.match(/(\d{1,2}):(\d{2})/);
+    return match ? `${match[1].padStart(2, '0')}:${match[2]}` : undefined;
+  };
+  
+  const departureTimeOnly = extractTime(departureTime);
+  
+  // Booking closes 2 hours before departure (no same-day bookings allowed)
+  const bookingCutoffHours = 2;
+  
   const isDateDisabled = (day: Date) => {
-    return !isDateAvailable(day, departureDayRaw, routeKey);
+    return !isDateAvailable(day, departureDayRaw, routeKey, departureTimeOnly, bookingCutoffHours);
   };
 
   const handleInputChange = (field: keyof FormData, value: string) => {
