@@ -1,5 +1,6 @@
 import { lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ScrollToTop } from './components/ScrollToTop';
 
@@ -26,6 +27,7 @@ function PageLoader() {
 export default function App() {
   return (
     <Router>
+      <Analytics />
       <SpeedInsights />
       <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
