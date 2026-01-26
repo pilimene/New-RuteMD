@@ -211,16 +211,18 @@ export function RouteDetailsPage() {
                <span className="text-xs font-bold text-white uppercase tracking-widest">{t.routeDetails.internationalRoute} • {translateDay(departureDay)}</span>
             </div>
 
-            <h1 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight leading-none animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100 flex items-center flex-wrap gap-x-4 gap-y-2">
-              <span>{translateCity(origin)}</span>
-              <button
-                onClick={() => setIsReverse(!isReverse)}
-                className="text-blue-400 hover:text-blue-300 transition-all p-2 hover:bg-white/10 rounded-full group"
-                title={t.routeDetails.changeDirection}
-              >
-                <ArrowRightLeft className="w-8 h-8 md:w-12 md:h-12 transition-transform duration-500 group-hover:rotate-180" />
-              </button>
-              <span>{translateCity(destination)}</span>
+            <h1 className="text-white font-bold text-4xl md:text-6xl lg:text-7xl tracking-tight leading-none animate-in fade-in slide-in-from-bottom-6 duration-700 delay-100">
+              <div className="flex max-[320px]:flex-col flex-row items-center max-[320px]:gap-2 gap-x-4">
+                <span className="max-[320px]:text-center text-left">{translateCity(origin)}</span>
+                <button
+                  onClick={() => setIsReverse(!isReverse)}
+                  className="text-blue-400 hover:text-blue-300 transition-all p-2 hover:bg-white/10 rounded-full group shrink-0"
+                  title={t.routeDetails.changeDirection}
+                >
+                  <ArrowRightLeft className="w-8 h-8 md:w-8 md:h-8 lg:w-12 lg:h-12 transition-transform duration-500 group-hover:rotate-180" />
+                </button>
+                <span className="max-[320px]:text-center text-left">{translateCity(destination)}</span>
+              </div>
             </h1>
 
             <p className="text-blue-50/90 text-lg md:text-xl font-light max-w-xl animate-in fade-in slide-in-from-bottom-7 duration-700 delay-200">
