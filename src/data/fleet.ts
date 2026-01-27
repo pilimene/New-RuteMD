@@ -37,7 +37,7 @@ export const fleetData: FleetVehicle[] = [
   { 
     seats: "22", 
     type: "Mercedes Sprinter 519",
-    year: "2019",
+    year: "2016",
     mainImage: sprinterImage1,
     galleryImages: [
       sprinterImage1,
@@ -62,7 +62,7 @@ export const fleetData: FleetVehicle[] = [
   { 
     seats: "51", 
     type: "Mercedes Travego",
-    year: "2019",
+    year: "2016",
     mainImage: travegoImage2,
     galleryImages: [
       travegoImage1,

@@ -160,9 +160,19 @@ export function RouteDetailsPage() {
   const openRouteOnMap = () => {
     const originLocation = stops[0].location || stops[0].city;
     const destinationLocation = stops[stops.length - 1].location || stops[stops.length - 1].city;
-    const waypoints = stops.slice(1, -1).map(stop => stop.location || stop.city).join('|');
+    
+    // Get waypoints from stops
+    let waypoints = stops.slice(1, -1).map(stop => stop.location || stop.city);
+    
+    // If destination is Istanbul, add Varna and Burgas as waypoints
+    if (stops[stops.length - 1].city === 'Istanbul') {
+      // Add Varna and Burgas after the existing waypoints (before Istanbul)
+      waypoints.push('Varna, Bulgaria', 'Burgas, Bulgaria');
+    }
+    
+    const waypointsString = waypoints.join('|');
 
-    const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originLocation)}&destination=${encodeURIComponent(destinationLocation)}${waypoints ? `&waypoints=${encodeURIComponent(waypoints)}` : ''}`;
+    const url = `https://www.google.com/maps/dir/?api=1&origin=${encodeURIComponent(originLocation)}&destination=${encodeURIComponent(destinationLocation)}${waypointsString ? `&waypoints=${encodeURIComponent(waypointsString)}` : ''}`;
     window.open(url, '_blank');
   };
 

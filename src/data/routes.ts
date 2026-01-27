@@ -38,8 +38,8 @@ export const routes: Route[] = [
     image: istanbulRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
     ],
     returnStops: [
@@ -62,8 +62,8 @@ export const routes: Route[] = [
     image: varnaRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Varna', time: '20:00', location: 'Catedrala Adormirea Maicii Domnului din Varna' },
     ],
     returnStops: [
@@ -86,8 +86,8 @@ export const routes: Route[] = [
     image: burgasRouteImage,
     stops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Burgas', time: '22:00', location: 'OMV, бул. Стефан Стамболов 113' },
     ],
     returnStops: [
@@ -116,8 +116,8 @@ export const routes: Route[] = [
     ],
     returnStops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Istanbul', time: '07:00 (+1 zi)', location: 'Kemal Paşa, Fethibey Cd 40 E, Fatih' },
     ],
   },
@@ -140,8 +140,8 @@ export const routes: Route[] = [
     ],
     returnStops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Varna', time: '20:00', location: 'Catedrala Adormirea Maicii Domnului din Varna' },
     ],
   },
@@ -164,8 +164,8 @@ export const routes: Route[] = [
     ],
     returnStops: [
       { city: 'Chișinău', time: '10:00', location: 'Gara de Nord' },
-      { city: 'Comrat', time: '11:00' },
-      { city: 'Cahul', time: '12:00' },
+      { city: 'Comrat', time: '12:30' },
+      { city: 'Cahul', time: '14:00' },
       { city: 'Burgas', time: '22:00', location: 'OMV, бул. Стефан Стамболов 113' },
     ],
   },

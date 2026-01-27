@@ -82,7 +82,7 @@ export function Testimonials() {
                       <Phone className="w-4 h-4 mr-2" /> {t.testimonials.callNow}: +373 69 10 19 12
                     </a>
                   </Button>
-                  <Button asChild variant="outline" className="w-full border-white/20 text-white hover:bg-white/10 h-12 font-medium rounded-xl">
+                  <Button asChild className="w-full bg-[#25D366] hover:bg-[#20b858] text-white h-12 font-medium rounded-xl">
                     <a href="https://wa.me/37368501182" target="_blank" rel="noopener noreferrer">
                       <MessageCircle className="w-4 h-4 mr-2" /> {t.testimonials.chatWhatsApp}
                     </a>

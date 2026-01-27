@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <!-- Homepage -->
+  <url>
+    <loc>https://rutemd.md/</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/?lang=ru" />
+  </url>
+
+  <!-- Routes Selection Page -->
+  <url>
+    <loc>https://rutemd.md/routes</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/routes" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/routes?lang=ru" />
+  </url>
+
+  <!-- Route Details Pages -->
+  <url>
+    <loc>https://rutemd.md/route/chisinau-istanbul</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/chisinau-istanbul" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/chisinau-istanbul?lang=ru" />
+  </url>
+
+  <url>
+    <loc>https://rutemd.md/route/chisinau-varna</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/chisinau-varna" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/chisinau-varna?lang=ru" />
+  </url>
+
+  <url>
+    <loc>https://rutemd.md/route/chisinau-burgas</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/chisinau-burgas" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/chisinau-burgas?lang=ru" />
+  </url>
+
+  <url>
+    <loc>https://rutemd.md/route/istanbul-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/istanbul-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/istanbul-chisinau?lang=ru" />
+  </url>
+
+  <url>
+    <loc>https://rutemd.md/route/varna-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/varna-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/varna-chisinau?lang=ru" />
+  </url>
+
+  <url>
+    <loc>https://rutemd.md/route/burgas-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/route/burgas-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/route/burgas-chisinau?lang=ru" />
+  </url>
+
+  <!-- About Page -->
+  <url>
+    <loc>https://rutemd.md/about</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/about?lang=ru" />
+  </url>
+
+  <!-- Contact Page -->
+  <url>
+    <loc>https://rutemd.md/contact</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/contact?lang=ru" />
+  </url>
+
+  <!-- Bus Charter Page -->
+  <url>
+    <loc>https://rutemd.md/bus-charter</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.md/bus-charter" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.md/bus-charter?lang=ru" />
+  </url>
+
+</urlset>
