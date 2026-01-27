@@ -195,13 +195,12 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       setBookingResult(result);
 
       if (result.success) {
-        // Track Google Analytics booking conversion
+        // Track Google Analytics 4 booking event
         if (typeof window !== 'undefined' && window.gtag) {
-          window.gtag('event', 'booking', {
-            'event_category': 'Booking',
-            'event_label': `${origin} - ${destination}`,
-            'value': total,
+          // GA4 custom event for booking completion
+          window.gtag('event', 'booking_completed', {
             'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
+            'value': total,
             'booking_id': result.bookingId,
             'route': `${origin} - ${destination}`,
             'route_id': route.id,
@@ -209,13 +208,14 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
             'departure_date': date ? format(date, 'yyyy-MM-dd') : '',
             'departure_day': departureDayDisplay,
             'departure_time': departureTime,
+            'origin': origin,
+            'destination': destination,
           });
 
-          // Track as conversion event for GA4
-          window.gtag('event', 'conversion', {
-            'send_to': 'G-2CHB70F2EM',
-            'value': total,
+          // Also track as generate_lead event (GA4 standard event for conversions)
+          window.gtag('event', 'generate_lead', {
             'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
+            'value': total,
             'transaction_id': result.bookingId,
           });
         }
