@@ -29,3 +29,11 @@ declare module '*.webp' {
   const value: string;
   export default value;
 }
+
+// Google Analytics gtag types
+declare global {
+  interface Window {
+    dataLayer: any[];
+    gtag: (...args: any[]) => void;
+  }
+}

@@ -195,6 +195,31 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       setBookingResult(result);
 
       if (result.success) {
+        // Track Google Analytics booking conversion
+        if (typeof window !== 'undefined' && window.gtag) {
+          window.gtag('event', 'booking', {
+            'event_category': 'Booking',
+            'event_label': `${origin} - ${destination}`,
+            'value': total,
+            'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
+            'booking_id': result.bookingId,
+            'route': `${origin} - ${destination}`,
+            'route_id': route.id,
+            'passengers': passengers,
+            'departure_date': date ? format(date, 'yyyy-MM-dd') : '',
+            'departure_day': departureDayDisplay,
+            'departure_time': departureTime,
+          });
+
+          // Track as conversion event for GA4
+          window.gtag('event', 'conversion', {
+            'send_to': 'G-2CHB70F2EM',
+            'value': total,
+            'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
+            'transaction_id': result.bookingId,
+          });
+        }
+
         setStep(4); // Success step
       } else {
         setErrors([result.error || t.bookingForm.errorGeneric]);
