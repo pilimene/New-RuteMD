@@ -2,109 +2,246 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
-  <!-- Homepage -->
+  <!-- Homepage - Romanian -->
   <url>
-    <loc>https://rutemd.com/</loc>
+    <loc>https://rutemd.com/ro</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro" />
   </url>
 
-  <!-- Routes Selection Page -->
+  <!-- Homepage - Russian -->
   <url>
-    <loc>https://rutemd.com/routes</loc>
+    <loc>https://rutemd.com/ru</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro" />
+  </url>
+
+  <!-- Routes Selection Page - Romanian -->
+  <url>
+    <loc>https://rutemd.com/ro/routes</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/routes" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/routes?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/routes" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/routes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/routes" />
   </url>
 
-  <!-- Route Details Pages -->
+  <!-- Routes Selection Page - Russian -->
   <url>
-    <loc>https://rutemd.com/route/chisinau-istanbul</loc>
+    <loc>https://rutemd.com/ru/routes</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/routes" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/routes" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/routes" />
+  </url>
+
+  <!-- Chișinău - Istanbul (RO) -->
+  <url>
+    <loc>https://rutemd.com/ro/route/chisinau-istanbul</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/chisinau-istanbul" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/chisinau-istanbul?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-istanbul" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-istanbul" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-istanbul" />
   </url>
 
+  <!-- Chișinău - Istanbul (RU) -->
   <url>
-    <loc>https://rutemd.com/route/chisinau-varna</loc>
+    <loc>https://rutemd.com/ru/route/chisinau-istanbul</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/chisinau-varna" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/chisinau-varna?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-istanbul" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-istanbul" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-istanbul" />
   </url>
 
+  <!-- Chișinău - Varna (RO) -->
   <url>
-    <loc>https://rutemd.com/route/chisinau-burgas</loc>
+    <loc>https://rutemd.com/ro/route/chisinau-varna</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/chisinau-burgas" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/chisinau-burgas?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-varna" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-varna" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-varna" />
   </url>
 
+  <!-- Chișinău - Varna (RU) -->
   <url>
-    <loc>https://rutemd.com/route/istanbul-chisinau</loc>
+    <loc>https://rutemd.com/ru/route/chisinau-varna</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/istanbul-chisinau" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/istanbul-chisinau?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-varna" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-varna" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-varna" />
   </url>
 
+  <!-- Chișinău - Burgas (RO) -->
   <url>
-    <loc>https://rutemd.com/route/varna-chisinau</loc>
+    <loc>https://rutemd.com/ro/route/chisinau-burgas</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/varna-chisinau" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/varna-chisinau?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-burgas" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-burgas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-burgas" />
   </url>
 
+  <!-- Chișinău - Burgas (RU) -->
   <url>
-    <loc>https://rutemd.com/route/burgas-chisinau</loc>
+    <loc>https://rutemd.com/ru/route/chisinau-burgas</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/route/burgas-chisinau" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/route/burgas-chisinau?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/chisinau-burgas" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/chisinau-burgas" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/chisinau-burgas" />
   </url>
 
-  <!-- About Page -->
+  <!-- Istanbul - Chișinău (RO) -->
   <url>
-    <loc>https://rutemd.com/about</loc>
+    <loc>https://rutemd.com/ro/route/istanbul-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/istanbul-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/istanbul-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/istanbul-chisinau" />
+  </url>
+
+  <!-- Istanbul - Chișinău (RU) -->
+  <url>
+    <loc>https://rutemd.com/ru/route/istanbul-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/istanbul-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/istanbul-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/istanbul-chisinau" />
+  </url>
+
+  <!-- Varna - Chișinău (RO) -->
+  <url>
+    <loc>https://rutemd.com/ro/route/varna-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/varna-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/varna-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/varna-chisinau" />
+  </url>
+
+  <!-- Varna - Chișinău (RU) -->
+  <url>
+    <loc>https://rutemd.com/ru/route/varna-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/varna-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/varna-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/varna-chisinau" />
+  </url>
+
+  <!-- Burgas - Chișinău (RO) -->
+  <url>
+    <loc>https://rutemd.com/ro/route/burgas-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/burgas-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/burgas-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/burgas-chisinau" />
+  </url>
+
+  <!-- Burgas - Chișinău (RU) -->
+  <url>
+    <loc>https://rutemd.com/ru/route/burgas-chisinau</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/route/burgas-chisinau" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/route/burgas-chisinau" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/route/burgas-chisinau" />
+  </url>
+
+  <!-- About Page - Romanian -->
+  <url>
+    <loc>https://rutemd.com/ro/about</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/about" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/about?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/about" />
   </url>
 
-  <!-- Contact Page -->
+  <!-- About Page - Russian -->
   <url>
-    <loc>https://rutemd.com/contact</loc>
+    <loc>https://rutemd.com/ru/about</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/contact" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/contact?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/about" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/about" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/about" />
   </url>
 
-  <!-- Bus Charter Page -->
+  <!-- Contact Page - Romanian -->
   <url>
-    <loc>https://rutemd.com/bus-charter</loc>
+    <loc>https://rutemd.com/ro/contact</loc>
     <lastmod>2026-01-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
-    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/bus-charter" />
-    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/bus-charter?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/contact" />
+  </url>
+
+  <!-- Contact Page - Russian -->
+  <url>
+    <loc>https://rutemd.com/ru/contact</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/contact" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/contact" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/contact" />
+  </url>
+
+  <!-- Bus Charter Page - Romanian -->
+  <url>
+    <loc>https://rutemd.com/ro/bus-charter</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/bus-charter" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/bus-charter" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/bus-charter" />
+  </url>
+
+  <!-- Bus Charter Page - Russian -->
+  <url>
+    <loc>https://rutemd.com/ru/bus-charter</loc>
+    <lastmod>2026-01-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+    <xhtml:link rel="alternate" hreflang="ro" href="https://rutemd.com/ro/bus-charter" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://rutemd.com/ru/bus-charter" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://rutemd.com/ro/bus-charter" />
   </url>
 
 </urlset>

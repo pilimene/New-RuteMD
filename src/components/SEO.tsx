@@ -15,14 +15,19 @@ export function SEO({
   title, 
   description, 
   keywords, 
-  ogImage = 'https://rutemd.md/og-image.jpg',
+  ogImage = 'https://rutemd.com/og-image.jpg',
   canonicalUrl,
   structuredData,
   lang = 'ro'
 }: SEOProps) {
   const location = useLocation();
-  const baseUrl = 'https://rutemd.md';
-  const fullUrl = canonicalUrl || `${baseUrl}${location.pathname}`;
+  const baseUrl = 'https://rutemd.com';
+  
+  // Get path without language prefix
+  const pathWithoutLang = location.pathname.replace(/^\/(ro|ru)(\/|$)/, '/');
+  const cleanPath = pathWithoutLang === '/' ? '' : pathWithoutLang;
+  
+  const fullUrl = canonicalUrl || `${baseUrl}/${lang}${cleanPath}`;
   const fullTitle = `${title} | RUTEMD`;
 
   useEffect(() => {
@@ -72,6 +77,25 @@ export function SEO({
     }
     canonical.setAttribute('href', fullUrl);
 
+    // Add hreflang tags for language alternates
+    const hreflangs = [
+      { lang: 'ro', url: `${baseUrl}/ro${cleanPath}` },
+      { lang: 'ru', url: `${baseUrl}/ru${cleanPath}` },
+      { lang: 'x-default', url: `${baseUrl}/ro${cleanPath}` }, // Default to Romanian
+    ];
+
+    // Remove old hreflang links
+    document.querySelectorAll('link[rel="alternate"][hreflang]').forEach(el => el.remove());
+
+    // Add new hreflang links
+    hreflangs.forEach(({ lang: hreflang, url }) => {
+      const link = document.createElement('link');
+      link.setAttribute('rel', 'alternate');
+      link.setAttribute('hreflang', hreflang);
+      link.setAttribute('href', url);
+      document.head.appendChild(link);
+    });
+
     // Add structured data
     if (structuredData) {
       let script = document.querySelector('script[data-schema="page"]');
@@ -83,7 +107,7 @@ export function SEO({
       }
       script.textContent = JSON.stringify(structuredData);
     }
-  }, [title, description, keywords, fullUrl, ogImage, structuredData, fullTitle, lang]);
+  }, [title, description, keywords, fullUrl, ogImage, structuredData, fullTitle, lang, cleanPath, baseUrl]);
 
   return null;
 }

@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, Phone, Home, Route, Bus, Info, MessageSquare, Facebook, Globe } from 'lucide-react';
 import { Button } from './ui/button';
 import { motion, AnimatePresence } from 'motion/react';
@@ -9,18 +9,32 @@ import { useLanguage } from '../i18n';
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
-  const { language, setLanguage, t } = useLanguage();
+  const navigate = useNavigate();
+  const { language, t } = useLanguage();
+
+  // Get current path without language prefix
+  const getCurrentPath = () => {
+    const path = location.pathname;
+    // Remove language prefix (/ro or /ru)
+    return path.replace(/^\/(ro|ru)(\/|$)/, '/');
+  };
 
   const navLinks = [
-    { name: t.nav.home, path: '/', icon: Home },
-    { name: t.nav.routes, path: '/routes', icon: Route },
-    { name: t.nav.busCharter, path: '/bus-charter', icon: Bus },
-    { name: t.nav.about, path: '/about', icon: Info },
-    { name: t.nav.contact, path: '/contact', icon: MessageSquare },
+    { name: t.nav.home, path: `/${language}`, icon: Home },
+    { name: t.nav.routes, path: `/${language}/routes`, icon: Route },
+    { name: t.nav.busCharter, path: `/${language}/bus-charter`, icon: Bus },
+    { name: t.nav.about, path: `/${language}/about`, icon: Info },
+    { name: t.nav.contact, path: `/${language}/contact`, icon: MessageSquare },
   ];
 
-  const toggleLanguage = () => {
-    setLanguage(language === 'ro' ? 'ru' : 'ro');
+  const switchLanguage = (newLang: 'ro' | 'ru') => {
+    // Save preference
+    localStorage.setItem('rutemd-language', newLang);
+    
+    // Get current path and switch language
+    const currentPath = getCurrentPath();
+    const newPath = currentPath === '/' ? `/${newLang}` : `/${newLang}${currentPath}`;
+    navigate(newPath);
   };
 
   const menuVariants = {
@@ -83,7 +97,7 @@ export function Navbar() {
           <div className="hidden lg:flex items-center space-x-2 xl:space-x-4">
             {/* Language Switcher */}
             <button
-              onClick={toggleLanguage}
+              onClick={() => switchLanguage(language === 'ro' ? 'ru' : 'ro')}
               className="flex items-center gap-2 px-3 py-2 rounded-full bg-white/10 hover:bg-white/20 transition-colors text-white/90 hover:text-white"
               title={language === 'ro' ? 'Переключить на русский' : 'Comută în română'}
             >
@@ -170,7 +184,7 @@ export function Navbar() {
               <motion.div variants={itemVariants} className="p-6 border-t border-white/5 space-y-6">
                 {/* Language Switcher for Mobile */}
                 <button
-                  onClick={toggleLanguage}
+                  onClick={() => switchLanguage(language === 'ro' ? 'ru' : 'ro')}
                   className="flex items-center justify-center gap-3 w-full p-4 rounded-2xl bg-white/5 hover:bg-white/10 transition-colors"
                 >
                   <Globe className="w-5 h-5 text-[#3870db]" />

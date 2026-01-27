@@ -1,8 +1,9 @@
-import { lazy, Suspense } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { lazy, Suspense, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ScrollToTop } from './components/ScrollToTop';
+import { useLanguage } from './i18n';
 
 // Lazy load pages for better performance (code splitting)
 const HomePage = lazy(() => import('./components/HomePage').then(m => ({ default: m.HomePage })));
@@ -24,6 +25,44 @@ function PageLoader() {
   );
 }
 
+// Language wrapper component to sync URL with language context
+function LanguageRoute({ children }: { children: React.ReactNode }) {
+  const { lang } = useParams<{ lang: string }>();
+  const { setLanguage } = useLanguage();
+
+  useEffect(() => {
+    if (lang === 'ro' || lang === 'ru') {
+      setLanguage(lang);
+    }
+  }, [lang, setLanguage]);
+
+  return <>{children}</>;
+}
+
+// Root redirect component
+function RootRedirect() {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // Check for saved language preference
+    const savedLang = localStorage.getItem('rutemd-language');
+    if (savedLang === 'ro' || savedLang === 'ru') {
+      navigate(`/${savedLang}`, { replace: true });
+      return;
+    }
+
+    // Auto-detect from browser
+    const browserLang = navigator.language || (navigator as any).userLanguage;
+    if (browserLang?.toLowerCase().startsWith('ru')) {
+      navigate('/ru', { replace: true });
+    } else {
+      navigate('/ro', { replace: true });
+    }
+  }, [navigate]);
+
+  return <PageLoader />;
+}
+
 export default function App() {
   return (
     <Router>
@@ -32,13 +71,19 @@ export default function App() {
       <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/routes" element={<RouteSelectionPage />} />
-          <Route path="/route/:routeId" element={<RouteDetailsPage />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/bus-charter" element={<BusCharterPage />} />
-          <Route path="*" element={<HomePage />} />
+          {/* Root redirect */}
+          <Route path="/" element={<RootRedirect />} />
+          
+          {/* Language-prefixed routes */}
+          <Route path="/:lang" element={<LanguageRoute><HomePage /></LanguageRoute>} />
+          <Route path="/:lang/routes" element={<LanguageRoute><RouteSelectionPage /></LanguageRoute>} />
+          <Route path="/:lang/route/:routeId" element={<LanguageRoute><RouteDetailsPage /></LanguageRoute>} />
+          <Route path="/:lang/about" element={<LanguageRoute><AboutPage /></LanguageRoute>} />
+          <Route path="/:lang/contact" element={<LanguageRoute><ContactPage /></LanguageRoute>} />
+          <Route path="/:lang/bus-charter" element={<LanguageRoute><BusCharterPage /></LanguageRoute>} />
+          
+          {/* Fallback - redirect to language-prefixed route */}
+          <Route path="*" element={<Navigate to="/ro" replace />} />
         </Routes>
       </Suspense>
     </Router>

@@ -20,16 +20,8 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const LANGUAGE_STORAGE_KEY = 'rutemd-language';
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [language, setLanguageState] = useState<Language>(() => {
-    // Try to get saved language from localStorage
-    if (typeof window !== 'undefined') {
-      const saved = localStorage.getItem(LANGUAGE_STORAGE_KEY);
-      if (saved === 'ro' || saved === 'ru') {
-        return saved;
-      }
-    }
-    return 'ro'; // Default to Romanian
-  });
+  // Start with Romanian as default; App.tsx will set the correct language from URL
+  const [language, setLanguageState] = useState<Language>('ro');
 
   const setLanguage = (lang: Language) => {
     setLanguageState(lang);
