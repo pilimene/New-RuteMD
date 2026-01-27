@@ -90,10 +90,10 @@ export function BookingWidget() {
     }
 
     if (matchingRoute) {
-      navigate(`/route/${matchingRoute.id}`);
+      navigate(`/${language}/route/${matchingRoute.id}`);
     } else {
       // If no exact match, go to routes page
-      navigate('/routes');
+      navigate(`/${language}/routes`);
     }
   };
 
