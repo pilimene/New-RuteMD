@@ -445,7 +445,7 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
                   <Input
                     type="tel"
                     inputMode="numeric"
-                    pattern="[\d\s+()-]*"
+                    pattern="[0-9\s\+\-\(\)]*"
                     className="pl-10 h-12 rounded-xl bg-gray-50 border-gray-200 focus:border-[#3870db] focus:ring-[#3870db]"
                     placeholder={t.bookingForm.phonePlaceholder}
                     value={formData.telefon}
