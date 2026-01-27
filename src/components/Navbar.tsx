@@ -111,7 +111,7 @@ export function Navbar() {
               </div>
               <span className="text-sm font-semibold tracking-normal">+373 68 50 11 82</span>
             </a>
-            <Link to="/contact">
+            <Link to={`/${language}/contact`}>
               <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-4 xl:px-6 rounded-full font-bold shadow-lg shadow-blue-900/20 transition-all hover:shadow-blue-900/40 text-sm">
                 {t.nav.contactUs}
               </Button>

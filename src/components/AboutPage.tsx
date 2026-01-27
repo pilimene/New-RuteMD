@@ -278,7 +278,7 @@ export function AboutPage() {
                <h2 className="text-[#012141] text-3xl font-bold mb-4">{t.aboutPage.fleetTitle}</h2>
                <p className="text-gray-500 max-w-xl">{t.aboutPage.fleetSubtitle}</p>
              </div>
-             <Link to="/bus-charter">
+             <Link to={`/${language}/bus-charter`}>
                <Button variant="outline" className="hidden md:flex border-[#3870db] text-[#3870db] hover:bg-blue-50">
                  {t.aboutPage.viewFleet} <ChevronRight className="w-4 h-4 ml-2" />
                </Button>
@@ -333,12 +333,12 @@ export function AboutPage() {
                {t.aboutPage.ctaSubtitle}
              </p>
              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-               <Link to="/routes">
+               <Link to={`/${language}/routes`}>
                  <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white h-12 px-8 text-lg rounded-xl shadow-lg shadow-blue-500/30 transition-all hover:-translate-y-1">
                    {t.aboutPage.bookTicketNow}
                  </Button>
                </Link>
-               <Link to="/contact">
+               <Link to={`/${language}/contact`}>
                  <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 h-12 px-8 text-lg rounded-xl">
                    <Phone className="w-4 h-4 mr-2" /> {t.aboutPage.contactDispatch}
                  </Button>

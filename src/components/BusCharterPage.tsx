@@ -542,7 +542,7 @@ export function BusCharterPage() {
               <p className="text-gray-500 text-sm mt-1">{t.busCharter.servicesSubtitle}</p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
-            <Link to="/contact">
+            <Link to={`/${language}/contact`}>
               <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
                 {t.nav.contactUs} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
               </Button>

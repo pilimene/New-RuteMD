@@ -4,7 +4,7 @@ import logo from '../assets/efa08d3efe27d7b6c4af6e74f509e93eedbbb850.png';
 import { useTranslation } from '../i18n';
 
 export function Footer() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   return (
     <footer className="bg-[#012141] text-gray-300">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -33,22 +33,22 @@ export function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/routes" className="text-sm hover:text-[#3870db] transition-colors">
+                <Link to={`/${language}/routes`} className="text-sm hover:text-[#3870db] transition-colors">
                   {t.nav.routes}
                 </Link>
               </li>
               <li>
-                <Link to="/bus-charter" className="text-sm hover:text-[#3870db] transition-colors">
+                <Link to={`/${language}/bus-charter`} className="text-sm hover:text-[#3870db] transition-colors">
                   {t.nav.busCharter}
                 </Link>
               </li>
               <li>
-                <Link to="/about" className="text-sm hover:text-[#3870db] transition-colors">
+                <Link to={`/${language}/about`} className="text-sm hover:text-[#3870db] transition-colors">
                   {t.nav.about}
                 </Link>
               </li>
               <li>
-                <Link to="/contact" className="text-sm hover:text-[#3870db] transition-colors">
+                <Link to={`/${language}/contact`} className="text-sm hover:text-[#3870db] transition-colors">
                   {t.nav.contact}
                 </Link>
               </li>

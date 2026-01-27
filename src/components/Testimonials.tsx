@@ -7,7 +7,7 @@ import mariaAvatar from '../assets/Maria.png';
 import pavelAvatar from '../assets/Pavel Istrati.jpg';
 
 export function Testimonials() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const testimonials = [
     {
@@ -91,7 +91,7 @@ export function Testimonials() {
               </div>
 
               <div className="mt-8 pt-8 border-t border-white/10 flex justify-end text-xs text-blue-200/60 relative z-10">
-                <Link to="/contact" className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
+                <Link to={`/${language}/contact`} className="flex items-center gap-1 cursor-pointer hover:text-white transition-colors">
                   {t.testimonials.contactPage} <ArrowRight className="w-3 h-3" />
                 </Link>
               </div>

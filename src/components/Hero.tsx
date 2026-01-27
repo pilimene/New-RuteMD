@@ -6,7 +6,7 @@ import heroBusImage from '../assets/b18185243268eb818aabe5c1d596d6c6d3042822.jpg
 import { useTranslation } from '../i18n';
 
 export function Hero() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   return (
     <section className="relative h-[75vh] min-h-[600px] flex items-center justify-center bg-[#012141] overflow-hidden">
       {/* Background Image with Parallax-like feel (static for now but high quality) */}
@@ -61,12 +61,12 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <Link to="/routes">
+            <Link to={`/${language}/routes`}>
               <Button size="lg" className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(56,112,219,0.4)] hover:shadow-[0_0_30px_rgba(56,112,219,0.6)] transition-all duration-300">
                 {t.hero.bookNow}
               </Button>
             </Link>
-            <Link to="/about">
+            <Link to={`/${language}/about`}>
               <Button size="lg" variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm">
                 {t.hero.aboutUs}
                 <ArrowRight className="ml-2 w-5 h-5" />

@@ -140,7 +140,7 @@ export function RouteSelectionPage() {
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               {routes.filter(r => r.destination === 'Istanbul' || r.origin === 'Istanbul').map((route) => (
-                <Link to={`/route/${route.id}`} key={route.id} className="group">
+                <Link to={`/${language}/route/${route.id}`} key={route.id} className="group">
                   <Card className="overflow-hidden rounded-[24px] border-none shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px] relative group-hover:-translate-y-1">
                     <div className="absolute inset-0">
                       <ImageWithFallback
@@ -209,7 +209,7 @@ export function RouteSelectionPage() {
                   return a.origin === 'Chișinău' ? -1 : 1;
                 })
                 .map((route) => (
-                <Link to={`/route/${route.id}`} key={route.id} className="group">
+                <Link to={`/${language}/route/${route.id}`} key={route.id} className="group">
                   <Card className="overflow-hidden rounded-[24px] border-none shadow-lg hover:shadow-2xl transition-all duration-500 h-[400px] relative group-hover:-translate-y-1">
                     <div className="absolute inset-0">
                       <ImageWithFallback

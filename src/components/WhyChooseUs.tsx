@@ -4,7 +4,7 @@ import { motion } from 'motion/react';
 import { useTranslation } from '../i18n';
 
 export function WhyChooseUs() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const mainFeatures = [
     {
@@ -121,7 +121,7 @@ export function WhyChooseUs() {
               <div className="mt-10 p-4 bg-blue-50 rounded-xl border border-blue-100 flex items-center gap-3">
                 <CheckCircle2 className="w-5 h-5 text-[#3870db] shrink-0" />
                 <p className="text-sm text-[#012141] font-medium">
-                  {t.whyChooseUs.allIncluded} <Link to="/routes" className="text-[#3870db] cursor-pointer hover:underline">{t.whyChooseUs.bookNow} &rarr;</Link>
+                  {t.whyChooseUs.allIncluded} <Link to={`/${language}/routes`} className="text-[#3870db] cursor-pointer hover:underline">{t.whyChooseUs.bookNow} &rarr;</Link>
                 </p>
               </div>
             </div>

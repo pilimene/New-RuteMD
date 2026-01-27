@@ -27,7 +27,7 @@ export function RouteDetailsPage() {
   const route = routeId ? getRouteById(routeId) : undefined;
 
   if (!route) {
-    return <Navigate to="/routes" replace />;
+    return <Navigate to={`/${language}/routes`} replace />;
   }
 
   const stops = isReverse ? route.returnStops : route.stops;
@@ -208,9 +208,9 @@ export function RouteDetailsPage() {
         <div className="relative z-10 h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end pb-20">
           {/* Breadcrumb */}
           <div className="flex items-center gap-2 text-blue-100/80 text-sm mb-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <Link to="/" className="hover:text-white transition-colors">{t.routeDetails.breadcrumbHome}</Link>
+            <Link to={`/${language}`} className="hover:text-white transition-colors">{t.routeDetails.breadcrumbHome}</Link>
             <ChevronRight className="w-3 h-3" />
-            <Link to="/routes" className="hover:text-white transition-colors">{t.routeDetails.breadcrumbRoutes}</Link>
+            <Link to={`/${language}/routes`} className="hover:text-white transition-colors">{t.routeDetails.breadcrumbRoutes}</Link>
             <ChevronRight className="w-3 h-3" />
             <span className="text-white font-medium">{translateCity(origin)} - {translateCity(destination)}</span>
           </div>

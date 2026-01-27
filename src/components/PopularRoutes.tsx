@@ -7,7 +7,7 @@ import { routes as routesData } from '../data/routes';
 import { useTranslation } from '../i18n';
 
 export function PopularRoutes() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   const popularRoutes = routesData
     .filter((route) => route.origin === 'Chișinău')
@@ -35,7 +35,7 @@ export function PopularRoutes() {
               {t.popularRoutes.title}
             </h2>
           </div>
-          <Link to="/routes">
+          <Link to={`/${language}/routes`}>
             <Button variant="ghost" className="hidden md:flex text-[#3870db] hover:text-[#2b5bb8] p-0 font-semibold group text-sm">
               {t.popularRoutes.viewAll}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -45,7 +45,7 @@ export function PopularRoutes() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {popularRoutes.map((route, index) => (
-            <Link to={`/route/${route.id}`} key={route.id}>
+            <Link to={`/${language}/route/${route.id}`} key={route.id}>
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -94,7 +94,7 @@ export function PopularRoutes() {
         </div>
 
         <div className="mt-6 md:hidden text-center">
-          <Link to="/routes">
+          <Link to={`/${language}/routes`}>
             <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] font-semibold group text-sm">
               {t.popularRoutes.viewAll}
               <ArrowRight className="ml-2 w-4 h-4 transition-transform group-hover:translate-x-1" />
