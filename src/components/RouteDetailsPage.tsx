@@ -55,8 +55,12 @@ export function RouteDetailsPage() {
 
   const content = seoContent[language];
 
-  const trackPhoneClick = (phoneNumber: string, label: 'md' | 'tr') => {
+  const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>, phoneNumber: string, label: 'md' | 'tr') => {
+    e.preventDefault();
+    const telUrl = (e.currentTarget.getAttribute('href') || `tel:${phoneNumber}`) as string;
+
     if (typeof window === 'undefined') return;
+
     const params = {
       route_id: route.id,
       route: `${origin} - ${destination}`,
@@ -73,6 +77,10 @@ export function RouteDetailsPage() {
       window.dataLayer.push({ event: 'phone_click', ...params });
       window.dataLayer.push({ event: 'generate_lead', method: 'phone_click', ...params });
     }
+    // Open tel: after a short delay so GA has time to send the event (fixes mobile/quick navigation)
+    setTimeout(() => {
+      window.location.href = telUrl;
+    }, 250);
   };
 
   const structuredData = {
@@ -501,7 +509,7 @@ export function RouteDetailsPage() {
                     <div className="space-y-2">
                       <a
                         href="tel:+37368501182"
-                        onClick={() => trackPhoneClick('+37368501182', 'md')}
+                        onClick={(e) => handlePhoneClick(e, '+37368501182', 'md')}
                         className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
                       >
                         <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
@@ -514,7 +522,7 @@ export function RouteDetailsPage() {
                       </a>
                       <a
                         href="tel:+905358223890"
-                        onClick={() => trackPhoneClick('+905358223890', 'tr')}
+                        onClick={(e) => handlePhoneClick(e, '+905358223890', 'tr')}
                         className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
                       >
                         <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
