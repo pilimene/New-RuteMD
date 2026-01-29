@@ -15,13 +15,13 @@ export function SEO({
   title, 
   description, 
   keywords, 
-  ogImage = 'https://rutemd.com/og-image.jpg',
+  ogImage = 'https://www.rutemd.com/og-image.jpg',
   canonicalUrl,
   structuredData,
   lang = 'ro'
 }: SEOProps) {
   const location = useLocation();
-  const baseUrl = 'https://rutemd.com';
+  const baseUrl = 'https://www.rutemd.com';
   
   // Get path without language prefix
   const pathWithoutLang = location.pathname.replace(/^\/(ro|ru)(\/|$)/, '/');
