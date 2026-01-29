@@ -195,29 +195,36 @@ export function BookingForm({ route, isReverse = false, onClose }: BookingFormPr
       setBookingResult(result);
 
       if (result.success) {
-        // Track Google Analytics 4 booking event
-        if (typeof window !== 'undefined' && window.gtag) {
-          // GA4 custom event for booking completion
-          window.gtag('event', 'booking_completed', {
-            'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
-            'value': total,
-            'booking_id': result.bookingId,
-            'route': `${origin} - ${destination}`,
-            'route_id': route.id,
-            'passengers': passengers,
-            'departure_date': date ? format(date, 'yyyy-MM-dd') : '',
-            'departure_day': departureDayDisplay,
-            'departure_time': departureTime,
-            'origin': origin,
-            'destination': destination,
-          });
+        // Track Google Analytics 4 booking event (gtag or dataLayer fallback if script not loaded yet)
+        if (typeof window !== 'undefined') {
+          const currency = route.currency === 'MDL' ? 'MDL' : 'EUR';
+          const bookingEventParams = {
+            currency,
+            value: total,
+            booking_id: result.bookingId,
+            route: `${origin} - ${destination}`,
+            route_id: route.id,
+            passengers,
+            departure_date: date ? format(date, 'yyyy-MM-dd') : '',
+            departure_day: departureDayDisplay,
+            departure_time: departureTime,
+            origin,
+            destination,
+          };
+          const leadEventParams = {
+            currency,
+            value: total,
+            transaction_id: result.bookingId,
+          };
 
-          // Also track as generate_lead event (GA4 standard event for conversions)
-          window.gtag('event', 'generate_lead', {
-            'currency': route.currency === 'MDL' ? 'MDL' : 'EUR',
-            'value': total,
-            'transaction_id': result.bookingId,
-          });
+          if (window.gtag) {
+            window.gtag('event', 'booking_completed', bookingEventParams);
+            window.gtag('event', 'generate_lead', leadEventParams);
+          } else {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ event: 'booking_completed', ...bookingEventParams });
+            window.dataLayer.push({ event: 'generate_lead', ...leadEventParams });
+          }
         }
 
         setStep(4); // Success step
