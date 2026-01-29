@@ -55,6 +55,26 @@ export function RouteDetailsPage() {
 
   const content = seoContent[language];
 
+  const trackPhoneClick = (phoneNumber: string, label: 'md' | 'tr') => {
+    if (typeof window === 'undefined') return;
+    const params = {
+      route_id: route.id,
+      route: `${origin} - ${destination}`,
+      origin,
+      destination,
+      phone_number: phoneNumber,
+      link_type: label,
+    };
+    if (window.gtag) {
+      window.gtag('event', 'phone_click', params);
+      window.gtag('event', 'generate_lead', { method: 'phone_click', ...params });
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'phone_click', ...params });
+      window.dataLayer.push({ event: 'generate_lead', method: 'phone_click', ...params });
+    }
+  };
+
   const structuredData = {
     "@context": "https://schema.org",
     "@type": "TripAction",
@@ -479,7 +499,11 @@ export function RouteDetailsPage() {
                   <div className="mt-3">
                     <p className="text-xs text-gray-400 uppercase tracking-wider mb-3 font-semibold">{t.routeDetails.phoneReservations}</p>
                     <div className="space-y-2">
-                      <a href="tel:+37368501182" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                      <a
+                        href="tel:+37368501182"
+                        onClick={() => trackPhoneClick('+37368501182', 'md')}
+                        className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
+                      >
                         <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
                           <Phone className="w-5 h-5 text-white" />
                         </div>
@@ -488,7 +512,11 @@ export function RouteDetailsPage() {
                           <p className="text-xs text-gray-500">{t.routeDetails.callNow}</p>
                         </div>
                       </a>
-                      <a href="tel:+905358223890" className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group">
+                      <a
+                        href="tel:+905358223890"
+                        onClick={() => trackPhoneClick('+905358223890', 'tr')}
+                        className="flex items-center gap-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg transition-colors group"
+                      >
                         <div className="w-10 h-10 bg-[#3870db] rounded-full flex items-center justify-center shrink-0">
                           <Phone className="w-5 h-5 text-white" />
                         </div>
