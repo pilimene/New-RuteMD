@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useParams, Link, Navigate, useSearchParams } from 'react-router-dom';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Button } from './ui/button';
@@ -20,11 +20,46 @@ import { SEO } from './SEO';
 
 export function RouteDetailsPage() {
   const { routeId } = useParams<{ routeId: string }>();
+  const [searchParams] = useSearchParams();
   const [isReverse, setIsReverse] = useState(false);
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const { t, language } = useTranslation();
 
   const route = routeId ? getRouteById(routeId) : undefined;
+
+  // Scroll to section based on query parameter (for Google Ads sitelinks)
+  useEffect(() => {
+    const section = searchParams.get('section');
+    if (section && route) {
+      // Map section names to element IDs (allows multiple names for same section)
+      const sectionMap: Record<string, string> = {
+        'schedule': 'schedule',
+        'itinerary': 'schedule',
+        'price': 'price',
+        'booking': 'price',
+        'ticket-includes': 'ticket-includes',
+        'amenities': 'ticket-includes',
+      };
+      
+      const elementId = sectionMap[section] || section;
+      
+      // Small delay to ensure DOM is fully rendered
+      const timer = setTimeout(() => {
+        const element = document.getElementById(elementId);
+        if (element) {
+          // Get element position and scroll with offset for navbar (approx 80-100px)
+          const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+          const offsetPosition = elementPosition - 100; // Offset for sticky navbar
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams, route]);
 
   if (!route) {
     return <Navigate to={`/${language}/routes`} replace />;
@@ -278,7 +313,7 @@ export function RouteDetailsPage() {
           <div className="lg:col-span-2 space-y-12 order-2 lg:order-1">
 
             {/* Spotlight Features Section */}
-            <div className="bg-[#012141] rounded-2xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
+            <div id="ticket-includes" className="bg-[#012141] rounded-2xl p-8 md:p-10 text-white shadow-2xl relative overflow-hidden group">
               {/* Decorative background elements */}
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -mr-16 -mt-16 transition-all duration-1000 group-hover:bg-white/10"></div>
               <div className="absolute bottom-0 left-0 w-40 h-40 bg-[#3870db]/30 rounded-full blur-2xl -ml-10 -mb-10 transition-all duration-1000 group-hover:bg-[#3870db]/40"></div>
@@ -341,7 +376,7 @@ export function RouteDetailsPage() {
             </div>
 
             {/* Timeline Section */}
-            <section className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 border border-gray-100 p-8 md:p-10">
+            <section id="schedule" className="bg-white rounded-2xl shadow-xl shadow-blue-900/5 border border-gray-100 p-8 md:p-10">
               <div className="flex flex-col md:flex-row items-center justify-between mb-12">
                  <div>
                    <h2 className="text-[#012141] font-bold text-2xl">{t.routeDetails.itinerary}</h2>
@@ -446,7 +481,7 @@ export function RouteDetailsPage() {
           {/* Right Column: Sticky Booking Widget - Order 1 on mobile, 2 on desktop */}
           <div className="lg:col-span-1 order-1 lg:order-2">
              <div className="lg:sticky lg:top-24 space-y-6">
-               <Card className="p-6 rounded-2xl shadow-xl shadow-blue-900/10 border-t-4 border-t-[#3870db] bg-white">
+               <Card id="price" className="p-6 rounded-2xl shadow-xl shadow-blue-900/10 border-t-4 border-t-[#3870db] bg-white">
                  <div className="text-center mb-8 relative">
                    <p className="text-gray-400 text-sm font-medium uppercase tracking-wider mb-1">{t.routeDetails.standardPrice}</p>
                    <div className="flex items-center justify-center gap-1 text-[#012141]">
