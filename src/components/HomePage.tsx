@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Hero } from './Hero';
 import { BookingWidget } from './BookingWidget';
@@ -10,8 +11,31 @@ import { StatsSection } from './StatsSection';
 import { SEO } from './SEO';
 import { useTranslation } from '../i18n';
 
+function scrollToAmenities() {
+  const el = document.getElementById('amenities');
+  if (el) {
+    const y = el.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }
+}
+
 export function HomePage() {
   const { language } = useTranslation();
+
+  // Scroll to #amenities on load or when hash changes (e.g. user opens /ro#amenities)
+  useEffect(() => {
+    if (window.location.hash !== '#amenities') return;
+    const timer = setTimeout(scrollToAmenities, 400);
+    return () => clearTimeout(timer);
+  }, [language]);
+
+  useEffect(() => {
+    const onHashChange = () => {
+      if (window.location.hash === '#amenities') scrollToAmenities();
+    };
+    window.addEventListener('hashchange', onHashChange);
+    return () => window.removeEventListener('hashchange', onHashChange);
+  }, []);
 
   // SEO content based on language - Focus on PRIMARY route (Chisinau - Istanbul)
   const seoContent = {
