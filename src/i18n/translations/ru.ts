@@ -300,6 +300,7 @@ export const ru: TranslationKeys = {
     confirmationCall: 'Звонок подтверждения за 1-2 дня',
     phoneReservations: 'Бронирование по телефону',
     callNow: 'Позвонить сейчас',
+    viewBulgariaRoutes: 'Поездка в Болгарию? Маршруты Варна и Бургас',
   },
 
   // Booking Form

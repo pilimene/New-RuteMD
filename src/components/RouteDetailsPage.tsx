@@ -476,6 +476,17 @@ export function RouteDetailsPage() {
                 ))}
               </Accordion>
             </div>
+
+            {/* Bulgaria routes CTA */}
+            <Link
+              to={`/${language}/routes#bulgaria`}
+              className="block rounded-2xl border-2 border-[#3870db] bg-blue-50/50 p-6 text-center transition-all hover:border-[#2b5bb8] hover:bg-blue-50"
+            >
+              <p className="text-[#012141] font-semibold">{t.routeDetails.viewBulgariaRoutes}</p>
+              <span className="mt-2 inline-flex items-center gap-1 text-[#3870db] font-medium text-sm">
+                <ChevronRight className="w-4 h-4" /> {t.routeSelection.viewDetails}
+              </span>
+            </Link>
           </div>
 
           {/* Right Column: Sticky Booking Widget - Order 1 on mobile, 2 on desktop */}

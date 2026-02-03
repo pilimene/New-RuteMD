@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { Navbar } from './Navbar';
 import { Footer } from './Footer';
 import { Card } from './ui/card';
@@ -26,6 +27,20 @@ export function RouteSelectionPage() {
   };
 
   const content = seoContent[language];
+
+  // Scroll to Bulgaria section when hash is #bulgaria
+  useEffect(() => {
+    if (window.location.hash === '#bulgaria') {
+      const timer = setTimeout(() => {
+        const el = document.getElementById('bulgaria');
+        if (el) {
+          const y = el.getBoundingClientRect().top + window.pageYOffset - 100;
+          window.scrollTo({ top: y, behavior: 'smooth' });
+        }
+      }, 300);
+      return () => clearTimeout(timer);
+    }
+  }, [language]);
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -189,7 +204,7 @@ export function RouteSelectionPage() {
           </div>
 
           {/* Bulgaria */}
-          <div style={{ marginTop: '4rem' }}>
+          <div id="bulgaria" style={{ marginTop: '4rem' }}>
             <h2 className="text-[#012141] font-bold text-3xl mb-8 flex items-center gap-3 px-1">
               <div className="w-1.5 h-8 bg-[#3870db] rounded-full" />
               {t.routeSelection.bulgaria}

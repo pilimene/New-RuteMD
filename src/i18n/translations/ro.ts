@@ -298,6 +298,7 @@ export const ro = {
     confirmationCall: 'Apel de confirmare cu 1-2 zile înainte',
     phoneReservations: 'Rezervări Telefonice',
     callNow: 'Apelează acum',
+    viewBulgariaRoutes: 'Călătorești în Bulgaria? Vezi rutele Varna și Burgas',
   },
 
   // Booking Form
