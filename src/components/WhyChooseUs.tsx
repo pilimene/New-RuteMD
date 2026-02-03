@@ -45,7 +45,7 @@ export function WhyChooseUs() {
   ];
 
   return (
-    <section className="pt-6 sm:pt-8 pb-12 sm:pb-16 bg-gray-50">
+    <section id="amenities" className="pt-6 sm:pt-8 pb-12 sm:pb-16 bg-gray-50 scroll-mt-24">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
         <div className="bg-white rounded-[2.5rem] shadow-xl shadow-blue-900/5 overflow-hidden">

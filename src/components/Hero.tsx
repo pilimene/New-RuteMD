@@ -56,22 +56,30 @@ export function Hero() {
           </motion.p>
 
           <motion.div
-            className="flex flex-col sm:flex-row gap-4 mb-8 sm:mb-0"
+            className="flex flex-col gap-4 mb-8 sm:mb-0"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
           >
-            <Link to={`/${language}/routes`}>
-              <Button size="lg" className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(56,112,219,0.4)] hover:shadow-[0_0_30px_rgba(56,112,219,0.6)] transition-all duration-300">
-                {t.hero.bookNow}
-              </Button>
-            </Link>
-            <Link to={`/${language}/about`}>
-              <Button size="lg" variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm">
-                {t.hero.aboutUs}
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </Link>
+            <div className="flex flex-col sm:flex-row gap-4">
+              <Link to={`/${language}/routes`}>
+                <Button size="lg" className="bg-[#3870db] hover:bg-[#2b5bb8] text-white px-8 py-6 text-lg rounded-full shadow-[0_0_20px_rgba(56,112,219,0.4)] hover:shadow-[0_0_30px_rgba(56,112,219,0.6)] transition-all duration-300">
+                  {t.hero.bookNow}
+                </Button>
+              </Link>
+              <Link to={`/${language}/about`}>
+                <Button size="lg" variant="outline" className="bg-transparent text-white border-white/30 hover:bg-white/10 px-8 py-6 text-lg rounded-full backdrop-blur-sm">
+                  {t.hero.aboutUs}
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </Link>
+            </div>
+            <a
+              href="#amenities"
+              className="text-white/80 hover:text-white text-sm font-medium underline underline-offset-4 transition-colors w-fit"
+            >
+              {t.whyChooseUs.amenitiesTitle}
+            </a>
           </motion.div>
         </div>
       </div>
