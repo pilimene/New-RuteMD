@@ -1,9 +1,25 @@
 import { lazy, Suspense, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ScrollToTop } from './components/ScrollToTop';
 import { useLanguage } from './i18n';
+
+const GA_MEASUREMENT_ID = 'G-2CHB70F2EM';
+
+function GoogleTagPageView() {
+  const location = useLocation();
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.gtag) return;
+    const pagePath = location.pathname + location.search;
+    const pageLocation = window.location.origin + pagePath;
+    window.gtag('config', GA_MEASUREMENT_ID, {
+      page_path: pagePath,
+      page_location: pageLocation,
+    });
+  }, [location.pathname, location.search]);
+  return null;
+}
 
 // Lazy load pages for better performance (code splitting)
 const HomePage = lazy(() => import('./components/HomePage').then(m => ({ default: m.HomePage })));
@@ -66,6 +82,7 @@ function RootRedirect() {
 export default function App() {
   return (
     <Router>
+      <GoogleTagPageView />
       <Analytics />
       <SpeedInsights />
       <ScrollToTop />
