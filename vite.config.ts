@@ -64,7 +64,8 @@
         manualChunks: {
           // Split vendor chunks for better caching
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-select', '@radix-ui/react-popover'],
+          // Select + Popover used on homepage (BookingWidget); Dialog only on RouteDetailsPage/BusCharterPage (lazy) - keep it out of initial load
+          'ui-vendor': ['@radix-ui/react-select', '@radix-ui/react-popover'],
           'motion-vendor': ['motion', 'embla-carousel-react'],
           'utils': ['date-fns', 'clsx', 'tailwind-merge'],
         },

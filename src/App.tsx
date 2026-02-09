@@ -1,9 +1,30 @@
-import { lazy, Suspense, useEffect } from 'react';
+import { lazy, Suspense, useEffect, useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, useParams, useNavigate, useLocation } from 'react-router-dom';
-import { Analytics } from '@vercel/analytics/react';
-import { SpeedInsights } from '@vercel/speed-insights/react';
 import { ScrollToTop } from './components/ScrollToTop';
 import { useLanguage } from './i18n';
+
+// Deferred Analytics & SpeedInsights - load after idle to avoid blocking main thread; does not affect lead tracking (handled by gtag)
+function DeferredAnalytics() {
+  const [AnalyticsComp, setAnalyticsComp] = useState<React.ComponentType | null>(null);
+  const [SpeedComp, setSpeedComp] = useState<React.ComponentType | null>(null);
+  useEffect(() => {
+    const load = () => {
+      import('@vercel/analytics/react').then(m => setAnalyticsComp(() => m.Analytics));
+      import('@vercel/speed-insights/react').then(m => setSpeedComp(() => m.SpeedInsights));
+    };
+    if ('requestIdleCallback' in window) {
+      (window as Window & { requestIdleCallback: typeof requestIdleCallback }).requestIdleCallback(load, { timeout: 2500 });
+    } else {
+      setTimeout(load, 1500);
+    }
+  }, []);
+  return (
+    <>
+      {AnalyticsComp && <AnalyticsComp />}
+      {SpeedComp && <SpeedComp />}
+    </>
+  );
+}
 
 const GA_MEASUREMENT_ID = 'G-2CHB70F2EM';
 
@@ -83,8 +104,7 @@ export default function App() {
   return (
     <Router>
       <GoogleTagPageView />
-      <Analytics />
-      <SpeedInsights />
+      <DeferredAnalytics />
       <ScrollToTop />
       <Suspense fallback={<PageLoader />}>
         <Routes>

@@ -108,13 +108,21 @@ export function BusCharterPage() {
     },
     "offers": {
       "@type": "AggregateOffer",
-      "priceCurrency": "MDL",
+      "priceCurrency": "EUR",
+      "lowPrice": "130",
+      "highPrice": "130",
       "offerCount": fleetData.length,
+      "availability": "https://schema.org/InStock",
+      "priceValidUntil": "2026-12-31",
+      "url": `https://www.rutemd.com/${language}/bus-charter`,
       "itemOffered": fleetData.map(vehicle => ({
-        "@type": "Product",
+        "@type": "Service",
         "name": vehicle.type,
         "description": `${vehicle.seats} ${language === 'ru' ? 'мест' : 'locuri'}`,
-        "category": language === 'ru' ? "Аренда автобусов" : "Închiriere autocare",
+        "provider": {
+          "@type": "BusCompany",
+          "name": "RUTEMD"
+        },
         "offers": {
           "@type": "Offer",
           "price": "130",

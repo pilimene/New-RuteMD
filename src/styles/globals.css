@@ -86,7 +86,7 @@
 
   body {
     color: var(--foreground);
-    font-family: 'Outfit', sans-serif;
+    font-family: 'Outfit Variable', sans-serif;
     background: linear-gradient(135deg, #012141 0%, #1a3a5a 100%);
   }
 }
@@ -100,56 +100,56 @@
       font-size: 54px;
       font-weight: 400;
       line-height: 1;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     h2 {
       font-size: 28px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     h3 {
       font-size: 20px;
       font-weight: 600;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     h4 {
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     p {
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     label {
       font-size: 14px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     button {
       font-size: 14px;
       font-weight: 700;
       line-height: 1;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
 
     input {
       font-size: 14px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit', sans-serif;
+      font-family: 'Outfit Variable', sans-serif;
     }
   }
 }

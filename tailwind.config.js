@@ -6,6 +6,9 @@ export default {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        sans: ['Outfit Variable', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+      },
       colors: {
         border: "var(--border)",
         background: "var(--background)",

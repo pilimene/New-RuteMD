@@ -3,7 +3,7 @@ import { Star, Phone, MessageCircle, ArrowRight } from 'lucide-react';
 import { motion } from 'motion/react';
 import { Button } from './ui/button';
 import { useTranslation } from '../i18n';
-import mariaAvatar from '../assets/Maria.png';
+import mariaAvatar from '../assets/Maria.jpg';
 import pavelAvatar from '../assets/Pavel Istrati.jpg';
 
 export function Testimonials() {
