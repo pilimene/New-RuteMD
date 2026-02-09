@@ -51,6 +51,31 @@ export function BusCharterPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
+  const trackGenerateLead = (params: { method: string; [key: string]: unknown }) => {
+    if (typeof window === 'undefined') return;
+    const eventParams = { ...params, page: 'bus_charter' };
+    if (window.gtag) {
+      window.gtag('event', 'generate_lead', eventParams);
+    } else {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: 'generate_lead', ...eventParams });
+    }
+  };
+
+  const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>, phoneNumber: string) => {
+    e.preventDefault();
+    const telUrl = (e.currentTarget.getAttribute('href') || `tel:${phoneNumber}`) as string;
+    trackGenerateLead({ method: 'phone_click', phone_number: phoneNumber });
+    if (window.gtag) {
+      window.gtag('event', 'phone_click', { phone_number: phoneNumber, page: 'bus_charter' });
+    }
+    setTimeout(() => { window.location.href = telUrl; }, 250);
+  };
+
+  const handleContactClick = () => {
+    trackGenerateLead({ method: 'contact_cta', cta_label: 'contacteaza-ne' });
+  };
+
   // SEO content based on language - Focus on CHARTER SERVICES
   const seoContent = {
     ro: {
@@ -557,7 +582,7 @@ export function BusCharterPage() {
               <p className="text-gray-500 text-sm mt-1">{t.busCharter.servicesSubtitle}</p>
             </div>
             <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
-            <Link to={`/${language}/contact`}>
+            <Link to={`/${language}/contact`} onClick={handleContactClick}>
               <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
                 {t.nav.contactUs} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
               </Button>
@@ -634,10 +659,10 @@ export function BusCharterPage() {
                         <div>
                           <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.phoneReservations}</p>
                           <div className="space-y-1">
-                            <a href="tel:+37369101912" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                            <a href="tel:+37369101912" onClick={(e) => handlePhoneClick(e, '+37369101912')} className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
                               +373 69 10 19 12
                             </a>
-                            <a href="tel:+37368501182" className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                            <a href="tel:+37368501182" onClick={(e) => handlePhoneClick(e, '+37368501182')} className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
                               +373 68 50 11 82
                             </a>
                           </div>
