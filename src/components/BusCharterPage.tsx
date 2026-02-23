@@ -51,29 +51,29 @@ export function BusCharterPage() {
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  const trackGenerateLead = (params: { method: string; [key: string]: unknown }) => {
+  const trackCharterLead = (params: { method: string; [key: string]: unknown }) => {
     if (typeof window === 'undefined') return;
-    const eventParams = { ...params, page: 'bus_charter' };
+    const eventParams = { ...params };
     if (window.gtag) {
-      window.gtag('event', 'generate_lead', eventParams);
+      window.gtag('event', 'charter_generate_lead', eventParams);
     } else {
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'generate_lead', ...eventParams });
+      window.dataLayer.push({ event: 'charter_generate_lead', ...eventParams });
     }
   };
 
   const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>, phoneNumber: string) => {
     e.preventDefault();
     const telUrl = (e.currentTarget.getAttribute('href') || `tel:${phoneNumber}`) as string;
-    trackGenerateLead({ method: 'phone_click', phone_number: phoneNumber });
+    trackCharterLead({ method: 'phone_click', phone_number: phoneNumber });
     if (window.gtag) {
-      window.gtag('event', 'phone_click', { phone_number: phoneNumber, page: 'bus_charter' });
+      window.gtag('event', 'charter_phone_click', { phone_number: phoneNumber });
     }
     setTimeout(() => { window.location.href = telUrl; }, 250);
   };
 
   const handleContactClick = () => {
-    trackGenerateLead({ method: 'contact_cta', cta_label: 'contacteaza-ne' });
+    trackCharterLead({ method: 'contact_cta', cta_label: 'contacteaza-ne' });
   };
 
   // SEO content based on language - Focus on CHARTER SERVICES
