@@ -15,9 +15,14 @@ export const globallyDisabledDates: string[] = [
 
 // Dates disabled for specific routes
 // Format: "origin-destination" or "destination-origin"
+// RouteDetailsPage uses "Istanbul-Chișinău"; BookingWidget uses "istanbul-chisinau"
 export const routeSpecificDisabledDates: Record<string, string[]> = {
-  // Example: "Chișinău-Istanbul": ["2026-01-26", "2026-02-02"],
-  // Example: "Istanbul-Chișinău": ["2026-01-29"],
+  "Istanbul-Chișinău": ["2026-03-25"],
+  "Varna-Chișinău": ["2026-03-25"],
+  "Burgas-Chișinău": ["2026-03-25"],
+  "istanbul-chisinau": ["2026-03-25"],
+  "varna-chisinau": ["2026-03-25"],
+  "burgas-chisinau": ["2026-03-25"],
 };
 
 /**
