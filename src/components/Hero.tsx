@@ -76,7 +76,7 @@ export function Hero() {
             </div>
             <a
               href="#amenities"
-              className="text-white/80 hover:text-white text-sm font-medium underline underline-offset-4 transition-colors w-fit"
+              className="hidden lg:inline-block text-white/80 hover:text-white text-sm font-medium underline underline-offset-4 transition-colors w-fit"
               onClick={(e) => {
                 e.preventDefault();
                 const el = document.getElementById('amenities');
