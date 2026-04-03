@@ -17,12 +17,20 @@ export const globallyDisabledDates: string[] = [
 // Format: "origin-destination" or "destination-origin"
 // RouteDetailsPage uses "Istanbul-Chișinău"; BookingWidget uses "istanbul-chisinau"
 export const routeSpecificDisabledDates: Record<string, string[]> = {
-  "Istanbul-Chișinău": ["2026-03-25"],
-  "Varna-Chișinău": ["2026-03-25"],
-  "Burgas-Chișinău": ["2026-03-25"],
-  "istanbul-chisinau": ["2026-03-25"],
-  "varna-chisinau": ["2026-03-25"],
-  "burgas-chisinau": ["2026-03-25"],
+  // Chișinău → Istanbul / Varna / Burgas (no plecare 12.04.2026)
+  "Chișinău-Istanbul": ["2026-03-25", "2026-04-12"],
+  "Chișinău-Varna": ["2026-03-25", "2026-04-12"],
+  "Chișinău-Burgas": ["2026-03-25", "2026-04-12"],
+  "chisinau-istanbul": ["2026-03-25", "2026-04-12"],
+  "chisinau-varna": ["2026-03-25", "2026-04-12"],
+  "chisinau-burgas": ["2026-03-25", "2026-04-12"],
+  // Istanbul / Varna / Burgas → Chișinău (no întoarcere 15.04.2026)
+  "Istanbul-Chișinău": ["2026-03-25", "2026-04-15"],
+  "Varna-Chișinău": ["2026-03-25", "2026-04-15"],
+  "Burgas-Chișinău": ["2026-03-25", "2026-04-15"],
+  "istanbul-chisinau": ["2026-03-25", "2026-04-15"],
+  "varna-chisinau": ["2026-03-25", "2026-04-15"],
+  "burgas-chisinau": ["2026-03-25", "2026-04-15"],
 };
 
 /**
