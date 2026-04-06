@@ -33,6 +33,13 @@ export const routeSpecificDisabledDates: Record<string, string[]> = {
   "burgas-chisinau": ["2026-03-25", "2026-04-15"],
 };
 
+function toLocalYyyyMmDd(date: Date): string {
+  const y = date.getFullYear();
+  const m = String(date.getMonth() + 1).padStart(2, '0');
+  const d = String(date.getDate()).padStart(2, '0');
+  return `${y}-${m}-${d}`;
+}
+
 /**
  * Check if a date is disabled
  * @param date - The date to check
@@ -41,7 +48,7 @@ export const routeSpecificDisabledDates: Record<string, string[]> = {
  */
 export function isDateDisabled(date: Date, routeKey?: string): boolean {
   // Normalize date to YYYY-MM-DD format
-  const dateStr = date.toISOString().split('T')[0];
+  const dateStr = toLocalYyyyMmDd(date);
   
   // Check global disabled dates
   if (globallyDisabledDates.includes(dateStr)) {
@@ -62,7 +69,7 @@ export function isDateDisabled(date: Date, routeKey?: string): boolean {
  * Add a disabled date (for programmatic use)
  */
 export function addDisabledDate(date: Date, routeKey?: string): void {
-  const dateStr = date.toISOString().split('T')[0];
+  const dateStr = toLocalYyyyMmDd(date);
   
   if (routeKey) {
     if (!routeSpecificDisabledDates[routeKey]) {
@@ -82,7 +89,7 @@ export function addDisabledDate(date: Date, routeKey?: string): void {
  * Remove a disabled date (for programmatic use)
  */
 export function removeDisabledDate(date: Date, routeKey?: string): void {
-  const dateStr = date.toISOString().split('T')[0];
+  const dateStr = toLocalYyyyMmDd(date);
   
   if (routeKey && routeSpecificDisabledDates[routeKey]) {
     routeSpecificDisabledDates[routeKey] = routeSpecificDisabledDates[routeKey].filter(d => d !== dateStr);
