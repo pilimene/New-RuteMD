@@ -16,12 +16,12 @@ export function RouteSelectionPage() {
   const seoContent = {
     ro: {
       title: 'Rute Autocar Moldova - Turcia & Bulgaria | Chișinău - Istanbul, Varna, Burgas',
-      description: 'Curse regulate cu autocarul din Moldova către Turcia și Bulgaria. Chișinău - Istanbul (1000 MDL), Varna (1000 MDL), Burgas (1000 MDL). Plecări săptămânale, autocare Mercedes premium. Rezervă acum!',
+      description: 'Curse regulate cu autocarul din Moldova către Turcia și Bulgaria. Chișinău - Istanbul (1200 MDL), Varna (1000 MDL), Burgas (1000 MDL). Plecări săptămânale, autocare Mercedes premium. Rezervă acum!',
       keywords: 'rute autocar moldova, autocar chisinau istanbul, autocar chisinau varna, autocar chisinau burgas, transport moldova turcia, transport moldova bulgaria, curse regulate chisinau, bilete autocar turcia, bilete autocar bulgaria, rutemd'
     },
     ru: {
       title: 'Автобусные Маршруты Молдова - Турция и Болгария | Кишинёв - Стамбул, Варна, Бургас',
-      description: 'Регулярные автобусные рейсы из Молдовы в Турцию и Болгарию. Кишинёв - Стамбул (1000 MDL), Варна (1000 MDL), Бургас (1000 MDL). Еженедельные отправления, премиум автобусы Mercedes. Бронируйте!',
+      description: 'Регулярные автобусные рейсы из Молдовы в Турцию и Болгарию. Кишинёв - Стамбул (1200 MDL), Варна (1000 MDL), Бургас (1000 MDL). Еженедельные отправления, премиум автобусы Mercedes. Бронируйте!',
       keywords: 'автобусные маршруты молдова, автобус кишинев стамбул, автобус кишинев варна, автобус кишинев бургас, перевозки молдова турция, перевозки молдова болгария, регулярные рейсы кишинев, билеты автобус турция, билеты автобус болгария, rutemd'
     }
   };

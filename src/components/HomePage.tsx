@@ -41,12 +41,12 @@ export function HomePage() {
   const seoContent = {
     ro: {
       title: 'Autocar Chișinău - Istanbul | Transport Moldova - Turcia | Bilete Online',
-      description: 'Transport cu autocarul Chișinău - Istanbul. Curse regulate Moldova - Turcia. Bilete online de la 1000 MDL. Autocare moderne Mercedes, plecare Duminică, confort premium. Rezervă acum!',
+      description: 'Transport cu autocarul Chișinău - Istanbul. Curse regulate Moldova - Turcia. Bilete online de la 1200 MDL. Autocare moderne Mercedes, plecare Duminică, confort premium. Rezervă acum!',
       keywords: 'autocar chisinau istanbul, bilete autocar istanbul, transport moldova turcia, curse autocar chisinau istanbul, autocar moldova turcia, bilete autocar turcia, transport international moldova turcia, curse regulate chisinau istanbul, autocar mercedes chisinau istanbul, rutemd'
     },
     ru: {
       title: 'Автобус Кишинёв - Стамбул | Перевозки Молдова - Турция | Билеты Онлайн',
-      description: 'Автобусные перевозки Кишинёв - Стамбул. Регулярные рейсы Молдова - Турция. Билеты онлайн от 1000 MDL. Современные автобусы Mercedes, отправление в воскресенье, премиум комфорт. Бронируйте сейчас!',
+      description: 'Автобусные перевозки Кишинёв - Стамбул. Регулярные рейсы Молдова - Турция. Билеты онлайн от 1200 MDL. Современные автобусы Mercedes, отправление в воскресенье, премиум комфорт. Бронируйте сейчас!',
       keywords: 'автобус кишинев стамбул, билеты автобус стамбул, перевозки молдова турция, рейсы автобус кишинев стамбул, автобус молдова турция, билеты автобус турция, международные перевозки молдова турция, регулярные рейсы кишинев стамбул, автобус мерседес кишинев стамбул, rutemd'
     }
   };

@@ -31,9 +31,9 @@ export const routes: Route[] = [
     destination: 'Istanbul',
     departureDay: 'Duminică',
     returnDay: 'Miercuri',
-    price: 1000,
+    price: 1200,
     currency: 'MDL',
-    priceEquivalent: '≈50 EUR / 55 USD',
+    priceEquivalent: '≈60 EUR / 65 USD',
     duration: '21h',
     image: istanbulRouteImage,
     stops: [
@@ -55,9 +55,9 @@ export const routes: Route[] = [
     destination: 'Varna',
     departureDay: 'Duminică',
     returnDay: 'Miercuri',
-    price: 1000,
+    price: 1200,
     currency: 'MDL',
-    priceEquivalent: '≈50 EUR / 55 USD',
+    priceEquivalent: '≈60 EUR / 65 USD',
     duration: '10h',
     image: varnaRouteImage,
     stops: [

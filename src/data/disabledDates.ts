@@ -18,19 +18,19 @@ export const globallyDisabledDates: string[] = [
 // RouteDetailsPage uses "Istanbul-Chișinău"; BookingWidget uses "istanbul-chisinau"
 export const routeSpecificDisabledDates: Record<string, string[]> = {
   // Chișinău → Istanbul / Varna / Burgas (no plecare 12.04.2026)
-  "Chișinău-Istanbul": ["2026-03-25", "2026-04-12"],
-  "Chișinău-Varna": ["2026-03-25", "2026-04-12"],
-  "Chișinău-Burgas": ["2026-03-25", "2026-04-12"],
-  "chisinau-istanbul": ["2026-03-25", "2026-04-12"],
-  "chisinau-varna": ["2026-03-25", "2026-04-12"],
-  "chisinau-burgas": ["2026-03-25", "2026-04-12"],
+  "Chișinău-Istanbul": ["2026-03-25", "2026-04-12", "2026-04-19"],
+  "Chișinău-Varna": ["2026-03-25", "2026-04-12", "2026-04-19"],
+  "Chișinău-Burgas": ["2026-03-25", "2026-04-12", "2026-04-19"],
+  "chisinau-istanbul": ["2026-03-25", "2026-04-12", "2026-04-19"],
+  "chisinau-varna": ["2026-03-25", "2026-04-12", "2026-04-19"],
+  "chisinau-burgas": ["2026-03-25", "2026-04-12", "2026-04-19"],
   // Istanbul / Varna / Burgas → Chișinău (no întoarcere 15.04.2026)
-  "Istanbul-Chișinău": ["2026-03-25", "2026-04-15"],
-  "Varna-Chișinău": ["2026-03-25", "2026-04-15"],
-  "Burgas-Chișinău": ["2026-03-25", "2026-04-15"],
-  "istanbul-chisinau": ["2026-03-25", "2026-04-15"],
-  "varna-chisinau": ["2026-03-25", "2026-04-15"],
-  "burgas-chisinau": ["2026-03-25", "2026-04-15"],
+  "Istanbul-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  "Varna-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  "Burgas-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  "istanbul-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  "varna-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  "burgas-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
 };
 
 function toLocalYyyyMmDd(date: Date): string {
