@@ -105,11 +105,9 @@ export function RouteDetailsPage() {
       link_type: label,
     };
     if (window.gtag) {
-      window.gtag('event', 'phone_click', params);
       window.gtag('event', 'generate_lead', { method: 'phone_click', ...params });
     } else {
       window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'phone_click', ...params });
       window.dataLayer.push({ event: 'generate_lead', method: 'phone_click', ...params });
     }
     // Open tel: after a short delay so GA has time to send the event (fixes mobile/quick navigation)

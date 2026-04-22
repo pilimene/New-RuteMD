@@ -670,9 +670,6 @@ export function BusCharterPage() {
                             <a href="tel:+37369101912" onClick={(e) => handlePhoneClick(e, '+37369101912')} className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
                               +373 69 10 19 12
                             </a>
-                            <a href="tel:+37368501182" onClick={(e) => handlePhoneClick(e, '+37368501182')} className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
-                              +373 68 50 11 82
-                            </a>
                           </div>
                         </div>
                       </div>
