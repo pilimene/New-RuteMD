@@ -1,6 +1,7 @@
 
 :root {
   --font-size: 16px;
+  --font-family-base: 'Outfit Variable', Inter, Roboto, 'Segoe UI', Arial, sans-serif;
   --background: #f0f0f0;
   --foreground: #000000;
   --card: #ffffff;
@@ -86,7 +87,7 @@
 
   body {
     color: var(--foreground);
-    font-family: 'Outfit Variable', sans-serif;
+    font-family: var(--font-family-base);
     background: linear-gradient(135deg, #012141 0%, #1a3a5a 100%);
   }
 }
@@ -100,56 +101,56 @@
       font-size: 54px;
       font-weight: 400;
       line-height: 1;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     h2 {
       font-size: 28px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     h3 {
       font-size: 20px;
       font-weight: 600;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     h4 {
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     p {
       font-size: 18px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     label {
       font-size: 14px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     button {
       font-size: 14px;
       font-weight: 700;
       line-height: 1;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
 
     input {
       font-size: 14px;
       font-weight: 400;
       line-height: 1.2;
-      font-family: 'Outfit Variable', sans-serif;
+      font-family: var(--font-family-base);
     }
   }
 }

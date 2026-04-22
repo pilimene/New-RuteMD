@@ -41,6 +41,10 @@ import partnerLogo8 from '../assets/Logos partners/start (1).png';
 export function BusCharterPage() {
   const { t, language } = useTranslation();
   const [isMobile, setIsMobile] = useState(false);
+  type AnalyticsWindow = Window & {
+    gtag?: (...args: unknown[]) => void;
+    dataLayer?: Array<Record<string, unknown>>;
+  };
 
   useEffect(() => {
     const checkMobile = () => {
@@ -53,21 +57,23 @@ export function BusCharterPage() {
 
   const trackCharterLead = (params: { method: string; [key: string]: unknown }) => {
     if (typeof window === 'undefined') return;
+    const analyticsWindow = window as AnalyticsWindow;
     const eventParams = { ...params };
-    if (window.gtag) {
-      window.gtag('event', 'charter_generate_lead', eventParams);
+    if (analyticsWindow.gtag) {
+      analyticsWindow.gtag('event', 'charter_generate_lead', eventParams);
     } else {
-      window.dataLayer = window.dataLayer || [];
-      window.dataLayer.push({ event: 'charter_generate_lead', ...eventParams });
+      analyticsWindow.dataLayer = analyticsWindow.dataLayer || [];
+      analyticsWindow.dataLayer.push({ event: 'charter_generate_lead', ...eventParams });
     }
   };
 
   const handlePhoneClick = (e: React.MouseEvent<HTMLAnchorElement>, phoneNumber: string) => {
     e.preventDefault();
+    const analyticsWindow = window as AnalyticsWindow;
     const telUrl = (e.currentTarget.getAttribute('href') || `tel:${phoneNumber}`) as string;
     trackCharterLead({ method: 'phone_click', phone_number: phoneNumber });
-    if (window.gtag) {
-      window.gtag('event', 'phone_click', { phone_number: phoneNumber });
+    if (analyticsWindow.gtag) {
+      analyticsWindow.gtag('event', 'phone_click', { phone_number: phoneNumber });
     }
     setTimeout(() => { window.location.href = telUrl; }, 250);
   };
@@ -79,33 +85,51 @@ export function BusCharterPage() {
   // SEO content based on language - Focus on CHARTER SERVICES
   const seoContent = {
     ro: {
-      title: 'Închiriere Autocare Moldova | Transport Echipe Sportive, Evenimente, Turism',
-      description: 'Închiriere autocare și microbuze în Moldova - echipe sportive, evenimente corporate, excursii, teatru. Flotă premium 22-56 locuri. Transport profesional pentru grupuri. Prețuri competitive. Rezervă acum!',
-      keywords: 'inchiriere autocare moldova, arenda autocar, autocar cu sofer arenda, inchiriere microbuze moldova, autocare pentru evenimente, autocare echipe sportive, transport corporate moldova, autocare teatru, inchiriere autobus chisinau, transport grupuri moldova, rutemd charter'
+      title: 'Autocare la Comandă Moldova | Închiriere Autocar cu Șofer – RUTEMD Chișinău',
+      description: 'Închiriere autocare și microbuze la comandă în Moldova pentru grupuri, 22–56 locuri cu șofer. Rute internaționale pentru orice destinație. Solicită oferta!',
+      keywords: 'autocare la comanda moldova, transport la comanda chisinau, servicii de transport la comanda, inchiriere autocar cu sofer, charter autocar moldova, transport persoane la comanda, inchiriere microbuz chisinau, arenda autocar moldova, autocar pentru grupuri, autocar la comanda europa, transport persoane moldova, rutemd charter'
     },
     ru: {
-      title: 'Аренда Автобусов Молдова | Транспорт Спортивных Команд, Мероприятий, Туризм',
-      description: 'Аренда автобусов и микроавтобусов в Молдове - спортивные команды, корпоративные мероприятия, экскурсии, театр. Премиум парк 22-56 мест. Профессиональный транспорт для групп. Конкурентные цены. Бронируйте!',
-      keywords: 'аренда автобусов молдова, аренда автобуса с водителем, аренда микроавтобусов молдова, автобусы для мероприятий, автобусы для спортивных команд, корпоративный транспорт молдова, автобусы для театра, аренда автобуса кишинев, транспорт для групп молдова, rutemd charter'
+      title: 'Автобусы под Заказ Молдова | Аренда Автобуса с Водителем – RUTEMD Кишинёв',
+      description: 'Аренда автобусов и микроавтобусов под заказ в Молдове для групп, 22–56 мест с водителем. Международные маршруты в любую точку. Запросите предложение!',
+      keywords: 'пассажирские перевозки молдова, автобусы под заказ кишинёв, аренда автобуса с водителем, чартер автобуса молдова, перевозка пассажиров молдова, аренда микроавтобуса кишинёв, автобус для группы, заказ автобуса молдова, аренда автобуса кишинёв европа, международные пассажирские перевозки молдова, rutemd charter'
     }
   };
 
   const content = seoContent[language];
+  const pageUrl = `https://www.rutemd.com/${language}/bus-charter`;
+  const siteHome = `https://www.rutemd.com/${language}`;
 
-  const structuredData = {
-    "@context": "https://schema.org",
+  const serviceSchema = {
     "@type": "Service",
-    "name": language === 'ru' ? "Аренда автобусов RUTEMD" : "Închiriere autocare RUTEMD",
+    "@id": `${pageUrl}#service`,
+    "name": language === 'ru'
+      ? "Аренда автобусов под заказ и пассажирские перевозки RUTEMD"
+      : "Autocare la comandă și închiriere autocar cu șofer RUTEMD",
+    "alternateName": language === 'ru'
+      ? ["Аренда автобуса", "Автобусы под заказ", "Чартер автобуса", "Пассажирские перевозки под заказ", "Аренда микроавтобуса"]
+      : ["Închiriere autocar", "Arendă autocar", "Autocare la comandă", "Transport la comandă", "Charter autocar", "Închiriere microbuz"],
     "description": content.description,
     "provider": {
       "@type": "BusCompany",
       "name": "RUTEMD",
-      "url": "https://rutemd.md"
+      "url": "https://www.rutemd.com"
     },
-    "areaServed": {
-      "@type": "Country",
-      "name": "Moldova"
-    },
+    "areaServed": [
+      { "@type": "Country", "name": "Moldova" },
+      { "@type": "Place", "name": language === 'ru' ? "Европа" : "Europa" },
+      { "@type": "Country", "name": "Romania" },
+      { "@type": "Country", "name": "Ukraine" },
+      { "@type": "Country", "name": "Bulgaria" },
+      { "@type": "Country", "name": "Turkey" },
+      { "@type": "Country", "name": "Germany" },
+      { "@type": "Country", "name": "Italy" },
+      { "@type": "Country", "name": "Poland" },
+      { "@type": "Country", "name": "Czechia" },
+      { "@type": "Country", "name": "Hungary" },
+      { "@type": "Country", "name": "Austria" },
+      { "@type": "Country", "name": "France" }
+    ],
     "offers": {
       "@type": "AggregateOffer",
       "priceCurrency": "EUR",
@@ -114,7 +138,7 @@ export function BusCharterPage() {
       "offerCount": fleetData.length,
       "availability": "https://schema.org/InStock",
       "priceValidUntil": "2026-12-31",
-      "url": `https://www.rutemd.com/${language}/bus-charter`,
+      "url": pageUrl,
       "itemOffered": fleetData.map(vehicle => ({
         "@type": "Service",
         "name": vehicle.type,
@@ -129,7 +153,7 @@ export function BusCharterPage() {
           "priceCurrency": "EUR",
           "availability": "https://schema.org/InStock",
           "priceValidUntil": "2026-12-31",
-          "url": `https://www.rutemd.com/${language}/bus-charter`,
+          "url": pageUrl,
           "priceSpecification": {
             "@type": "UnitPriceSpecification",
             "price": "1.3",
@@ -140,30 +164,113 @@ export function BusCharterPage() {
         }
       }))
     },
-    "serviceType": [
-      language === 'ru' ? "Транспорт для спортивных команд" : "Transport echipe sportive",
-      language === 'ru' ? "Транспорт для корпоративных мероприятий" : "Transport evenimente corporate",
-      language === 'ru' ? "Организованные экскурсии" : "Excursii organizate",
-      language === 'ru' ? "Транспорт для театральных групп" : "Transport grupuri teatrale",
-      language === 'ru' ? "Трансферы в аэропорт" : "Transferuri aeroport"
+    "serviceType": language === 'ru'
+      ? [
+          "Аренда автобусов под заказ",
+          "Пассажирские перевозки для групп",
+          "Транспорт для корпоративных мероприятий",
+          "Аренда автобуса для спортивных команд",
+          "Международные групповые поездки",
+          "Экскурсии и организованные туры",
+          "Перевозка сотрудников под заказ"
+        ]
+      : [
+          "Închiriere autocare la comandă",
+          "Transport la comandă pentru grupuri",
+          "Transport evenimente corporate",
+          "Închiriere autocar pentru echipe sportive",
+          "Călătorii internaționale de grup",
+          "Excursii și tururi organizate",
+          "Transport persoane pentru angajați"
+        ]
+  };
+
+  const faqSchema = {
+    "@type": "FAQPage",
+    "@id": `${pageUrl}#faq`,
+    "mainEntity": [
+      { q: t.busCharter.faq1Q, a: t.busCharter.faq1A },
+      { q: t.busCharter.faq2Q, a: t.busCharter.faq2A },
+      { q: t.busCharter.faq3Q, a: t.busCharter.faq3A },
+      { q: t.busCharter.faq4Q, a: t.busCharter.faq4A },
+      { q: t.busCharter.faq5Q, a: t.busCharter.faq5A },
+      { q: t.busCharter.faq6Q, a: t.busCharter.faq6A }
+    ].map(({ q, a }) => ({
+      "@type": "Question",
+      "name": q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": a
+      }
+    }))
+  };
+
+  const localBusinessSchema = {
+    "@type": ["LocalBusiness", "TravelAgency"],
+    "@id": "https://www.rutemd.com#organization",
+    "name": "RUTEMD",
+    "url": "https://www.rutemd.com",
+    "telephone": "+37369101912",
+    "email": "mdrute@gmail.com",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "blvd. Negruzzi 7, Hotelul Chișinău, etajul 2, of. 202",
+      "addressLocality": "Chișinău",
+      "addressCountry": "MD",
+      "postalCode": "MD-2001"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": 47.0167,
+      "longitude": 28.8333
+    },
+    "areaServed": [
+      { "@type": "Country", "name": "Romania" },
+      { "@type": "Country", "name": "Bulgaria" },
+      { "@type": "Country", "name": "Turkey" },
+      { "@type": "Country", "name": "Germany" },
+      { "@type": "Country", "name": "Italy" },
+      { "@type": "Country", "name": "Poland" },
+      { "@type": "Country", "name": "Ukraine" },
+      { "@type": "Country", "name": "Czechia" },
+      { "@type": "Country", "name": "Hungary" },
+      { "@type": "Country", "name": "Austria" },
+      { "@type": "Country", "name": "France" },
+      { "@type": "Country", "name": "Moldova" }
     ],
-    "breadcrumb": {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": language === 'ru' ? "Главная" : "Acasă",
-          "item": "https://rutemd.md/"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": language === 'ru' ? "Аренда автобусов" : "Închiriere Autocare",
-          "item": "https://rutemd.md/bus-charter"
-        }
-      ]
-    }
+    "openingHoursSpecification": [
+      {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+        "opens": "08:00",
+        "closes": "20:00"
+      }
+    ]
+  };
+
+  const breadcrumbSchema = {
+    "@type": "BreadcrumbList",
+    "@id": `${pageUrl}#breadcrumb`,
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": language === 'ru' ? "Главная" : "Acasă",
+        "item": siteHome
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": language === 'ru' ? "Автобусы под Заказ" : "Autocare la Comandă",
+        "item": pageUrl
+      }
+    ]
+  };
+
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [serviceSchema, faqSchema, localBusinessSchema, breadcrumbSchema]
   };
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [selectedBus, setSelectedBus] = useState<number | null>(null);
@@ -253,13 +360,23 @@ export function BusCharterPage() {
     partnerLogo8
   ];
 
+  const fleetAlt = (type: string, seats: string | number) =>
+    t.busCharter.fleetAltTemplate
+      .replace('{type}', type)
+      .replace('{seats}', String(seats));
+  const galleryAlt = (type: string, current: number, total: number) =>
+    t.busCharter.galleryAltTemplate
+      .replace('{type}', type)
+      .replace('{current}', String(current))
+      .replace('{total}', String(total));
+
   return (
-    <div className="min-h-screen bg-[#f0f0f0]">
+    <main className="min-h-screen bg-[#f0f0f0]">
       <SEO 
         title={content.title}
         description={content.description}
         keywords={content.keywords}
-        canonicalUrl="https://rutemd.md/bus-charter"
+        canonicalUrl={pageUrl}
         structuredData={structuredData}
         lang={language}
       />
@@ -342,6 +459,9 @@ export function BusCharterPage() {
             </motion.div>
           </div>
           
+          {/* Accessible fleet heading (visually subtle, crawlable) */}
+          <h2 className="sr-only">{t.busCharter.fleetSectionTitle}</h2>
+
           {/* Interactive Fleet Carousel */}
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
@@ -400,7 +520,7 @@ export function BusCharterPage() {
                       width: '420px',
                     }}
                   >
-                    <div className={`bg-white rounded-[30px] overflow-hidden transition-all duration-500 ${isCenter ? 'shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-white/20' : 'shadow-xl grayscale-[0.5]'}`}>
+                    <article className={`bg-white rounded-[30px] overflow-hidden transition-all duration-500 ${isCenter ? 'shadow-[0_20px_50px_rgba(0,0,0,0.5)] ring-1 ring-white/20' : 'shadow-xl grayscale-[0.5]'}`}>
                       <div className="flex flex-col items-center gap-6 p-8">
                         {/* Image */}
                         <div className="relative w-full max-w-[340px] aspect-[4/3]">
@@ -408,7 +528,7 @@ export function BusCharterPage() {
                           <div className="relative w-full h-full rounded-2xl overflow-hidden ring-4 ring-gray-50 shadow-md">
                             <ImageWithFallback
                               src={vehicle.mainImage}
-                              alt={vehicle.type}
+                              alt={fleetAlt(vehicle.type, vehicle.seats)}
                               className="w-full h-full object-cover"
                             />
                           </div>
@@ -440,7 +560,7 @@ export function BusCharterPage() {
                           )}
                         </div>
                       </div>
-                    </div>
+                    </article>
                   </motion.div>
                 );
               })}
@@ -471,7 +591,7 @@ export function BusCharterPage() {
               <div className="relative flex-shrink-0 h-[50vh] md:h-[55vh] lg:flex-1 lg:min-h-[500px] bg-black flex items-center justify-center overflow-hidden">
                 <ImageWithFallback
                   src={fleet[selectedBus].galleryImages[currentImageIndex]}
-                  alt={`${fleet[selectedBus].type} - Poză ${currentImageIndex + 1}`}
+                  alt={galleryAlt(fleet[selectedBus].type, currentImageIndex + 1, fleet[selectedBus].galleryImages.length)}
                   className="w-full h-full object-contain"
                 />
                 
@@ -579,78 +699,13 @@ export function BusCharterPage() {
         </DialogContent>
       </Dialog>
 
-      {/* Services Section */}
-      <section className="py-12 bg-white border-t border-gray-100/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
-            <div className="text-center md:text-left">
-              <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight">
-                {t.busCharter.servicesTitle}
-              </h2>
-              <p className="text-gray-500 text-sm mt-1">{t.busCharter.servicesSubtitle}</p>
-            </div>
-            <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
-            <Link to={`/${language}/contact`} onClick={handleContactClick}>
-              <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
-                {t.nav.contactUs} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
-              </Button>
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-            {services.map((service, index) => (
-              <div 
-                key={index} 
-                className="group flex items-start p-4 bg-gray-50/80 hover:bg-white rounded-xl border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-300 cursor-default"
-              >
-                <div className="shrink-0 mr-4 bg-white p-2.5 rounded-lg shadow-sm border border-gray-100 group-hover:border-blue-100 group-hover:scale-105 transition-all duration-300">
-                  <div className="scale-75 origin-center transform">
-                    {service.icon}
-                  </div>
-                </div>
-                <div className="pt-1">
-                  <h3 className="text-[#012141] font-bold text-sm mb-1 group-hover:text-[#3870db] transition-colors">
-                    {service.title}
-                  </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">
-                    {service.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Advantages Section */}
-      <section className="py-16 bg-[#f8f9fa]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* Advantages */}
-            <div className="max-w-4xl mx-auto">
-              <h2 className="text-[#012141] mb-8 font-medium text-3xl">
-                {t.busCharter.whyChooseTitle}
-              </h2>
-              <div className="grid grid-cols-1 gap-4">
-                {advantages.map((advantage, index) => (
-                  <div key={index} className="flex items-start gap-4 bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition-shadow">
-                    <div className="mt-1 bg-green-100 p-1.5 rounded-full shrink-0">
-                      <CheckCircle2 className="w-5 h-5 text-green-600" />
-                    </div>
-                    <span className="text-[#012141] text-lg font-medium leading-snug">{advantage}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-        </div>
-      </section>
-
       {/* Contact Form & FAQ */}
-      <section className="py-16 bg-[#f0f0f0]">
+      <section className="py-12 bg-[#f0f0f0] border-t border-gray-100/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Contact Form */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-medium text-3xl">{t.busCharter.requestQuote}</h2>
+              <h2 className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight">{t.busCharter.requestQuote}</h2>
               <p className="text-[#6a6a6a] mb-8">
                 {t.busCharter.requestQuoteDesc}
               </p>
@@ -720,7 +775,7 @@ export function BusCharterPage() {
 
             {/* FAQ */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-medium text-3xl">{t.busCharter.faqTitle}</h2>
+              <h2 className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight">{t.busCharter.faqTitle}</h2>
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
                   <div 
@@ -747,6 +802,215 @@ export function BusCharterPage() {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* SEO Intro + Why Choose RUTEMD – merged content-rich section */}
+      <section className="py-16 md:py-20 bg-white border-t border-gray-100/50 relative overflow-hidden">
+        {/* Subtle background accents */}
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#3870db]/[0.03] rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#3870db]/[0.02] rounded-full blur-3xl -ml-32 -mb-32 pointer-events-none" />
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-14 items-start">
+            {/* Left: SEO long-form content */}
+            <div className="lg:col-span-3">
+              <div className="inline-flex items-center gap-2 bg-blue-50 text-[#3870db] px-4 py-1.5 rounded-full text-xs font-semibold uppercase tracking-wider mb-5">
+                <Shield className="w-3.5 h-3.5" />
+                {t.busCharter.breadcrumbCharter}
+              </div>
+              <h2 className="text-[#012141] font-bold text-2xl md:text-4xl tracking-tight mb-6 leading-tight">
+                {t.busCharter.seoIntroTitle}
+              </h2>
+              <div className="space-y-5 text-[#3a3f47] text-[15px] md:text-base leading-relaxed">
+                <p>{t.busCharter.seoIntroP1}</p>
+                <p>{t.busCharter.seoIntroP2}</p>
+                <p>{t.busCharter.seoIntroP3}</p>
+              </div>
+              <div className="mt-8 flex flex-wrap items-center gap-4">
+                <Link to={`/${language}/contact`} onClick={handleContactClick}>
+                  <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white font-medium px-6 py-5 rounded-full shadow-lg shadow-blue-500/20">
+                    {t.busCharter.seoIntroCtaText}
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Button>
+                </Link>
+                <p className="text-sm text-gray-500">
+                  {t.busCharter.seoNoticeText}{' '}
+                  <Link to={`/${language}/routes`} className="text-[#3870db] hover:underline font-medium">
+                    {t.busCharter.seoNoticeLink}
+                  </Link>
+                </p>
+              </div>
+            </div>
+
+            {/* Right: Why Choose RUTEMD advantages */}
+            <div className="lg:col-span-2 lg:sticky lg:top-24">
+              <div className="bg-gradient-to-br from-[#012141] to-[#001a30] rounded-3xl p-8 md:p-10 shadow-2xl shadow-blue-900/10 relative overflow-hidden">
+                {/* Decorative glow */}
+                <div className="absolute top-0 right-0 w-48 h-48 bg-[#3870db]/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none" />
+
+                <div className="relative">
+                  <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm text-white/90 px-3 py-1 rounded-full text-xs font-semibold uppercase tracking-wider mb-4 border border-white/10">
+                    <Trophy className="w-3.5 h-3.5 text-[#3870db]" />
+                    RUTEMD
+                  </div>
+                  <h3 className="text-white font-bold text-xl md:text-2xl tracking-tight mb-6 leading-snug">
+                    {t.busCharter.whyChooseTitle}
+                  </h3>
+
+                  <ul className="space-y-3">
+                    {advantages.map((advantage, index) => (
+                      <li
+                        key={index}
+                        className="flex items-start gap-3 bg-white/5 hover:bg-white/10 backdrop-blur-sm border border-white/10 p-3.5 rounded-xl transition-colors"
+                      >
+                        <div className="mt-0.5 bg-[#3870db]/20 p-1 rounded-full shrink-0">
+                          <CheckCircle2 className="w-4 h-4 text-[#3870db]" />
+                        </div>
+                        <span className="text-white/90 text-[14px] md:text-[15px] font-medium leading-snug">
+                          {advantage}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Services + Advantages Section */}
+      <section className="py-12 bg-white border-t border-gray-100/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
+            <div className="text-center md:text-left">
+              <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight">
+                {t.busCharter.servicesTitle}
+              </h2>
+              <p className="text-gray-500 text-sm mt-1">{t.busCharter.servicesSubtitle}</p>
+            </div>
+            <div className="hidden md:block h-px flex-1 bg-gray-100 mx-8"></div>
+            <Link to={`/${language}/contact`} onClick={handleContactClick}>
+              <Button variant="ghost" className="text-[#3870db] hover:text-[#2b5bb8] text-sm font-medium group">
+                {t.nav.contactUs} <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+              </Button>
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            {services.map((service, index) => (
+              <div 
+                key={index} 
+                className="group flex items-start p-4 bg-gray-50/80 hover:bg-white rounded-xl border border-transparent hover:border-blue-100 hover:shadow-[0_4px_20px_rgba(0,0,0,0.03)] transition-all duration-300 cursor-default"
+              >
+                <div className="shrink-0 mr-4 bg-white p-2.5 rounded-lg shadow-sm border border-gray-100 group-hover:border-blue-100 group-hover:scale-105 transition-all duration-300">
+                  <div className="scale-75 origin-center transform">
+                    {service.icon}
+                  </div>
+                </div>
+                <div className="pt-1">
+                  <h3 className="text-[#012141] font-bold text-sm mb-1 group-hover:text-[#3870db] transition-colors">
+                    {service.title}
+                  </h3>
+                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-2">
+                    {service.description}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Flexibility – "We go anywhere" Section */}
+      <section className="py-16 bg-[#f8f9fa] border-t border-gray-100/50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-3">
+              {t.busCharter.flexTitle}
+            </h2>
+            <p className="text-gray-500 text-sm md:text-base">
+              {t.busCharter.flexSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100/60">
+              <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                <MapPin className="w-6 h-6 text-[#3870db]" />
+              </div>
+              <h3 className="text-[#012141] font-semibold text-lg mb-2">{t.busCharter.flex1Title}</h3>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.flex1Desc}</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100/60">
+              <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                <Shield className="w-6 h-6 text-[#3870db]" />
+              </div>
+              <h3 className="text-[#012141] font-semibold text-lg mb-2">{t.busCharter.flex2Title}</h3>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.flex2Desc}</p>
+            </div>
+            <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100/60">
+              <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                <Users className="w-6 h-6 text-[#3870db]" />
+              </div>
+              <h3 className="text-[#012141] font-semibold text-lg mb-2">{t.busCharter.flex3Title}</h3>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.flex3Desc}</p>
+            </div>
+          </div>
+
+          <p className="text-center text-sm text-gray-500 mt-8 max-w-2xl mx-auto">
+            {t.busCharter.flexOrigin}
+          </p>
+        </div>
+      </section>
+
+      {/* Indicative Pricing Section */}
+      <section className="py-16 bg-white border-t border-gray-100/50">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-3">
+              {t.busCharter.priceTitle}
+            </h2>
+            <p className="text-gray-500 text-sm md:text-base max-w-2xl mx-auto">
+              {t.busCharter.priceSubtitle}
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            <div className="bg-[#f8f9fa] p-6 rounded-2xl border border-gray-100/60 text-center">
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">{t.busCharter.priceFromKm}</p>
+              <p className="text-[#012141] text-3xl font-bold mb-2">1.3 €<span className="text-base font-medium text-gray-500">/km</span></p>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.priceFromKmDesc}</p>
+            </div>
+            <div className="bg-[#f8f9fa] p-6 rounded-2xl border border-gray-100/60 text-center">
+              <p className="text-xs uppercase tracking-wider text-gray-500 mb-2">{t.busCharter.priceMinDay}</p>
+              <p className="text-[#012141] text-3xl font-bold mb-2">130 €<span className="text-base font-medium text-gray-500">/day</span></p>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.priceMinDayDesc}</p>
+            </div>
+            <div className="bg-[#f8f9fa] p-6 rounded-2xl border border-gray-100/60 text-center">
+              <div className="w-12 h-12 rounded-full bg-green-100 flex items-center justify-center mx-auto mb-3">
+                <CheckCircle2 className="w-6 h-6 text-green-600" />
+              </div>
+              <p className="text-[#012141] text-lg font-bold mb-2 leading-snug">
+                {t.busCharter.priceInclusive}
+              </p>
+              <p className="text-[#6a6a6a] text-sm leading-relaxed">{t.busCharter.priceInclusiveDesc}</p>
+            </div>
+          </div>
+
+          <p className="text-center text-xs text-gray-500 mt-6 max-w-2xl mx-auto">
+            {t.busCharter.priceNote}
+          </p>
+
+          <div className="text-center mt-8">
+            <Link to={`/${language}/contact`} onClick={handleContactClick}>
+              <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white font-medium px-6 py-5 rounded-full">
+                {t.busCharter.seoIntroCtaText}
+                <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
@@ -794,7 +1058,7 @@ export function BusCharterPage() {
                   >
                     <ImageWithFallback 
                       src={src} 
-                      alt={`Partner Logo ${logoIndex + 1}`}
+                      alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
                       className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
                     />
                   </div>
@@ -805,6 +1069,6 @@ export function BusCharterPage() {
       </section>
 
       <Footer />
-    </div>
+    </main>
   );
 }
