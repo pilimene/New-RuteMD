@@ -67,7 +67,7 @@ export function BusCharterPage() {
     const telUrl = (e.currentTarget.getAttribute('href') || `tel:${phoneNumber}`) as string;
     trackCharterLead({ method: 'phone_click', phone_number: phoneNumber });
     if (window.gtag) {
-      window.gtag('event', 'charter_phone_click', { phone_number: phoneNumber });
+      window.gtag('event', 'phone_click', { phone_number: phoneNumber });
     }
     setTimeout(() => { window.location.href = telUrl; }, 250);
   };
