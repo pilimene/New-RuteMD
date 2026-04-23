@@ -1045,22 +1045,94 @@ export function BusCharterPage() {
                 const logoIndex = i % partners.length;
                 const isDelfinLogo = src === partnerLogo7;
                 const isStartLogo = src === partnerLogo8;
+                const isEximbankLogo = src === partnerLogo1;
+                const isJalonLogo = src === partnerLogo2;
+                const isWaterPoloLogo = src === partnerLogo3;
+                const isDonatellaLogo = src === partnerLogo4;
+                const isColossArtLogo = src === partnerLogo5;
                 return (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`relative w-32 h-16 md:w-40 md:h-20 flex-shrink-0 transition-opacity duration-300 ${
-                      isStartLogo 
-                        ? 'opacity-100' 
+                      isStartLogo
+                        ? 'opacity-100'
                         : 'opacity-50 hover:opacity-100'
                     } ${
                       isDelfinLogo ? 'grayscale' : 'grayscale hover:grayscale-0'
                     }`}
                   >
-                    <ImageWithFallback 
-                      src={src} 
-                      alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
-                      className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
-                    />
+                    {isEximbankLogo ? (
+                      <a
+                        href="https://eximbank.md/ro"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="EXIMBANK"
+                      >
+                        <ImageWithFallback
+                          src={src}
+                          alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                          className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                        />
+                      </a>
+                    ) : isJalonLogo ? (
+                      <a
+                        href="https://www.facebook.com/Turoperatorjalon/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Jalon Facebook"
+                      >
+                        <ImageWithFallback
+                          src={src}
+                          alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                          className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                        />
+                      </a>
+                    ) : isWaterPoloLogo ? (
+                      <a
+                        href="https://waterpolomd.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Water Polo Moldova"
+                      >
+                        <ImageWithFallback
+                          src={src}
+                          alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                          className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                        />
+                      </a>
+                    ) : isDonatellaLogo ? (
+                      <a
+                        href="https://www.donatella-tur.md/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="Donatella Tur"
+                      >
+                        <ImageWithFallback
+                          src={src}
+                          alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                          className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                        />
+                      </a>
+                    ) : isColossArtLogo ? (
+                      <a
+                        href="https://coloss-art.com/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        aria-label="ColossArt Production"
+                      >
+                        <ImageWithFallback
+                          src={src}
+                          alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                          className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                        />
+                      </a>
+                    ) : (
+                      <ImageWithFallback
+                        src={src}
+                        alt={t.busCharter.partnerAlt.replace('{index}', String(logoIndex + 1))}
+                        className={`w-full h-full object-contain ${isStartLogo ? 'brightness-0' : ''}`}
+                      />
+                    )}
                   </div>
                 );
              })}
