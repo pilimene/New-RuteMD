@@ -396,7 +396,7 @@ export function BusCharterPage() {
       </div>
 
       {/* Combined Hero & Fleet Showcase Section */}
-      <section className="py-20 bg-gradient-to-r from-[#012141] to-[#001a30] relative overflow-hidden min-h-[900px] flex flex-col justify-center">
+      <section id="fleet" className="py-20 bg-gradient-to-r from-[#012141] to-[#001a30] relative overflow-hidden min-h-[900px] flex flex-col justify-center scroll-mt-28">
         {/* Background Effects */}
         <div className="absolute inset-0">
           <motion.div 
@@ -700,12 +700,12 @@ export function BusCharterPage() {
       </Dialog>
 
       {/* Contact Form & FAQ */}
-      <section className="py-12 bg-[#f0f0f0] border-t border-gray-100/50">
+      <section id="contact" className="py-12 bg-[#f0f0f0] border-t border-gray-100/50 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
             {/* Contact Form */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight">{t.busCharter.requestQuote}</h2>
+              <h2 id="quote-request" className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight scroll-mt-28">{t.busCharter.requestQuote}</h2>
               <p className="text-[#6a6a6a] mb-8">
                 {t.busCharter.requestQuoteDesc}
               </p>
@@ -775,7 +775,7 @@ export function BusCharterPage() {
 
             {/* FAQ */}
             <div>
-              <h2 className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight">{t.busCharter.faqTitle}</h2>
+              <h2 id="faq" className="text-[#012141] mb-6 font-bold text-2xl md:text-3xl tracking-tight leading-tight scroll-mt-28">{t.busCharter.faqTitle}</h2>
               <div className="space-y-4">
                 {faqs.map((faq, index) => (
                   <div 
@@ -807,7 +807,7 @@ export function BusCharterPage() {
       </section>
 
       {/* SEO Intro + Why Choose RUTEMD – merged content-rich section */}
-      <section className="py-16 md:py-20 bg-white border-t border-gray-100/50 relative overflow-hidden">
+      <section id="about-charter" className="py-16 md:py-20 bg-white border-t border-gray-100/50 relative overflow-hidden scroll-mt-28">
         {/* Subtle background accents */}
         <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#3870db]/[0.03] rounded-full blur-3xl -mr-40 -mt-40 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-[#3870db]/[0.02] rounded-full blur-3xl -ml-32 -mb-32 pointer-events-none" />
@@ -882,7 +882,7 @@ export function BusCharterPage() {
       </section>
 
       {/* Services + Advantages Section */}
-      <section className="py-12 bg-white border-t border-gray-100/50">
+      <section id="services" className="py-12 bg-white border-t border-gray-100/50 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col md:flex-row items-center justify-between mb-8 gap-4">
             <div className="text-center md:text-left">
@@ -925,7 +925,7 @@ export function BusCharterPage() {
       </section>
 
       {/* Flexibility – "We go anywhere" Section */}
-      <section className="py-16 bg-[#f8f9fa] border-t border-gray-100/50">
+      <section id="destinations" className="py-16 bg-[#f8f9fa] border-t border-gray-100/50 scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center max-w-3xl mx-auto mb-10">
             <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-3">
@@ -967,7 +967,7 @@ export function BusCharterPage() {
       </section>
 
       {/* Indicative Pricing Section */}
-      <section className="py-16 bg-white border-t border-gray-100/50">
+      <section id="pricing" className="py-16 bg-white border-t border-gray-100/50 scroll-mt-28">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-3">
@@ -1016,7 +1016,7 @@ export function BusCharterPage() {
       </section>
 
       {/* Trusted Partners Section - Infinite Marquee */}
-      <section className="py-20 bg-white border-t border-gray-100 overflow-hidden">
+      <section id="partners" className="py-20 bg-white border-t border-gray-100 overflow-hidden scroll-mt-28">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12 text-center">
            <h2 className="text-[#012141] font-bold text-2xl md:text-3xl tracking-tight mb-2">
               {t.busCharter.partnersTitle}
