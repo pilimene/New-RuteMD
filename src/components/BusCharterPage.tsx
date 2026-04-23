@@ -715,14 +715,14 @@ export function BusCharterPage() {
                    
                    <div className="relative space-y-8">
                       {/* Phone */}
-                      <div className="flex items-center gap-5">
-                        <div className="w-12 h-12 rounded-full bg-blue-50 flex items-center justify-center shrink-0">
+                      <div className="flex items-center gap-5 rounded-2xl bg-blue-50/70 border border-blue-100 p-4 shadow-sm">
+                        <div className="w-12 h-12 rounded-full bg-white flex items-center justify-center shrink-0 ring-1 ring-blue-100">
                           <Headphones className="w-6 h-6 text-[#3870db]" />
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-500 uppercase tracking-wider">{t.busCharter.phoneReservations}</p>
                           <div className="space-y-1">
-                            <a href="tel:+37369101912" onClick={(e) => handlePhoneClick(e, '+37369101912')} className="block text-xl font-bold text-[#012141] hover:text-[#3870db] transition-colors">
+                            <a href="tel:+37369101912" onClick={(e) => handlePhoneClick(e, '+37369101912')} className="inline-flex items-center rounded-full bg-white px-4 py-1.5 text-xl font-extrabold text-[#012141] shadow-sm ring-1 ring-blue-100 hover:text-[#3870db] hover:ring-[#3870db]/40 transition-colors">
                               +373 69 10 19 12
                             </a>
                           </div>
@@ -829,12 +829,12 @@ export function BusCharterPage() {
                 <p>{t.busCharter.seoIntroP3}</p>
               </div>
               <div className="mt-8 flex flex-wrap items-center gap-4">
-                <Link to={`/${language}/contact`} onClick={handleContactClick}>
+                <a href="tel:+37369101912" onClick={(e) => handlePhoneClick(e, '+37369101912')}>
                   <Button className="bg-[#3870db] hover:bg-[#2b5bb8] text-white font-medium px-6 py-5 rounded-full shadow-lg shadow-blue-500/20">
                     {t.busCharter.seoIntroCtaText}
                     <ChevronRight className="w-4 h-4 ml-1" />
                   </Button>
-                </Link>
+                </a>
                 <p className="text-sm text-gray-500">
                   {t.busCharter.seoNoticeText}{' '}
                   <Link to={`/${language}/routes`} className="text-[#3870db] hover:underline font-medium">
