@@ -17,20 +17,20 @@ export const globallyDisabledDates: string[] = [
 // Format: "origin-destination" or "destination-origin"
 // RouteDetailsPage uses "Istanbul-Chișinău"; BookingWidget uses "istanbul-chisinau"
 export const routeSpecificDisabledDates: Record<string, string[]> = {
-  // Chișinău → Istanbul / Varna / Burgas (no plecare 12.04.2026)
-  "Chișinău-Istanbul": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  "Chișinău-Varna": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  "Chișinău-Burgas": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  "chisinau-istanbul": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  "chisinau-varna": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  "chisinau-burgas": ["2026-03-25", "2026-04-12", "2026-04-19"],
-  // Istanbul / Varna / Burgas → Chișinău (no întoarcere 15.04.2026)
-  "Istanbul-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
-  "Varna-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
-  "Burgas-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22"],
-  "istanbul-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
-  "varna-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
-  "burgas-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22"],
+  // Chișinău → Istanbul / Varna / Burgas (no plecare 12.04.2026, 24.05.2026)
+  "Chișinău-Istanbul": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  "Chișinău-Varna": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  "Chișinău-Burgas": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  "chisinau-istanbul": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  "chisinau-varna": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  "chisinau-burgas": ["2026-03-25", "2026-04-12", "2026-04-19", "2026-05-24"],
+  // Istanbul / Varna / Burgas → Chișinău (no întoarcere 15.04.2026, 27.05.2026)
+  "Istanbul-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
+  "Varna-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
+  "Burgas-Chișinău": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
+  "istanbul-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
+  "varna-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
+  "burgas-chisinau": ["2026-03-25", "2026-04-15", "2026-04-22", "2026-05-27"],
 };
 
 function toLocalYyyyMmDd(date: Date): string {
