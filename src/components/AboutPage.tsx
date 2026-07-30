@@ -17,13 +17,13 @@ export function AboutPage() {
   const seoContent = {
     ro: {
       title: 'Despre Noi - RUTEMD | Transport Internațional & Închiriere Autocare Moldova',
-      description: 'RUTEMD din 1998 - curse regulate Moldova-Turcia & Bulgaria (Chișinău-Istanbul, Varna, Burgas) + închiriere autocare pentru evenimente, echipe sportive, teatru. Flotă Mercedes premium, 28+ ani experiență.',
-      keywords: 'despre rutemd, companie transport moldova, transport international moldova, inchiriere autocare moldova, autocare evenimente, autocare echipe sportive, transport moldova turcia bulgaria, autocare mercedes chisinau, rutemd 1998, companie autocare moldova'
+      description: 'RUTEMD din 1998 - curse regulate Moldova-Turcia & Bulgaria (Chișinău-Istanbul, Varna, Burgas) + închiriere autocare la comandă exclusiv pentru curse internaționale. Flotă Mercedes premium, 28+ ani experiență.',
+      keywords: 'despre rutemd, companie transport moldova, transport international moldova, inchiriere autocare moldova, autocare curse internationale, autocare echipe sportive, transport moldova turcia bulgaria, autocare mercedes chisinau, rutemd 1998, companie autocare moldova'
     },
     ru: {
       title: 'О нас - RUTEMD | Международные Перевозки и Аренда Автобусов Молдова',
-      description: 'RUTEMD с 1998 года - регулярные рейсы Молдова-Турция и Болгария (Кишинёв-Стамбул, Варна, Бургас) + аренда автобусов для мероприятий, спортивных команд, театра. Парк Mercedes премиум, 28+ лет опыта.',
-      keywords: 'о rutemd, транспортная компания молдова, международные перевозки молдова, аренда автобусов молдова, автобусы для мероприятий, автобусы для спортивных команд, перевозки молдова турция болгария, автобусы мерседес кишинев, rutemd 1998, автобусная компания молдова'
+      description: 'RUTEMD с 1998 года - регулярные рейсы Молдова-Турция и Болгария (Кишинёв-Стамбул, Варна, Бургас) + аренда автобусов под заказ исключительно для международных рейсов. Парк Mercedes премиум, 28+ лет опыта.',
+      keywords: 'о rutemd, транспортная компания молдова, международные перевозки молдова, аренда автобусов молдова, автобусы международные рейсы, автобусы для спортивных команд, перевозки молдова турция болгария, автобусы мерседес кишинев, rutemd 1998, автобусная компания молдова'
     }
   };
 
@@ -61,7 +61,7 @@ export function AboutPage() {
         language === 'ru' ? "Международные автобусные перевозки" : "Transport internațional cu autocarul",
         language === 'ru' ? "Пассажирские перевозки Молдова-Турция" : "Transport pasageri Moldova-Turcia",
         language === 'ru' ? "Пассажирские перевозки Молдова-Болгария" : "Transport pasageri Moldova-Bulgaria",
-        language === 'ru' ? "Аренда автобусов для мероприятий" : "Închiriere autocare pentru evenimente",
+        language === 'ru' ? "Аренда автобусов для международных рейсов" : "Închiriere autocare pentru curse internaționale",
         language === 'ru' ? "Аренда автобусов для спортивных команд" : "Închiriere autocare pentru echipe sportive"
       ],
       "hasOfferCatalog": {

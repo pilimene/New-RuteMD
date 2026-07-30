@@ -9,7 +9,6 @@ import {
   Users,
   Trophy,
   Briefcase,
-  PartyPopper,
   Building2,
   CheckCircle2,
   Clock,
@@ -20,7 +19,8 @@ import {
   Armchair,
   ChevronLeft,
   Tv,
-  X
+  X,
+  Globe
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { ImageWithFallback } from './figma/ImageWithFallback';
@@ -29,6 +29,7 @@ import { motion } from 'motion/react';
 import { useTranslation } from '../i18n';
 import { fleetData } from '../data/fleet';
 import { SEO } from './SEO';
+import { InternationalOnlyNotice } from './InternationalOnlyNotice';
 import partnerLogo1 from '../assets/Logos partners/ISP_Eximbank_Color.png';
 import partnerLogo2 from '../assets/Logos partners/logo3 (1).png';
 import partnerLogo3 from '../assets/Logos partners/output-onlinepngtools (2).png';
@@ -86,12 +87,12 @@ export function BusCharterPage() {
   const seoContent = {
     ro: {
       title: 'Autocare la Comandă Moldova | Închiriere Autocar cu Șofer – RUTEMD Chișinău',
-      description: 'Închiriere autocare și microbuze la comandă în Moldova pentru grupuri, 22–56 locuri cu șofer. Rute internaționale pentru orice destinație. Solicită oferta!',
+      description: 'Închiriere autocare și microbuze la comandă în Moldova pentru grupuri, 22–56 locuri cu șofer. Exclusiv curse internaționale — nu nunți, cumătrii sau evenimente locale. Solicită oferta!',
       keywords: 'autocare la comanda moldova, transport la comanda chisinau, servicii de transport la comanda, inchiriere autocar cu sofer, charter autocar moldova, transport persoane la comanda, inchiriere microbuz chisinau, arenda autocar moldova, autocar pentru grupuri, autocar la comanda europa, transport persoane moldova, rutemd charter'
     },
     ru: {
       title: 'Автобусы под Заказ Молдова | Аренда Автобуса с Водителем – RUTEMD Кишинёв',
-      description: 'Аренда автобусов и микроавтобусов под заказ в Молдове для групп, 22–56 мест с водителем. Международные маршруты в любую точку. Запросите предложение!',
+      description: 'Аренда автобусов и микроавтобусов под заказ в Молдове для групп, 22–56 мест с водителем. Исключительно международные рейсы — не свадьбы, крестины или локальные мероприятия. Запросите предложение!',
       keywords: 'пассажирские перевозки молдова, автобусы под заказ кишинёв, аренда автобуса с водителем, чартер автобуса молдова, перевозка пассажиров молдова, аренда микроавтобуса кишинёв, автобус для группы, заказ автобуса молдова, аренда автобуса кишинёв европа, международные пассажирские перевозки молдова, rutemd charter'
     }
   };
@@ -172,7 +173,8 @@ export function BusCharterPage() {
           "Аренда автобуса для спортивных команд",
           "Международные групповые поездки",
           "Экскурсии и организованные туры",
-          "Перевозка сотрудников под заказ"
+          "Перевозка сотрудников под заказ",
+          "Международные групповые туры"
         ]
       : [
           "Închiriere autocare la comandă",
@@ -181,7 +183,8 @@ export function BusCharterPage() {
           "Închiriere autocar pentru echipe sportive",
           "Călătorii internaționale de grup",
           "Excursii și tururi organizate",
-          "Transport persoane pentru angajați"
+          "Transport persoane pentru angajați",
+          "Tururi internaționale de grup"
         ]
   };
 
@@ -304,7 +307,7 @@ export function BusCharterPage() {
       description: t.busCharter.service5Desc
     },
     {
-      icon: <PartyPopper className="w-8 h-8 text-[#3870db]" />,
+      icon: <Globe className="w-8 h-8 text-[#3870db]" />,
       title: t.busCharter.service6Title,
       description: t.busCharter.service6Desc
     }
@@ -437,6 +440,8 @@ export function BusCharterPage() {
             >
               {t.busCharter.description}
             </motion.p>
+
+            <InternationalOnlyNotice variant="hero" />
             
             <motion.div
               initial={{ opacity: 0, y: 20 }}
